@@ -13,5 +13,5 @@ do java -jar /home/au297565/apps/Trimmomatic-0.39/trimmomatic-0.39.jar PE -phred
  TRAILING:30\
  MAXINFO:40:0.8\
  MINLEN:36\
- 2>> shell_output.txt
+ 2>> stderr_trim_loop_output.txt
 done < ../../1_data/namelist.txt
