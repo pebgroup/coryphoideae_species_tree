@@ -10,7 +10,7 @@ Data directory on GIS07: `/data_vol/peter/coryphoideae_species_tree`
 - `2_trimmed`
 - `3_assembly`
     - `seq_dir`
-    - `seq_retr`
+    - `seq_retr`   
 GitHub coryphoideae repo clone on GIS07: `~/github/coryphoideae_species_tree`   
 Directory containing target file on GIS07: `/data_vol/peter/target`   
 Make sure the workspace structure as outlined above is in place before proceeding with running the pipeline  
@@ -56,11 +56,13 @@ Run `~/github/coryphoideae_species_tree/hybpiper.sh` from within `seq_dir`
 ## Get assembly stats   
 From within `seq_dir` run   
 `python ~/github/hybpiper/get_seq_lengths.py /data_vol/peter/target/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta ../namelist.txt dna > ../seq_lengths.txt`   
+and   
 `python ~/github/hybpiper/hybpiper_stats.py ../seq_lengths.txt ../namelist.txt > ../stats.txt`   
 
 ## Retrieve sequences   
 From within `seq_dir` run   
-`python ~/github/hybpiper/retrieve_sequences.py /data_vol/peter/target/sidonie_target_file/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta . dna >> ../seq_retr/stats_seq_retr.txt`   
+`python ~/github/hybpiper/retrieve_sequences.py /data_vol/peter/target/sidonie_target_file/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta . dna >> ../seq_retr/stats_seq_retr.txt`  
+and   
 `mv *.FNA ../seq_retr`  
 The recovered, unaligned multi-FASTA files for each gene can now be found in `seq_retr` along with the text file `stats_seq_retr.txt` which contains the stdout for the program `retrieve_sequences.py`   
 `stats_seq_retr.txt` can be used for crude exclusion of genes based on number of retrieved sequences   
