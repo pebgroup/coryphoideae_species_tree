@@ -2,7 +2,7 @@
 Peter Petoe (peter.petoe@bio.au.dk), 7 April 2020
 
 ## 0. Workspace
-Data directory on GIS07: `/data_vol/peter/coryphoideae_species_tree` 
+Data directory on cluster: `/data_vol/peter/coryphoideae_species_tree` 
 - `secapr`
     - `raw`
     - `trimmed`
@@ -13,13 +13,13 @@ Data directory on GIS07: `/data_vol/peter/coryphoideae_species_tree`
 - `5_alignments`
 - `6_trimal` 
 - `7_raxml` 
-GitHub coryphoideae repo clone on GIS07: `~/github/coryphoideae_species_tree`   
-GitHub HybPiper repo clone on GIS07: `~/github/hybpiper`   
-Directory containing target file on GIS07: `/data_vol/peter/target`   
-Make sure the workspace structure as outlined above is in place before proceeding with running the pipeline 
+GitHub project repo clone on cluster: `~/github/coryphoideae_species_tree`   
+GitHub HybPiper repo clone on cluster: `~/github/hybpiper`   
+Directory containing target file on cluster: `/data_vol/peter/target`   
  
 ## 0. Downloading and renaming data 
-Download Sidonie and Peter's data from OneDrive to `1_data` and do the following   
+Transfer the first set of sequence files from storage server to `1_data`. These files need renaming. Do the following   
+   
 `rm *.xml *.csv Undtermined*`   
 `gunzip *.gz`   
 `cp ~/github/coryphoideae_species_tree/names_data.csv .`   
@@ -31,9 +31,9 @@ First `rm names_data.csv`. Then
 `rename -n 's/(.*).{1}/$1/' *`  
 The last line removes an underscore, which was introduced when hidden characters were removed (for changes to take effect remove the -n flag).    
 
-Download Angela's data from Google Drive to `1_data`. They will already have been renamed.   
-Remove the files which have already been trimmed by Angela   
-`for f in $(cat ~/github/coryphoideae_species_tree/rm_seq_angela.csv); do rm "$f"; done`
+Transfer the remaining sequences to `1_data`. They will already have been renamed.   
+Remove the files which have already been trimmed   
+`for f in $(cat ~/github/coryphoideae_species_tree/names_american_rm_seq.csv; do rm "$f"; done`
  
 ## 1. Before commencing analysis
 SECAPR quality check is run on the raw data in the directory `1_data`.  
