@@ -32,8 +32,11 @@ First `rm names_data.csv`. Then
 The last line removes an underscore, which was introduced when hidden characters were removed (for changes to take effect remove the -n flag).    
 
 Transfer the remaining sequences to `1_data`. They will already have been renamed.   
-Remove the files which have already been trimmed   
-`for f in $(cat ~/github/coryphoideae_species_tree/names_american_rm_seq.csv; do rm "$f"; done`
+Remove the files from the second sequencing run which have already been trimmed  
+`rm *.clean_*`   
+`for f in $(cat ~/github/coryphoideae_species_tree/names_american_rm_seq.csv; do rm "$f"; done`   
+and other non-sequence files   
+`rm *.sh`   
  
 ## 1. Before commencing analysis
 SECAPR quality check is run on the raw data in the directory `1_data`.  
