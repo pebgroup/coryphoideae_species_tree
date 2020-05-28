@@ -3,9 +3,9 @@ Peter Petoe (peter.petoe@bio.au.dk), 7 April 2020
 
 ## 0. Workspace
 Data directory on cluster: `/data_vol/peter/coryphoideae_species_tree` 
-- `secapr`
-    - `raw`
-    - `trimmed`
+- `fastqc`
+    - `secapr_1_data`
+    - `secapr_2_trimmed`
 - `1_data`
 - `2_trimmed`
 - `3_hybpiper`
@@ -32,9 +32,10 @@ First `rm names_data.csv`. Then
 The last line removes an underscore, which was introduced when hidden characters were removed (for changes to take effect remove the -n flag).    
 
 Transfer the remaining sequences to `1_data`. They will already have been renamed.   
-Remove the files from the second sequencing run which have already been trimmed  
+Remove files from the second sequencing run which have already been trimmed  
 `rm *.clean_*`   
-`for f in $(cat ~/github/coryphoideae_species_tree/names_american_rm_seq.csv; do rm "$f"; done`   
+Remove files from the first sequencing run, which are of inferior quality   
+`for f in $(cat ~/github/coryphoideae_species_tree/names_american_rm_seq.csv); do rm "$f"; done`   
 and other non-sequence files   
 `rm *.sh`   
  
@@ -42,13 +43,14 @@ and other non-sequence files
 SECAPR quality check is run on the raw data in the directory `1_data`.  
 In order to invoke `secapr` first activate the environment   
 `conda activate secapr_env`  
-Then run SECAPR from within the `raw` directory which is also where the fastqc output will be stored  
-`secapr quality_check --input . --output ../secapr/raw`   
+Then run SECAPR from within the `raw` directory   
+`secapr quality_check --input . --output .`  
+Move the secapr files to `fastqc/secapr_1_data`    
 
 A list of the fastq files is created for the directory `1_data` by running the following script from within it  
 `ls *R1.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > namelist.txt; rm namelist_temp.txt`  
 The second command removes the last 9 characters. This list is needed for running Trimmomatics on all the names in the list.
- 
+
 ## 2. Trimming
 From within the `2_trimmed` directory run trimmomatics using the following shell script  
 `bash ~/github/coryphoideae_species_tree/trim_loop.sh`  
