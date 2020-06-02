@@ -18,50 +18,47 @@ GitHub HybPiper repo clone on cluster: `~/github/hybpiper`
 Directory containing target file on cluster: `/data_vol/peter/target`   
  
 ## 0. Downloading and renaming data 
-Transfer the first set of sequence files from storage server to `1_data`. These files need renaming. Do the following   
-   
+Transfer the first set of sequence files from storage device to `1_data`. These files need renaming among other things. Within `1_data` run    
 `rm *.xml *.csv Undtermined*`   
 `gunzip *.gz`   
-`cp ~/github/coryphoideae_species_tree/names_data.csv .`   
+`cp ~/github/coryphoideae_species_tree/names_1_data_1_rename_seqs.csv .`   
 Rename files   
-`cat names_data.csv | while IFS=, read orig new; do echo mv "$orig" "$new"; done`   
-The above line introduces hidden characters ($'\r). To remove these run the following     
-First `rm names_data.csv`. Then   
+`cat names_1_data_1_rename_seqs.csv | while IFS=, read orig new; do echo mv "$orig" "$new"; done`   
+The above line introduces hidden characters ($'\r). To remove these run the following   
+`rm names_1_data_1_rename_seqs.csv`   
 `for f in *; do echo mv "$f" "$(sed 's/[^0-9A-Za-z_.]/_/g' <<< "$f")"; done`   
 `rename -n 's/(.*).{1}/$1/' *`  
 The last line removes an underscore, which was introduced when hidden characters were removed (for changes to take effect remove the -n flag).    
 
 Transfer the remaining sequences to `1_data`. They will already have been renamed.   
-Remove files from the second sequencing run which have already been trimmed  
+Remove files which are of inferior quality   
 `rm *.clean_*`   
-Remove files from the first sequencing run, which are of inferior quality   
-`for f in $(cat ~/github/coryphoideae_species_tree/names_american_rm_seq.csv); do rm "$f"; done`   
-and other non-sequence files   
+`for f in $(cat ~/github/coryphoideae_species_tree/names_1_data_2_rm_seqs.csv); do rm "$f"; done`   
 `rm *.sh`   
  
 ## 1. Before commencing analysis
-SECAPR quality check is run on the raw data in the directory `1_data`.  
+SECAPR quality check is run on the raw data in `1_data`.   
 In order to invoke `secapr` first activate the environment   
 `conda activate secapr_env`  
-Then run SECAPR from within the `raw` directory   
+Then run SECAPR from within the directory   
 `secapr quality_check --input . --output .`  
-Move the secapr files to `fastqc/secapr_1_data`    
+Move the secapr files to `secapr_1_data`   
 
-A list of the fastq files is created for the directory `1_data` by running the following script from within it  
+A list of the fastq files is created for the directory `1_data` by running the following script from within it   
 `ls *R1.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > namelist.txt; rm namelist_temp.txt`  
-The second command removes the last 9 characters. This list is needed for running Trimmomatics on all the names in the list.
+The second command removes the last 9 characters. This list is needed for running Trimmomatics on all the names in the list.   
 
 ## 2. Trimming
-From within the `2_trimmed` directory run trimmomatics using the following shell script  
-`bash ~/github/coryphoideae_species_tree/trim_loop.sh`  
+From within the `2_trimmed` directory run trimmomatics on the sequences in `1_data`   
+`bash ~/github/coryphoideae_species_tree/trimmomatic_sh`   
 All trimmed files are found in `2_trimmed` along with the stderr output in the file `stderr_trim_loop_output.txt`  
 
-SECAPR quality check is now run on the trimmed data in the directory `trimmed` but first, for comparability with the first SECAPR quality check, paired and unpaired reads are combined for each sample   
+SECAPR quality check is now run on the trimmed data in the directory `2_trimmed` but first, for comparability with the raw SECAPR quality check, paired and unpaired reads are combined for each sample. Within `2_trimmed` run   
 `bash ~/github/coryphoideae_species_tree/comb_postrim_secapr.sh`   
-This script should be run from within `trimmed` and results in the creation of a subdirectory `secapr_postrim`, within `2_trimmed`, which contains the combined files.   
-Now run SECAPR from within `secapr_postrim`  
-`secapr quality_check --input . --ouput ../../secapr/trimmed`  
-The temporary directory `secapr_postrim` should now be deleted to save storage as the combined paired and unpaired reads are no longer needed. The new fastqc output is stored within `secapr/trimmed`  
+This script should be run from within `2_trimmed` and results in the creation of a subdirectory `secapr_postrim` that contains the combined files.   
+Now run SECAPR from within `secapr_postrim`   
+`secapr quality_check --input . --output .`  
+Transfer the FastQC files to `fastqc/secapr_2_trimmed` and delete `secapr_postrim` with all the combined files to save storage.   
  
 ## 3. Assembly (HybPiper)
 ### Combine unpaired reads into a single file for each sample

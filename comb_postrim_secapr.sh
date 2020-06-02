@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## This script combines paired and unpaired reads for forward and reverse reads respectively for each species 
-## Run this program before post-trimming secapr quality_check in order to compare q_c before and after 
+## Run this program before post-trimming secapr quality_check for comparability before and after trimming
 ## Run from within directory containing trimmed fastq files
 
 mkdir secapr_postrim
