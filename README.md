@@ -12,7 +12,7 @@ Data directory on cluster: `/data_vol/peter/coryphoideae_species_tree`
 - `4_seqs`
 - `5_alignments`
 - `6_trimal` 
-- `7_raxml` 
+- `7_raxml`   
 GitHub project repo clone on cluster: `~/github/coryphoideae_species_tree`   
 GitHub HybPiper repo clone on cluster: `~/github/hybpiper`   
 Directory containing target file on cluster: `/data_vol/peter/target`   
