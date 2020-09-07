@@ -1,6 +1,7 @@
 #!/bin/bash
-
-# test
+#SBATCH --partition normal
+#SBATCH --mem-per-cpu 4G
+#SBATCH -c 16
 
 while read name
 do
