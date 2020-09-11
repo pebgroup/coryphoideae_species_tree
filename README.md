@@ -113,8 +113,10 @@ From within `5_alignments` run
 The trimmed alignments can now be found in `6_trimal`   
 
 ## 7. RAxML gene tree inference 
-From within `6_trimal` run   
-`bash ~/github/coryphoideae_species_tree/raxml_ng.sh`  
-Move RAxML output to `7_raxml`   
+Check that MSA format is compatible with RAxML-NG and convert to RAxML binary alignments (RBA). From within `6_trimal` run   
+`for f in *; do raxml-ng --parse --msa $f --model GTR+G; done`   
+If no problems reported run from within `6_trimal`   
+`bash ~/github/coryphoideae_species_tree/raxml_ng.sh`    
+Move all RAxML output to `7_raxml`   
 
 
