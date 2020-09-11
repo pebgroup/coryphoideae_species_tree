@@ -85,15 +85,19 @@ The file `seq_lengths.txt` can be used to make a heatmap in R by running the scr
 
 ### Paralogs
 From within `3_hybpiper` run   
-`bash ~/github/coryphoideae_species_tree/paralog.sh`   
-The output from this program is saved in the file `paralog.txt`. This file lists putatively paralogous genes.   
+`bash ~/github/coryphoideae_species_tree/paralog2.sh`   
+The output from this program is saved in the file `paralog.txt`. This file lists putatively paralogous genes. In order to have the name of every gene only listed once only run the following   
+`sort paralog.txt | uniq | sed 's/^.......................//' > gene_paralogs.txt`   
 
 ## 4. Retrieve sequences (HybPiper) 
 From within `3_hybpiper` run   
 `python ~/github/hybpiper/retrieve_sequences.py /data_vol/peter/target/sidonie_target_file/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta . dna > stats_seq_retr.txt`  
 and   
 `mv *.FNA ../4_seqs`   
-The recovered, unaligned multi-FASTA files for each gene can now be found in `4_seqs`. The text file `stats_seq_retr.txt` which contains the stdout for the programme `retrieve_sequences.py` can be used for the crude exclusion of genes based on number of retrieved sequences   
+The recovered, unaligned multi-FASTA files for each gene can now be found in `4_seqs`.   
+Putatively paralogous genes are excluded
+`for f in $(cat ../3_hybpiper/gene_paralogs.txt); do rm "${f}.FNA"; done`    
+The text file `stats_seq_retr.txt` which contains the stdout for the programme `retrieve_sequences.py` can be used for the crude exclusion of genes based on number of retrieved sequences    
 
 ## 5. Alignment
 From within `4_seqs` run MAFFT on all genes 
