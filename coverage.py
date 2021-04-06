@@ -14,8 +14,6 @@ trshld = 2
 
 # Get all subdirectories in the current working directory. these are the loci recovered by hybpiper
 loci = next(os.walk(sample))[1]
-
-# sequences = []
 sequences = {}
 
 for locus in loci: 
@@ -32,45 +30,45 @@ for locus in loci:
 			#sequences.append(record)
 			sequences[record.id] = record
 			
-with open('../coverage/'+sample+'.fasta', "w") as outfile:
+with open('../5_coverage/'+sample+'.fasta', "w") as outfile:
  	SeqIO.write(list(sequences.values()), outfile, "fasta")
 
 print(sample+'.fasta generated')
 	
 # BWA index targets
-cmd = 'bwa index ../coverage/'+sample+'.fasta'
+cmd = 'bwa index ../5_coverage/'+sample+'.fasta'
 subprocess.call(cmd,shell=True)
 print(sample+'.fasta indexed')
 
 # BWA mem paired reads
-cmd = 'bwa mem ../coverage/'+sample+'.fasta ../trimmed/'+sample+'_clean-READ1.fastq ../trimmed/'+sample+'_clean-READ2.fastq | samtools view -b -o ../coverage/'+sample+'.bam'
+cmd = 'bwa mem ../5_coverage/'+sample+'.fasta ../2_trimmed/'+sample+'_1P.fastq ../2_trimmed/'+sample+'_2P.fastq | samtools view -b -o ../5_coverage/'+sample+'.bam'
 subprocess.call(cmd,shell=True)
 print('paired reads mapped to '+sample+'.fasta')
 
 # BWA mem unpaired reads
-cmd = 'bwa mem ../coverage/'+sample+'.fasta ../trimmed/'+sample+'_clean-READ12-single.fastq | samtools view -b -o ../coverage/'+sample+'_up.bam'
+cmd = 'bwa mem ../5_coverage/'+sample+'.fasta ../2_trimmed/'+sample+'_UN.fastq | samtools view -b -o ../5_coverage/'+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('unpaired reads mapped to '+sample+'.fasta')
 
 # merge BAM files
-cmd = 'samtools merge ../coverage/'+sample+'_all.bam ../coverage/'+sample+'.bam ../coverage/'+sample+'_up.bam'
+cmd = 'samtools merge ../5_coverage/'+sample+'_all.bam ../5_coverage/'+sample+'.bam ../5_coverage/'+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('BAMs merged')
 
 # sort and index BAM files
-cmd = 'samtools sort ../coverage/'+sample+'_all.bam -o ../coverage/'+sample+'_all_sorted.bam'
+cmd = 'samtools sort ../5_coverage/'+sample+'_all.bam -o ../5_coverage/'+sample+'_all_sorted.bam'
 subprocess.call(cmd,shell=True)
-cmd = 'samtools index ../coverage/'+sample+'_all_sorted.bam'
+cmd = 'samtools index ../5_coverage/'+sample+'_all_sorted.bam'
 subprocess.call(cmd,shell=True)
 print('BAM indexed and sorted')
 
 # remove duplicates
-cmd = 'java -jar ~/software/picard.jar MarkDuplicates I=../coverage/'+sample+'_all_sorted.bam O=../coverage/'+sample+'_all_sorted_deduplicated.bam M=../coverage/'+sample+'marked_dup_metrics.txt REMOVE_DUPLICATES=true'
+cmd = 'java -jar ~/software/picard.jar MarkDuplicates I=../5_coverage/'+sample+'_all_sorted.bam O=../5_coverage/'+sample+'_all_sorted_deduplicated.bam M=../5_coverage/'+sample+'marked_dup_metrics.txt REMOVE_DUPLICATES=true'
 subprocess.call(cmd,shell=True)
 print('reads deduplicated for sample '+sample)
 
 # calculate coverage
-cmd = 'samtools depth ../coverage/'+sample+'_all_sorted_deduplicated.bam > ../coverage/'+sample+'.cov'
+cmd = 'samtools depth ../5_coverage/'+sample+'_all_sorted_deduplicated.bam > ../5_coverage/'+sample+'.cov'
 subprocess.call(cmd,shell=True)
 print('coverage calculated for sample '+sample)
 
@@ -81,7 +79,7 @@ def n2N(sqnc, pstn):
 	return "".join(sqnc)
 
 # process coverage
-with open('../coverage/'+sample+'.cov', "r") as covfile:
+with open('../5_coverage/'+sample+'.cov', "r") as covfile:
 	for line in covfile:
 		line = line.strip()
 		LINE = line.split("\t")
@@ -97,7 +95,7 @@ for nm in sequences.keys():
 print('coverage trimming completed, keeping only positions with coverage of '+str(trshld)+' or above')
 
 # write outfile
-with open('../coverage/'+sample+'_trimmed.fasta', "w") as outfile:
+with open('../5_coverage/'+sample+'_trimmed.fasta', "w") as outfile:
 	SeqIO.write(list(sequences.values()), outfile, "fasta")
 print('trimmed seqs written to '+sample+'_trimmed.fasta')
 
