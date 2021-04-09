@@ -32,7 +32,7 @@ Directory containing target file on GenomeDK:
 `/home/owrisberg/Coryphoideae/target_sequence`
 
 **Required file structure**  
-In order to run this pipeline you need a directory with the following folders
+In order to run this pipeline you need a directory with the following folders, this can be quickly produced by running `infrastructure.sh` within the desired directory 
 
 - `0_secapr`
     - `0_data`
@@ -42,11 +42,11 @@ In order to run this pipeline you need a directory with the following folders
 - `3_hybpiper`
 - `4_seqs`
 - `5_coverage`
-- `6_Blacklisting`
+- `6_blacklisting`
 - `7_alignment`
 - `8_mapping`
 - `9_optrimal`
-- `10_manual editing`
+- `10_manual-editing`
 - `11_tree_building`
 
 ## 0\. Downloading and renaming data
