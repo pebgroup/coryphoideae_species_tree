@@ -8,7 +8,7 @@
 
 while read name;
 do trimmomatic PE -threads 16 -phred33\
- /home/owrisberg/Coryphoideae/work_flow/1_data/${name}_R1.fastq /home/owrisberg/Coryphoideae/work_flow/1_data/${name}_R2.fastq\
+ /home/owrisberg/Coryphoideae/work_flow/01_data/${name}_R1.fastq /home/owrisberg/Coryphoideae/work_flow/1_data/${name}_R2.fastq\
  -baseout ${name}.fastq\
  ILLUMINACLIP:/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/share/trimmomatic-0.39-1/adapters/TruSeq3-PE-2.fa:2:30:10:1:true\
  LEADING:3\
@@ -16,4 +16,4 @@ do trimmomatic PE -threads 16 -phred33\
  MAXINFO:40:0.8\
  MINLEN:36\
  2>> stderr_trim_loop_output.txt
-done < ../1_data/namelist.txt
+done < ../01_data/namelist.txt

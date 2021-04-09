@@ -3,8 +3,8 @@
 #This script is meant to produce the necessary file structure for the workflow within a directory
 
 mkdir 00_secapr
-mkdir 0_secapr/0_data
-mkdir 0_secapr/1_trimmed
+mkdir 00_secapr/0_data
+mkdir 00_secapr/1_trimmed
 mkdir 01_data
 mkdir 02_trimmed
 mkdir 03_hybpiper
