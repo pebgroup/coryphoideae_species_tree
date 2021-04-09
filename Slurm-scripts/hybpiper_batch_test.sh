@@ -12,7 +12,7 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate base
 
 #Going to folder with data
-cd /home/owrisberg/Coryphoideae/test_data/3_hybpiper
+cd /home/owrisberg/Coryphoideae/work_flow/3_hybpiper
 
 #Running the hybpiper main functionality
 bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/hybpiper_gdk.sh 
