@@ -51,8 +51,8 @@ In order to run this pipeline you need a directory with the following folders, t
 
 ## 0\. Downloading and renaming data
 
-Transfer the first set of sequence files from storage device to `1_data`.  
-These files need renaming among other things. Within `1_data` run  
+Transfer all sequence files from storage device to `01_data`.  
+These files need renaming and unpacking among other things. Within `01_data` run  
 `rm *.xml *.csv Undtermined*`  
 `gunzip *.gz`  
 `cp /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_1_data_1_rename_seqs.csv .`
@@ -73,13 +73,13 @@ The last line removes an underscore, which was introduced when hidden characters
 Transfer the remaining sequences to `1_data`. They will already have been renamed. (This is probably the files from Angela as these already have names following the formula of xxxx_R1.fastq)
 
 Remove files which are of inferior quality  
-run `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names.sh`
+run `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rename_remove.sh`
 
 * * *
 
 ## 1\. Before commencing analysis
 
-SECAPR quality check is run on the raw data in `1_data`.  
+SECAPR quality check is run on the raw data in `01_data`.  
 In order to invoke `secapr` first activate the environment  
 `conda activate secapr_env`  
 Then run SECAPR from within the directory  
@@ -94,11 +94,11 @@ The second command removes the last 9 characters. This list is needed for runnin
 
 ## 2\. Trimming
 
-From within the `2_trimmed` directory run trimmomatics on the sequences in `1_data`
+From within the `02_trimmed` directory run trimmomatics on the sequences in `01_data`
 
 First, Activate the trimmomatic environment by writing `conda activate trimmomatic_env`
 
-Then run: `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/trimmomatic_genomedk_sh.sh`
+Then run: `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/Slurm-scripts`
 
 **OBS** remember to check if the TruSeq3-PE-2.fa file is uploaded to the folder located at `/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/adapters/`
 

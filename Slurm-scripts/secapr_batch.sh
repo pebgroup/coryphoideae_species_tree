@@ -13,7 +13,7 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate secapr_env
 
 #Going to folder with data
-cd /home/owrisberg/Coryphoideae/work_flow/1_data
+cd /home/owrisberg/Coryphoideae/work_flow/01_data
 
 # Running Intronerate
 secapr quality_check --input . --output .

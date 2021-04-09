@@ -14,7 +14,7 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate trimmomatic_env
 
 #Going to folder with data
-cd /home/owrisberg/Coryphoideae/work_flow/2_trimmed
+cd /home/owrisberg/Coryphoideae/work_flow/02_trimmed
 
 # Running the trimmomatic
 bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/trimmomatic_genomedk_sh.sh
