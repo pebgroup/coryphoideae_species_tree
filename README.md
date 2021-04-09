@@ -34,9 +34,9 @@ Directory containing target file on GenomeDK:
 **Required file structure**  
 In order to run this pipeline you need a directory with the following folders
 
-- `0_fastqc`
-    - `0_Secapr_data`
-    - `1_Secapr_trimmed`
+- `0_secapr`
+    - `0_data`
+    - `1_trimmed`
 - `1_data`
 - `2_trimmed`
 - `3_hybpiper`
@@ -73,7 +73,7 @@ The last line removes an underscore, which was introduced when hidden characters
 Transfer the remaining sequences to `1_data`. They will already have been renamed. (This is probably the files from Angela as these already have names following the formula of xxxx_R1.fastq)
 
 Remove files which are of inferior quality  
-`rm *.clean_* for f in $(cat /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_1_data_2_rm_seqs.csv); do rm "$f"; done rm *.sh`
+run `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names.sh`
 
 * * *
 
@@ -84,7 +84,7 @@ In order to invoke `secapr` first activate the environment
 `conda activate secapr_env`  
 Then run SECAPR from within the directory  
 `secapr quality_check --input . --output .`  
-Move the secapr files to `secapr_1_data`
+Move the secapr files to `0_secapr/0_data`
 
 A list of the fastq files is created for the directory `1_data` by running the following script from within it  
 `ls *R1.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > namelist.txt; rm namelist_temp.txt`  
