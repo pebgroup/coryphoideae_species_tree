@@ -15,6 +15,6 @@ conda activate secapr_env
 #Going to folder with data
 cd /home/owrisberg/Coryphoideae/work_flow/01_data
 
-# Running Intronerate
+# Running secapr
 secapr quality_check --input . --output .
 
