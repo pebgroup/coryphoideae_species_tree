@@ -98,7 +98,7 @@ From within the `02_trimmed` directory run trimmomatics on the sequences in `01_
 
 First, Activate the trimmomatic environment by writing `conda activate trimmomatic_env`
 
-Then run: `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/Slurm-scripts`
+Then run: `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/Slurm-scripts/secapr_batch.sh`
 
 **OBS** remember to check if the TruSeq3-PE-2.fa file is uploaded to the folder located at `/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/adapters/`
 
