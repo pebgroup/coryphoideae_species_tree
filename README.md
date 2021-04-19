@@ -94,24 +94,10 @@ The second command removes the last 9 characters. This list is needed for runnin
 
 ## 2\. Trimming
 
-From within the `02_trimmed` directory run trimmomatics on the sequences in `01_data`
-
-First, Activate the trimmomatic environment by writing `conda activate trimmomatic_env`
-
-Then run: `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/Slurm-scripts/secapr_batch.sh`
-
+In order to trim the files, `run trimming_batch.sh`.
 **OBS** remember to check if the TruSeq3-PE-2.fa file is uploaded to the folder located at `/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/adapters/`
 
-All trimmed files are found in `2_trimmed` along with the stderr output in the file `stderr_trim_loop_output.txt`
-
-SECAPR quality check is now run on the trimmed data in the directory `2_trimmed` but first, for comparability with the raw SECAPR quality check, paired and unpaired reads are combined for each sample. Within `2_trimmed` run:`bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/comb_postrim_secapr.sh`
-
-This script should be run from within `2_trimmed` and results in the creation of a subdirectory `secapr_postrim` that contains the combined files.
-
-Now activate the Secapr environment by running `conda activate secapr_env`and run SECAPR from within `secapr_postrim`  
-`secapr quality_check --input . --output .`
-
-Transfer the FastQC files to `fastqc/secapr_2_trimmed` and delete `secapr_postrim` with all the combined files to save storage.
+In order to produce the quality check on the trimmed files run the `secapr_batch_trimmed.sh`.  
 
 * * *
 
