@@ -105,20 +105,20 @@ In order to produce the quality check on the trimmed files run the `secapr_batch
 
 ### Combine unpaired reads into a single file for each sample
 
-Run the following script within `2_trimmed`  
+Run the following script within `02_trimmed`  
 `/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/comb_u_trim_reads.sh`  
 This merges `####_1U.fastq` and `####_2U.fastq` into `####_UN.fastq`
 
 ### Generate namelist
 
-A list of the fastq files within the directory `2_trimmed` is created in the directory `3_hybpiper` by running the following script from within `2_trimmed`  
+A list of the fastq files within the directory `02_trimmed` is created in the directory `03_hybpiper` by running the following script from within `02_trimmed`  
 `ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../3_hybpiper/namelist.txt; rm namelist_temp.txt`  
 The second command removes the last 9 characters. This list is needed for running hybpiper on all the listed names.  
 If all trimmed data are to go into hybpiper the namelist within `1_data` can alternatively be copied to `3_hybpiper` and reused.
 
 ### Execute HybPiper
 
-From within `3_hybpiper` run  
+From within `03_hybpiper` run  
 `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/hybpiper_gdk.sh`
 
 ### Get assembly stats
