@@ -1,11 +1,12 @@
 #!/bin/bash
 
+#SBATCH --job-name=Hybpiper 
 #SBATCH --partition normal
 #SBATCH --mem-per-cpu 8G
 #SBATCH -c 1
 #SBATCH --account Coryphoideae
 #              D-HH:MM:SS
-#SBATCH --time 0-12:00:00
+#SBATCH --time 0-16:00:00
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
@@ -18,7 +19,7 @@ cd /home/owrisberg/Coryphoideae/work_flow/02_trimmed
 bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/comb_u_trim_reads.sh
 
 #Creatint a namelist for hybpiper based on the reads in 02_trimmed
-ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../3_hybpiper/namelist.txt; rm namelist_temp.txt
+ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../03_hybpiper/namelist.txt; rm namelist_temp.txt
 
 #Going to folder with data
 cd /home/owrisberg/Coryphoideae/work_flow/03_hybpiper
