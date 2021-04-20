@@ -26,9 +26,9 @@ cd /home/owrisberg/Coryphoideae/work_flow/02_trimmed/secapr_postrim
 secapr quality_check --input . --output .
 
 #Moving the results to the correct folder
-mv *.zip ../00_secapr/1_trimmed
-mv *.html ../00_secapr/1_trimmed
-mv *.txt ../00_secapr/1_trimmed
-mv *.pdf ../00_secapr/1_trimmed
+mv *.zip ../../00_secapr/1_trimmed
+mv *.html ../../00_secapr/1_trimmed
+mv *.txt ../../00_secapr/1_trimmed
+mv *.pdf ../../00_secapr/1_trimmed
 
 
