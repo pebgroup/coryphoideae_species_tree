@@ -4,7 +4,7 @@
 #SBATCH --job-name=Coverage
 #SBATCH --partition normal
 #SBATCH --mem-per-cpu=20g
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=24
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh

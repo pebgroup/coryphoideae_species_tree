@@ -4,7 +4,7 @@
 #SBATCH --job-name=Secapr_data
 #SBATCH --partition normal
 #SBATCH --mem-per-cpu=20g
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=24
 
 
 #This line should enable the activation of specific conda environments

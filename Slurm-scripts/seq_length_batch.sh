@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --partition normal
-#SBATCH --mem-per-cpu 8G
-#SBATCH -c 1
+#SBATCH --mem-per-cpu=20g
+#SBATCH -cpus-per-task=24
 #SBATCH --account Coryphoideae
 
 #This line should enable the activation of specific conda environments
