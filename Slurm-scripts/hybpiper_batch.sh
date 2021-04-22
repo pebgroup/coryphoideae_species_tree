@@ -7,7 +7,7 @@
 #SBATCH --account=Coryphoideae
 
 #              D-HH:MM:SS
-#SBATCH --time=0-16:00:00
+#SBATCH --time=7-00:00:00
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
