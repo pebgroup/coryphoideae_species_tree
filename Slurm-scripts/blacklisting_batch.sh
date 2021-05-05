@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #SBATCH --account Coryphoideae
 #SBATCH --job-name=Coverage
 #SBATCH --partition normal
