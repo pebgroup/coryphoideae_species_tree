@@ -22,7 +22,7 @@ cd /home/owrisberg/Coryphoideae/work_flow/06_blacklisting
 ## From the manual: "*L-INS-i (probably most accurate; recommended for <200 sequences; iterative refinement method incorporating local pairwise alignment information): mafft --localpair --maxiterate 1000 input [> output] linsi input [> output]". These settings are recommended by Matt Johnson in the KewHybSeqWorkshop.
 
 for f in *; do 
-	echo "linsi --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignments/${f/.FNA}_aligned.fasta; "
+	linsi --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignments/${f}.FNA_aligned.fasta;
 done
 
 ## Wolf's repo:
@@ -31,3 +31,8 @@ done
 
 
 #for f in reduced_*; do (linsi --thread 16 $f > ../alignments2/${f/.FNA}_aligned.fasta); done
+
+
+#for f in *; do 
+#   linsi --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignments/${f}.FNA_aligned.fasta;
+#done
