@@ -8,7 +8,7 @@
 #              D-HH:MM:SS 
 #SBATCH --time=3-00:00:00
 
-#This line should enable the activation of specific conda environments
+#This line enables the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 
 #Activating conda base environment 
@@ -20,10 +20,10 @@ cd /home/owrisberg/Coryphoideae/work_flow/06_blacklisting
 
 ## This script runs mafft on the fasta files contained within the directory from which it is executed. Remember to adjust number of threads. 
 ## From the manual: "*L-INS-i (probably most accurate; recommended for <200 sequences; iterative refinement method incorporating local pairwise alignment information): mafft --localpair --maxiterate 1000 input [> output] linsi input [> output]". These settings are recommended by Matt Johnson in the KewHybSeqWorkshop.
-
-for f in *; do 
-	linsi --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignments/${f/.FNA}_aligned.fasta;
-done
+echo
+	for f in *; do 
+		linsi --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignments/${f/.FNA}_aligned.fasta;
+	one
 
 ## Wolf's repo:
 # `for f in *; do (linsi --thread 16 $f > ../5_alignments/${f/.FNA}_aligned.fasta); done`
