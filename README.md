@@ -6,9 +6,10 @@ Inherited by Oscar Wrisberg ([Oscar.wrisberg@bio.au.dk](mailto:Oscar.wrisberg@bi
 ## -1\. Work to do
 - [x] Ensure Coverage script works
 	- [x] Is the output satisfactory - *trimmed.fasta seems to be empty: This was caused by me not running intronerate and as such not producing the necesarry file for the coverage script. 
-	- [ ] How is it used in Blacklisting
-- [ ] Blacklisting
-	- [ ] Understand how Blacklisting commands work
+	- [x] How is it used in Blacklisting
+- [x] Blacklisting
+	- [x] Understand how Blacklisting commands work
+	- [ ] Make preliminary tree to see in order to see if species misbehave. 
 	- [ ] Hardcode species or genes for blacklisting
 - [ ] Alignments
 - [ ] 
@@ -70,7 +71,7 @@ The above line introduces hidden characters ($'
 
 The last line removes an underscore, which was introduced when hidden characters were removed (for changes to take effect remove the -n flag).
 
-Transfer the remaining sequences to `1_data`. They will already have been renamed. (This is probably the files from Angela as these already have names following the formula of xxxx_R1.fastq)
+Transfer the remaining sequences to `01_data`. They will already have been renamed. (This is probably the files from Angela as these already have names following the formula of xxxx_R1.fastq)
 
 Remove files which are of inferior quality  
 run `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rename_remove.sh`
@@ -86,7 +87,7 @@ Then run SECAPR from within the directory
 `secapr quality_check --input . --output .`  
 Move the secapr files to `0_secapr/0_data`
 
-A list of the fastq files is created for the directory `1_data` by running the following script from within it  
+A list of the fastq files is created for the directory `01_data` by running the following script from within it  
 `ls *R1.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > namelist.txt; rm namelist_temp.txt`  
 The second command removes the last 9 characters. This list is needed for running Trimmomatics on all the names in the list.
 
@@ -114,7 +115,7 @@ This merges `####_1U.fastq` and `####_2U.fastq` into `####_UN.fastq`
 A list of the fastq files within the directory `02_trimmed` is created in the directory `03_hybpiper` by running the following script from within `02_trimmed`  
 `ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../3_hybpiper/namelist.txt; rm namelist_temp.txt`  
 The second command removes the last 9 characters. This list is needed for running hybpiper on all the listed names.  
-If all trimmed data are to go into hybpiper the namelist within `1_data` can alternatively be copied to `3_hybpiper` and reused.
+If all trimmed data are to go into hybpiper the namelist within `01_data` can alternatively be copied to `03_hybpiper` and reused.
 
 ### Execute HybPiper
 
@@ -123,7 +124,7 @@ From within `03_hybpiper` run
 
 ### Get assembly stats
 
-From within `3_hybpiper` run  
+From within `03_hybpiper` run  
 `python /home/owrisberg/Coryphoideae/github_code/HybPiper/get_seq_lengths.py /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta namelist.txt dna > seq_lengths.txt`  
 and  
 `python ~/Coryphoideae/github_code/HybPiper/hybpiper_stats.py seq_lengths.txt namelist.txt > stats.txt`  
@@ -131,7 +132,7 @@ The file `seq_lengths.txt` can be used to make a heatmap in R by running the scr
 
 ### Paralogs
 
-From within `3_hybpiper` run  
+From within `03_hybpiper` run  
 `bash ~/Coryphoideae/github_code/coryphoideae_species_tree/paralog2.sh`  
 The output from this program is saved in the file `paralog.txt`. This file lists putatively paralogous genes. In order to have the name of every gene only listed once only run the following  
 `sort paralog.txt | uniq | sed 's/^.......................//' > gene_paralogs.txt`
@@ -145,13 +146,13 @@ Run the `intronerate_batch.sh`
 
 ## 4\. Retrieve sequences (HybPiper) "Springes over i coverage scriptet"
 
-From within `3_hybpiper` run  
+From within `03_hybpiper` run  
 `python ~/github/hybpiper/retrieve_sequences.py /data_vol/peter/target/sidonie_target_file/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta . dna > stats_seq_retr.txt`  
 and  
-`mv *.FNA ../4_seqs`  
-The recovered, unaligned multi-FASTA files for each gene can now be found in `4_seqs`.  
+`mv *.FNA ../04_seqs`  
+The recovered, unaligned multi-FASTA files for each gene can now be found in `04_seqs`.  
 Putatively paralogous genes are excluded  
-`for f in $(cat ../3_hybpiper/gene_paralogs.txt); do rm "${f}.FNA"; done`  
+`for f in $(cat ../03_hybpiper/gene_paralogs.txt); do rm "${f}.FNA"; done`  
 The text file `stats_seq_retr.txt` which contains the stdout for the programme `retrieve_sequences.py` can be used for the crude exclusion of genes based on number of retrieved sequences
 
 * * *
@@ -168,23 +169,25 @@ The Coverage.py script does the following:
 - Mask/strip any bases with coverage less than 2 
 - Generate a new trimmed sample-level fasta.
 
-Then, in `5_coverage`, run:
+Then, in `05_coverage`, run:
 
 `ls *trimmed.fasta > filelist.txt`
 `/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv`
 
 * * *
 ## 5\. Blacklisting
-
+This step is kept for removing troublesome species.
+These species usually show up further downstream in the analysis or as a part of the tree building process.
+In order to remove the troublesome species run the `blacklisting_batch.sh`. ***OBS species are hardcoded into the script***
 
 ***
 # From here on out, everything needs to be done together.
 
 ## 6\. Alignment
 
-From within `4_seqs` run MAFFT on all genes  
-`bash ~/github/coryphoideae_species_tree/mafft.sh`  
-Aligned genes are found within `5_alignments`
+From within `06_blacklisting` run MAFFT on all genes  
+`mafft_batch.sh` 
+Aligned genes are found within `07_alignments`
 
 Visualize single gene alignments with AliView. Launch the program with command: `aliview`  
 Visualize multiple gene alignments with Geneious. Launch from Nautilus.
