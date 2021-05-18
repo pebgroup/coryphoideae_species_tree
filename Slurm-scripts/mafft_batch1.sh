@@ -21,7 +21,8 @@ cd /home/owrisberg/Coryphoideae/work_flow/06_blacklisting
 ## This script runs mafft on the fasta files contained within the directory from which it is executed. Remember to adjust number of threads. 
 ## From the manual: "*L-INS-i (probably most accurate; recommended for <200 sequences; iterative refinement method incorporating local pairwise alignment information): mafft --localpair --maxiterate 1000 input [> output] linsi input [> output]". These settings are recommended by Matt Johnson in the KewHybSeqWorkshop.
 
-for f in genenames1.txt; do 
+cat genenames1.txt |  while read f
+do 
     echo ${f}
 	linsi --adjustdirectionaccurately --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignment/${f}_aligned.fasta;
 done
