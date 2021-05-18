@@ -26,5 +26,6 @@ cd /home/owrisberg/Coryphoideae/work_flow/06_blacklisting
 
 
 for f in genelist.txt; do 
+    echo ${f}
 	linsi --adjustdirectionaccurately --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignment/${f}_aligned.fasta;
 done
