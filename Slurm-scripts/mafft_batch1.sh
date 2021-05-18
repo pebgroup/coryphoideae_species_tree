@@ -24,6 +24,6 @@ cd /home/owrisberg/Coryphoideae/work_flow/06_blacklisting
 cat genenames1.txt |  while read f
 do 
     echo ${f}
-	linsi --adjustdirectionaccurately --thread 64 $f > /home/owrisberg/Coryphoideae/work_flow/07_alignment/${f}_aligned.fasta;
+	linsi --adjustdirectionaccurately --thread 64 $f.FNA > /home/owrisberg/Coryphoideae/work_flow/07_alignment/${f}_aligned.fasta;
 done
 
