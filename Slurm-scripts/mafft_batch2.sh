@@ -6,7 +6,7 @@
 #SBATCH --mem-per-cpu=20g
 #SBATCH --cpus-per-task=24
 #              D-HH:MM:SS 
-#SBATCH --time=1-00:00:00
+#SBATCH --time=1-12:00:00
 
 #This line enables the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh

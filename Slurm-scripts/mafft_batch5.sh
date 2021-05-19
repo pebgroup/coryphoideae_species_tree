@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --account Coryphoideae
-#SBATCH --job-name=Alignment_mafft_3
+#SBATCH --job-name=Alignment_mafft_5
 #SBATCH --partition normal
 #SBATCH --mem-per-cpu=20g
 #SBATCH --cpus-per-task=24
@@ -21,7 +21,7 @@ cd /home/owrisberg/Coryphoideae/work_flow/06_blacklisting
 ## This script runs mafft on the fasta files contained within the directory from which it is executed. Remember to adjust number of threads. 
 ## From the manual: "*L-INS-i (probably most accurate; recommended for <200 sequences; iterative refinement method incorporating local pairwise alignment information): mafft --localpair --maxiterate 1000 input [> output] linsi input [> output]". These settings are recommended by Matt Johnson in the KewHybSeqWorkshop.
 
-cat genenames3.txt |  while read f
+cat genenames5.txt |  while read f
 do 
     echo ${f}
 	linsi --adjustdirectionaccurately --thread 64 $f.FNA > /home/owrisberg/Coryphoideae/work_flow/07_alignment/${f}_aligned.fasta;
