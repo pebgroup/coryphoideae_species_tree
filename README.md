@@ -189,11 +189,17 @@ From within `06_blacklisting` run MAFFT on all genes
 `mafft_batch.sh` 
 Aligned genes are found within `07_alignments`
 
+***OBS! There are currently several mafft_batch.sh scripts in the folder as the different genes were run in parallel due to urgency***
+
 Visualize single gene alignments with AliView. Launch the program with command: `aliview`  
 Visualize multiple gene alignments with Geneious. Launch from Nautilus.
 
 * * *
 ## 7\. mapping
+Run the `exon_mapper_batch` script.
+This creates new alignments in 08_mapping that contain the original alignments plus the exon sequences of the two species that had the highest recovery success at each locus.
+
+then run `cp *.fasta ../09_optrimal` in order to copy the alignments to the optrimal folder. 
 
 * * *
 ## 8\. Gap trimming using Optrimal
