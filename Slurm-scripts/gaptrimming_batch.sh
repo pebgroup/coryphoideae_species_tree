@@ -27,7 +27,7 @@ for f in *.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
 bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/pasta_taster.sh
 
 # create summary table for the raw alignments
-AMAS summary -f fasta -d dna -i *.fasta
+AMAS.py summary -f fasta -d dna -i *.fasta
 mv summary.txt summary_0.txt
 rm *.fasta
 
