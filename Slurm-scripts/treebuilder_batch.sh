@@ -15,7 +15,7 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate treebuilder_env
 
 #Going to folder with data
-/home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments
+cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments
 
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 
 
