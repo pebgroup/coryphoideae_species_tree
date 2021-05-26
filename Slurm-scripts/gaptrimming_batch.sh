@@ -23,8 +23,36 @@ for f in *.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done
 # change back "exo" to "exon"
 for f in *.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
 
+#Renaming sequences to remove the .old ending
+for f in *fasta.old; do
+	mv -- "$f" "${f%.fasta.old}.fasta"
+	done
+
 # create summary tables for all thresholds specified
-bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/pasta_taster.sh
+while read cutoff_trim
+do
+        mkdir $cutoff_trim
+
+        for alignment in *.fasta
+        do
+          trimal -in ${alignment} -out ${cutoff_trim}/${alignment} -htmlout ${cutoff_trim}/${alignment/.fasta}.htm -gt $cutoff_trim
+
+                # check if alignment was trimmed to extinction by trimAl
+
+                if grep ' 0 bp' ${cutoff_trim}/${alignment}
+                then
+                        rm -f ${cutoff_trim}/${alignment}
+                fi
+        done
+
+        cd ${cutoff_trim}
+        AMAS.py summary -f fasta -d dna -i *.fasta
+
+        mv summary.txt ../summary_${cutoff_trim}.txt
+        
+        cd ..
+
+done < cutoff_trim.txt
 
 # create summary table for the raw alignments
 AMAS.py summary -f fasta -d dna -i *.fasta

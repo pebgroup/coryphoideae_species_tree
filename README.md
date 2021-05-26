@@ -203,17 +203,25 @@ then run `cp *.fasta ../09_optrimal` in order to copy the alignments to the optr
 
 * * *
 ## 8\. Gap trimming using Optrimal
+Create a file called cutoff_trim.txt with the -gt values which should be tested.
 
-From within `5_alignments` run  
-`bash ~/github/coryphoideae_species_tree/trimal.sh`  
-The trimmed alignments can now be found in `6_trimal`
+Run the `gaptrimming_batch.sh` script from within `09_optrimal`.
+
+This will a folder for each of the -gt values. 
+In each of these folders there should ideally be a .fasta file, a .htm file and a noempty.fasta file for each gene.
 
 * * *
 ## 9\. Manual editing
+Move all the noempty.fasta files to folders in manual alignment 
 Manually edit sequences to ensure proper alignment. 
 * * * 
 
 ## 10\. Tree building
+Run the `treebuilder_batch.sh` from the directory with the manually edited alignments `/home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments`.
+
+This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as *_clean.fasta)
+
+it will then run IQtree on each gene within the directory 
 
 Check that MSA format is compatible with RAxML-NG and convert to RAxML binary alignments (RBA). From within `6_trimal` run  
 `for f in *; do raxml-ng --parse --msa $f --model GTR+G; done`  
