@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=Hybpiper 
+#SBATCH --job-name=Treebuilder 
 #SBATCH --partition=normal
 #SBATCH --mem-per-cpu=20G
 #SBATCH --cpus-per-task=16
@@ -20,12 +20,12 @@ conda activate treebuilder_env
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 
 
 #Genetrees using IQtree
-for f in *_clean.fasta
+for f in *_aligned_noempty.fasta # OBS THIS IS JUST A DIRTY FIX!!!
 do
 	iqtree2 -s $f -T AUTO -ntmax 16 -p ${f/clean.fasta}part.txt -B 1000 # 1000 bootstrap replicates and 16 cores
-	mv ${f/clean.fasta}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/clean.fasta}part.txt.tre
-	mv ${f/clean.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
-	mv ${f/_clean.fasta}.fasta done
+	mv ${f/_aligned_noempty.fasta}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/_aligned_noempty.fasta}part.txt.tre # OBS THIS IS JUST A DIRTY FIX!!!
+	mv ${f/_aligned_noempty.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
+	mv ${f/_aligned_noempty.fasta}.fasta done
 	rm $f
 done		
 
@@ -35,7 +35,7 @@ rm -f /home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree
 #Some rerooting, renaming and general cleanup
 for f in *.tre
 do 
-	/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py $f
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py $f
 	nw_ed temp.tre 'i & (b<30)' o >> /home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree/genetrees.tre 
 	rm temp.tre
 done

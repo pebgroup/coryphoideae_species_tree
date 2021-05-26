@@ -43,4 +43,5 @@ else:
         cmd = "pxrr -t "+treefile+" -g 1082 -o temp.tre"
     else:
         raise ValueError("Outgroup not in tree")
+
 subprocess.call(cmd,shell=TRUE)
