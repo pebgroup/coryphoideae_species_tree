@@ -21,13 +21,10 @@ for fn in os.listdir():
 			tally.append(record)
 			if record.id == "exon1":
 				exon1 = record.seq
-				print(record,"is exon1")
 			elif record.id == "exon2":
 				exon2 = record.seq
-				print(record,"is exon2")
 			else:
 				sequences.append(record)
-				print(record,"is neither exon1 or exon2")
 
 		# create binary partition (1 = exon, 0 = intron)
 		binpart = []

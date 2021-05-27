@@ -20,3 +20,5 @@ cd /home/owrisberg/Coryphoideae/work_flow/07_alignment
 
 # Running Wolfs Coverage tester
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py
+
+echo "Done! with script"
