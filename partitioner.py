@@ -17,6 +17,8 @@ for fn in os.listdir():
 		sequences = [] # gather sequences to keep in the final alignment (all but the exons)
 		# extract aligned exon sequences
 		for record in SeqIO.parse(fn, "fasta"):
+			exon1=None # Defining exon 1 and 2 so the next for loop doesnt throw an error when exon1 doesnt exists
+			exon2=None
 			if record.id == "exon1":
 				exon1 = record.seq
 				print(record,"is exon1")
