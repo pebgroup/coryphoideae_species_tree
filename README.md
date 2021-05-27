@@ -3,17 +3,6 @@
 Inherited by Oscar Wrisberg ([Oscar.wrisberg@bio.au.dk](mailto:Oscar.wrisberg@bio.au.dk)), 11th January 2021
 
 * * *
-## -1\. Work to do
-- [x] Ensure Coverage script works
-	- [x] Is the output satisfactory - *trimmed.fasta seems to be empty: This was caused by me not running intronerate and as such not producing the necesarry file for the coverage script. 
-	- [x] How is it used in Blacklisting
-- [x] Blacklisting
-	- [x] Understand how Blacklisting commands work
-	- [ ] Make preliminary tree to see in order to see if species misbehave. 
-	- [ ] Hardcode species or genes for blacklisting
-- [ ] Alignments
-- [ ] 
-* * *
 
 ## 0\. Workspace
 
