@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os, subprocess, argparse
 from Bio import SeqIO
@@ -25,12 +25,16 @@ for fn in os.listdir():
 				sequences.append(record)
 		# create binary partition (1 = exon, 0 = intron)
 		binpart = []
+		
 		for i in range(len(exon1)):
 			# assumes that any alignment pos. where ANY of the two exons has a base is exon
-			if exon1[i] == "-" and exon2[i] == "-":
-				binpart.append(0)
+			if  len(exon1) == len(exon2):
+				if exon1[i] == "-" and exon2[i] == "-":
+					binpart.append(0)
+				else:
+					binpart.append(1)
 			else:
-				binpart.append(1)
+					print("Error", fn ,len(exon1),len(exon2))
 		#print(binpart)
 		# define partitions as ranges
 		partitions_intron = []
