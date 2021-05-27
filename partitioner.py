@@ -71,10 +71,10 @@ for fn in os.listdir():
 						partitions_intron.append(current_part)
 					else:
 						partitions_exon.append(current_part)
-		# write RAxML style partition file
-		with open(".".join(fn.split(".")[:-1])+"_part.txt", "w") as partfile:
-			print("DNA, intron = " + ", ".join(["-".join([str(j) for j in i]) for i in partitions_intron]), file=partfile)
-			print("DNA, exon = " + ", ".join(["-".join([str(j) for j in i]) for i in partitions_exon]), file=partfile)
+			# write RAxML style partition file
+			with open(".".join(fn.split(".")[:-1])+"_part.txt", "w") as partfile:
+				print("DNA, intron = " + ", ".join(["-".join([str(j) for j in i]) for i in partitions_intron]), file=partfile)
+				print("DNA, exon = " + ", ".join(["-".join([str(j) for j in i]) for i in partitions_exon]), file=partfile)
 		# write alignment without exon sequences
 		with open(".".join(fn.split(".")[:-1])+"_clean.fasta", "w") as al:	
 			SeqIO.write(sequences, al, "fasta")
