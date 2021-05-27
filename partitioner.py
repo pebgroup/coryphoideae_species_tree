@@ -17,7 +17,6 @@ for fn in os.listdir():
 		sequences = [] # gather sequences to keep in the final alignment (all but the exons)
 		# extract aligned exon sequences
 		for record in SeqIO.parse(fn, "fasta"):
-			print(record)
 			if record.id == "exon1":
 				exon1 = record.seq
 				print(record,"is exon1")
@@ -27,25 +26,22 @@ for fn in os.listdir():
 			else:
 				sequences.append(record)
 				print(record,"is neither exon1 or exon2")
-				
+
 		# create binary partition (1 = exon, 0 = intron)
 		binpart = []
 
-		length=0
-		if len(exon1)>=len(exon2):
-			length=len(exon1)
-		else:
-			length=len(exon2)
 
-		for i in range(len(exon1)):
-			# assumes that any alignment pos. where ANY of the two exons has a base is exon
-			if  len(exon1) == len(exon2):
-				if exon1[i] == "-" and exon2[i] == "-":
-					binpart.append(0)
+		if exon1 in locals():
+			for i in range(len(exon1)):
+				# assumes that any alignment pos. where ANY of the two exons has a base is exon
+				if  len(exon1) == len(exon2):
+					if exon1[i] == "-" and exon2[i] == "-":
+						binpart.append(0)
+					else:
+						binpart.append(1)
 				else:
-					binpart.append(1)
-			else:
-					print("Error", fn ,len(exon1),len(exon2))
+						print("Error", fn ,len(exon1),len(exon2))
+
 		#print(binpart)
 		# define partitions as ranges
 		partitions_intron = []
