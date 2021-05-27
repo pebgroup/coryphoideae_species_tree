@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --account=Coryphoideae
 #              D-HH:MM:SS
-#SBATCH --time=02-0:00:00
+#SBATCH --time=00-01:00:00
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
