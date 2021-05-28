@@ -15,12 +15,12 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate treebuilder_env
 
 #Cleaning folder with data
-cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/04_alignments_for_trees
-rm *
+#cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/04_alignments_for_trees
+#rm *
 
 #Copying data from manual alignment folder
-cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments
-cp *fasta ../04_alignments_for_trees
+#cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments
+#cp *fasta ../04_alignments_for_trees
 
 #Going to folder with data
 cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/04_alignments_for_trees
@@ -32,13 +32,13 @@ python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/parti
 
 
 #Genetrees using IQtree
-for f in *_aligned.fasta
+for f in *_aligned_clean.fasta
 do
 	echo $f This is f
 	echo ${f/aligned.fasta} this is {f/clean.fasta}
-	iqtree2 -s $f -T AUTO -ntmax 16 -p ${f/aligned.fasta}part.txt -B 1000 # 1000 bootstrap replicates and 16 cores 
-	mv ${f/_aligned_}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/_aligned_}part.txt.tre
-	mv ${f/_aligned_}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
+	iqtree2 -s $f -T AUTO -ntmax 16 -p ${f/clean.fasta}part.txt -B 1000 # 1000 bootstrap replicates and 16 cores 
+	mv ${f/clean.fasta}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/clean.fasta}part.txt.tre
+	mv ${f/clean.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
 	mv ${f/_aligned_}.fasta done
 	rm $f
 done		
