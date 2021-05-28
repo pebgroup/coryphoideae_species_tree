@@ -31,7 +31,7 @@ for fn in os.listdir():
 
 
 		if len(sequences) != len(tally):
-			for i in range(len(exon2)):
+			for i in range(len(exon1)):
 				# assumes that any alignment pos. where ANY of the two exons has a base is exon
 				if  len(exon1) == len(exon2):
 					if exon1[i] == "-" and exon2[i] == "-":

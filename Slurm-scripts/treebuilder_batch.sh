@@ -20,12 +20,12 @@ cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 
 
 #Genetrees using IQtree
-for f in *_aligned_noempty.fasta # OBS THIS IS JUST A DIRTY FIX!!!
+for f in *_aligned.fasta
 do
 	iqtree2 -s $f -T AUTO -ntmax 16 -p ${f/clean.fasta}part.txt -B 1000 # 1000 bootstrap replicates and 16 cores
-	mv ${f/_aligned_noempty.fasta}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/_aligned_noempty.fasta}part.txt.tre # OBS THIS IS JUST A DIRTY FIX!!!
-	mv ${f/_aligned_noempty.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
-	mv ${f/_aligned_noempty.fasta}.fasta done
+	mv ${f/_aligned.fasta}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/_aligned.fasta}part.txt.tre
+	mv ${f/_aligned.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
+	mv ${f/_aligned.fasta}.fasta done
 	rm $f
 done		
 

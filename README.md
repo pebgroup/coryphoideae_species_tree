@@ -194,10 +194,11 @@ then run `cp *.fasta ../09_optrimal` in order to copy the alignments to the optr
 ## 8\. Gap trimming using Optrimal
 Create a file called cutoff_trim.txt with the -gt values which should be tested.
 
-Run the `gaptrimming_batch.sh` script from within `09_optrimal`.
+Run the `gaptrimming_batch.sh` script.
 
 This will a folder for each of the -gt values. 
 In each of these folders there should ideally be a .fasta file, a .htm file and a noempty.fasta file for each gene.
+in addition a summary file for the trimal process will also be created in the folder.
 
 * * *
 ## 9\. Manual editing
@@ -206,7 +207,7 @@ Manually edit sequences to ensure proper alignment.
 * * * 
 
 ## 10\. Tree building
-Run the `treebuilder_batch.sh` from the directory with the manually edited alignments `/home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments`.
+Run the `treebuilder_batch.sh` script.
 
 This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as *_clean.fasta)
 
