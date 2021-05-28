@@ -18,15 +18,17 @@ conda activate treebuilder_env
 cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/02_edited_alignments
 
 #The partitioner should produce 2 files for each gene
-#one file called {gene}_part.txt which is the partitioning file
-#another called {gene}_cleaned.fasta which are just the sequences without the exons
+#one file called {gene}_aligned_part.txt which is the partitioning file
+#another called {gene}_aligned_clean.fasta which are just the sequences without the exons
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 
 
 
 #Genetrees using IQtree
 for f in *_aligned.fasta
 do
-	iqtree2 -s $f -T AUTO -ntmax 16 -p ${f/aligned_}part.txt -B 1000 # 1000 bootstrap replicates and 16 cores # editing the -p part
+	echo $f This is f
+	echo ${f/clean.fasta} this is {f/clean.fasta}
+	iqtree2 -s $f -T AUTO -ntmax 16 -p ${f/clean.fasta}part.txt -B 1000 # 1000 bootstrap replicates and 16 cores 
 	mv ${f/_aligned_}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/_aligned_}part.txt.tre
 	mv ${f/_aligned_}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
 	mv ${f/_aligned_}.fasta done
