@@ -31,22 +31,12 @@ cd /home/owrisberg/Coryphoideae/work_flow/10_manual-edit/04_alignments_for_trees
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 
 
 
-#Genetrees using IQtree
-# for f in *_aligned_clean.fasta
-# do
-# 	iqtree2 -s $f -T AUTO -ntmax 16 -p ${f/clean.fasta}part.txt -B 1000 # 1000 bootstrap replicates and 16 cores 
-# 	mv ${f/clean.fasta}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/clean.fasta}part.txt.tre
-# 	mv ${f/clean.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
-# 	mv ${f/_aligned_}.fasta done
-# 	rm $f
-# done		
+echo "Beginning IQtree genetree search"
 
-#echo "Beginning IQtree genetree search"
+for f in *_part.txt; do (cp $f ${f/_part.txt}_clean.part); done
+ls *clean.fasta | parallel -j 6 iqtree2 -s {} -T AUTO -ntmax 4 -p {.}.part -B 1000
 
-#for f in *_part.txt; do (cp $f ${f/_part.txt}_clean.part); done
-#ls *clean.fasta | parallel -j 6 iqtree2 -s {} -T AUTO -ntmax 4 -p {.}.part -B 1000
-
-#echo "Done with IQtree"
+echo "Done with IQtree"
 
 echo "Beginning cleanup and file transfer"
 
@@ -55,7 +45,7 @@ do
 	mv ${f/clean.fasta}clean_part.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/clean.fasta}part.txt.tre
 	mv ${f/clean.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
 	mv ${f/_aligned_clean.fasta}.fasta done
-	rm ${f}
+	#rm ${f}
 done
 
 
