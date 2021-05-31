@@ -41,21 +41,23 @@ python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/parti
 # 	rm $f
 # done		
 
-echo "Beginning IQtree genetree search"
+#echo "Beginning IQtree genetree search"
 
-for f in *_part.txt; do (cp $f ${f/_part.txt}_clean.part); done
-ls *clean.fasta | parallel -j 6 iqtree2 -s {} -T AUTO -ntmax 4 -p {.}.part -B 1000
+#for f in *_part.txt; do (cp $f ${f/_part.txt}_clean.part); done
+#ls *clean.fasta | parallel -j 6 iqtree2 -s {} -T AUTO -ntmax 4 -p {.}.part -B 1000
 
-echo "Done with IQtree"
+#echo "Done with IQtree"
 
 echo "Beginning cleanup and file transfer"
 
 for f in *_aligned_clean.fasta
 do
-	mv ${f/clean.fasta}part.txt.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/clean.fasta}part.txt.tre
+	mv ${f/clean.fasta}clean_part.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/clean.fasta}part.txt.tre
 	mv ${f/clean.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
-	mv ${f/_aligned_}.fasta 
+	mv ${f/_aligned_clean.fasta}.fasta done
+	rm ${f}
 done
+
 
 cd /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees
 rm -f /home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree
@@ -86,6 +88,8 @@ sed astral_tree_QS.tre -i'.old' -e 's/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-
 sed astral_tree_QS.tre -i'.old' -e 's/\[eqp-ic:-*[0-9]\.*[0-9]*\]//g'
 
 echo "Done with Astral"
+echo "starting renaming"
 
-#/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py ../rename.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1
+/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1
 
+echo "Done with renaming"
