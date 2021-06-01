@@ -44,4 +44,4 @@ else:
     else:
         raise ValueError("Outgroup not in tree")
 
-subprocess.call(cmd,shell=TRUE)
+subprocess.call(cmd, shell=True)
