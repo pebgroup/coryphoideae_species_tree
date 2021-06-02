@@ -18,16 +18,19 @@ tips = tips.strip("]")
 tips = tips.replace("'","")
 tipslist = tips.split(", ")
 
-#print(tree.taxon_namespace)
+#Removing the gene name from all the taxon labels
 for name in tree.taxon_namespace:
    print(getattr(name,"label"))
    setattr(name,"label", getattr(name,"label").replace("-{}".format(gene),""))
 
-print(tree.taxon_namespace)
-
+#Defining a new TaxonNamespace with the edited names
 newnames =dendropy.TaxonNamespace(tree.taxon_namespace)
-print(newnames)
 
-dendropy.Tree.write(path=treefile, schema="newick", taxon_namespace=newnames)
+#Adding the new namespace to the old tree
+tree.taxon_namespace = newnames
+tree.reindex_subcomponent_taxa()
+
+#Writing the new tree
+tree.write(path=treefile, schema="newick")
 
 
