@@ -28,7 +28,7 @@ newnames =dendropy.TaxonNamespace(tree.taxon_namespace)
 
 #Adding the new namespace to the old tree
 tree.taxon_namespace = newnames
-tree.reindex_subcomponent_taxa()
+tree.reconstruct_taxon_namespace()
 
 #Writing the new tree
 tree.write(path=treefile, schema="newick")
