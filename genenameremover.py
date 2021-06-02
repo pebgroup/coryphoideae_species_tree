@@ -27,6 +27,6 @@ print(tree.taxon_namespace)
 
 newnames = TaxonNamespace(tree.taxon_namespace)
 
-dendropy.Tree.write(path=treefile, schema="newick","", taxon_namespace=newnames)
+dendropy.Tree.write(path=treefile, schema="newick", taxon_namespace=newnames)
 
 
