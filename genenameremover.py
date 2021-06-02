@@ -15,6 +15,7 @@ tree = dendropy.Tree.get(path=treefile, schema="newick")
 tips = str(tree.taxon_namespace)
 
 print(tips)
+class(tips)
 
-for name in tips:
-    print(name)
+#for name in tips:
+    #print(name)
