@@ -20,7 +20,7 @@ tipslist = tips.split(", ")
 
 print(tree.taxon_namespace)
 for name in tree.taxon_namespace:
-   name.replace("-{}".format(gene))
+   name.label()
    print(name)
 
 #Looping through each tip in the tree
