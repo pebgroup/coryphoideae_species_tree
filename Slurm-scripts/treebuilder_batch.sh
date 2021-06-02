@@ -58,7 +58,8 @@ echo "Starting rerooting of genetrees"
 #Some rerooting, renaming and general cleanup
 for f in *.tre
 do 
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py $f ${f/_aligned_part.txt.tre}
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/genenameremover.py $f ${f/_aligned_part.txt.tre}
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py $f
 	nw_ed temp.tre 'i & (b<30)' o >> /home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree/genetrees.tre 
 	rm temp.tre
 done
