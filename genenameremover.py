@@ -25,7 +25,6 @@ for name in tree.taxon_namespace:
 
 print(tree.taxon_namespace)
 
-#Looping through each tip in the tree
-#for j in range(len(tipslist)):
-  # print(tipslist[j],j)
+dendropy.Tree.write(path=treefile, schema="newick","", taxon_namespace=tree.taxon_namespace)
+
 
