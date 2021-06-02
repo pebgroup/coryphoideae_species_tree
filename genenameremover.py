@@ -20,7 +20,6 @@ tipslist = tips.split(", ")
 
 #Removing the gene name from all the taxon labels
 for name in tree.taxon_namespace:
-   print(getattr(name,"label"))
    setattr(name,"label", getattr(name,"label").replace("-{}".format(gene),""))
 
 #Defining a new TaxonNamespace with the edited names
