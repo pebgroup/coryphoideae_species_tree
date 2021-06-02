@@ -12,8 +12,14 @@ treefile = str(args.treefile)
 
 # Go through each tip of the gene tree
 tree = dendropy.Tree.get(path=treefile, schema="newick")
+tipstest = list(tree.taxon_namespace)
 tips = str(tree.taxon_namespace)
+tipslist = list(tips)
 
 
-for j in range(len(tips)):
-    print(tips[j],j)
+print("tipstest",tipstest,"\n")
+print("tips",tips,"\n")
+print("tipslist",tipslist,"\n")
+
+#for j in range(len(tips)):
+#   print(tips[j],j)
