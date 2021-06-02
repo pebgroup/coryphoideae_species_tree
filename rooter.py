@@ -43,7 +43,7 @@ else:
     elif "1082" in tips:
         cmd = "pxrr -t "+treefile+" -g 1082 -o temp.tre"
     else:
-        cmd = "mv "+treefile+" genetrees_no_outgroup"
+        cmd = "mv "+treefile+" /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/genetrees_no_outgroup"
         raise ValueError("Outgroup not in ", treefile)
 
 subprocess.call(cmd, shell=True)

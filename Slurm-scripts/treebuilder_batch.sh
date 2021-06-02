@@ -58,6 +58,7 @@ echo "Starting rerooting of genetrees"
 #Some rerooting, renaming and general cleanup
 for f in *.tre
 do 
+	echo $f
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/genenameremover.py $f ${f/_aligned_part.txt.tre}
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py $f
 	nw_ed temp.tre 'i & (b<30)' o >> /home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree/genetrees.tre 
@@ -72,7 +73,7 @@ cd /home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree
 
 rm -f astral*
 java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i genetrees.tre -o astral_tree.tre  2> astral.log
- /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips astral_tree.tre astral_tree_renamed.tre
+ /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree.tre astral_tree_renamed.tre
 
 /home/owrisberg/Coryphoideae/github_code/QuartetScores -o astral_tree_QS.tre -e genetrees.tre -r astral_tree.tre -v
 sed astral_tree_QS.tre -i'.old' -e 's/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-*[0-9]\.[0-9]*;lq-ic:-*[0-9]\.[0-9]*;eqp-ic:\(-*[0-9]\.[0-9]*\)\]/\2\1/g'
