@@ -3,7 +3,9 @@
 import argparse, dendropy
 
 parser = argparse.ArgumentParser()
+parser.add_argument("treefile")
 parser.add_argument("genename")
+
 args = parser.parse_args()
 
 gene = str(args.genename)
