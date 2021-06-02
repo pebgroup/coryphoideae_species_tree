@@ -16,4 +16,4 @@ tips = str(tree.taxon_namespace)
 
 
 for j in range(len(tips)):
-    print(tip[a])
+    print(tips[a])
