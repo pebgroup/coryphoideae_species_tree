@@ -10,16 +10,16 @@ args = parser.parse_args()
 gene = str(args.genename)
 treefile = str(args.treefile)
 
-# Go through each tip of the gene tree
+# Formatting the input files
 tree = dendropy.Tree.get(path=treefile, schema="newick")
 tips = str(tree.taxon_namespace)
-tips = tips.strip("[")
+tips = tips.strip("[") 
 tips = tips.strip("]")
 tips = tips.replace("'","")
 tipslist = tips.split(", ")
 
-print("tips",tips,"\n")
-print("tipslist",tipslist,"\n")
+print(tree,taxon_namespace)
 
+#Looping through each tip in the tree
 for j in range(len(tipslist)):
    print(tipslist[j],j)
