@@ -18,10 +18,14 @@ tips = tips.strip("]")
 tips = tips.replace("'","")
 tipslist = tips.split(", ")
 
-print(tree.taxon_namespace)
+#print(tree.taxon_namespace)
 for name in tree.taxon_namespace:
    print(getattr(name,"label"))
+   setattr(name,"label",getattr(name,"label").replace("-{}".format(gene)))
+
+print(tree.taxon_namespace)
 
 #Looping through each tip in the tree
 #for j in range(len(tipslist)):
   # print(tipslist[j],j)
+
