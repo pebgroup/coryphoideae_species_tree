@@ -15,7 +15,7 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate trimal_env
 
 #Going to folder with data
-cd /home/owrisberg/Coryphoideae/work_flow/09_optrimal
+cd /home/owrisberg/Coryphoideae/work_flow/08_optrimal
 
 # replace n's with gaps in alignmenets - this will otherwise trip up TrimAl
 for f in *.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done

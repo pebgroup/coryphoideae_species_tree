@@ -15,7 +15,7 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate amas_env
 
 # navigating to folder with data
-cd /home/owrisberg/Coryphoideae/work_flow/05_coverage
+cd /home/owrisberg/Coryphoideae/work_flow/04_coverage
 
 #Creating a list of the files
 ls *trimmed.fasta > filelist.txt
@@ -24,7 +24,7 @@ ls *trimmed.fasta > filelist.txt
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv
 
 #Navigating to folder for blacklisting
-cd /home/owrisberg/Coryphoideae/work_flow/06_blacklisting
+cd /home/owrisberg/Coryphoideae/work_flow/05_blacklisting
 
 #Cleaning up names of the files in the folder
 for f in *.FNA; do (sed -i'.old' -e $'s/-[0-9]\+[p,n,s,e]* [0-9]\+-[0-9]\+[p,n,s,e]*_[0-9]\+[p,n,s,e]* [0-9]\+-[0-9]\+[p,n,s,e]*//g' $f); done
