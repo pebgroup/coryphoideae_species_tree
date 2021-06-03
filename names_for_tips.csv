@@ -34,8 +34,8 @@
 1034,Trachycarpus-geminisectus
 1035,Trachycarpus-takil
 1036,Wallichia-densiflora
-1037,Arenga-undulatifolia
-1038,Arenga-undulatifolia
+1037,Arenga-undulatifolia-MSL72-S42
+1038,Arenga-undulatifolia-SBL593
 1039,Bismarckia-nobilis
 1040,Borassodendron-borneense
 1041,Borassus-flabellifer
@@ -46,14 +46,14 @@
 1046,Chuniophoenix-nana
 1047,Coccothrinax-argentata
 1048,Colpothrinax-aphanopetala
-1049,Copernicia-prunifera
+1049,Copernicia-prunifera-SBL524
 1050,Corypha-umbraculifera
 1051,Cryosophila-warscewiczii
 1052,Guihaia-argyrata
 1053,Hemithrinax-ekmaniana
 1054,Hyphaene-coriacea-
 1055,Itaya-amicorum
-1056,Johannesteijsmannia-altifrons
+1056,Johannesteijsmannia-altifrons-SBL576
 1057,Kerriodoxa-elegans
 1058,Lanonia-gracilis
 1059,Latania-loddigesii
@@ -71,7 +71,7 @@
 1071,Saribus-papuanus
 1072,Satranala-decussilvae
 1073,Schippia-concolor
-1074,Serenoa-repens
+1074,Serenoa-repens-SBL542
 1075,Trachycarpus-fortunei
 1076,Trithrinax-brasiliensis
 1077,Washingtonia-filifera
@@ -119,7 +119,7 @@
 1353,Coccothrinax-guantanamensis
 1354,Coccothrinax-inaguensis
 1355,Coccothrinax-macroglossa
-1362,Serenoa-repens
+1362,Serenoa-repens-angela
 1363,Trithrinax-brasiliensis
 1364,Trithrinax-brasiliensis
 1411,Coccothrinax-proctorii
@@ -129,7 +129,7 @@
 1415,Copernicia-berteroana
 1416,Copernicia-ekmanii
 1417,Copernicia-macroglossa
-1418,Copernicia-prunifera
+1418,Copernicia-prunifera-angela
 1419,Copernicia-rigida
 1421,Coccothrinax-salvatoris
 1430,Cryosophila-stauracantha
@@ -163,10 +163,10 @@
 2001,Wallichia-marianneae
 2002,Arenga-distincta
 2003,Arenga-pinnata
-2004,Arenga-undulatifolia
+2004,Arenga-undulatifolia-Novogene
 2005,Caryota-mitis
 2006,Caryota-no
-2007,Johannesteijsmannia-altifrons
+2007,Johannesteijsmannia-altifrons-Novogene
 2008,Licuala-bidentata
 2009,Licuala-bintulensis
 2010,Arenga-obtusifolia
