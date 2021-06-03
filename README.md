@@ -39,7 +39,7 @@ In order to run this pipeline you need a directory with the following folders, t
 - `10_manual-editing`
 - `11_tree_building`
 
-## 0\. Downloading and renaming data
+## 00\. Downloading and renaming data
 
 Transfer all sequence files from storage device to `01_data`.  
 These files need renaming and unpacking among other things. Within `01_data` run  
@@ -67,7 +67,7 @@ run `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/ren
 
 * * *
 
-## 1\. Before commencing analysis
+## 01\. data
 
 SECAPR quality check is run on the raw data in `01_data`.  
 In order to invoke `secapr` first activate the environment  
@@ -82,7 +82,7 @@ The second command removes the last 9 characters. This list is needed for runnin
 
 * * *
 
-## 2\. Trimming
+## 02\. Trimmed
 
 In order to trim the files, `run trimming_batch.sh`.
 **OBS** remember to check if the TruSeq3-PE-2.fa file is uploaded to the folder located at `/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/adapters/`
@@ -91,7 +91,7 @@ In order to produce the quality check on the trimmed files run the `secapr_batch
 
 * * *
 
-## 3\. Assembly (HybPiper)
+## 03\. hybpiper
 
 ### Combine unpaired reads into a single file for each sample
 
@@ -131,21 +131,8 @@ In order to generate the super contigs we need to run intronerate.
 Run the `intronerate_batch.sh`
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run***
 
-***
-
-## 4\. Retrieve sequences (HybPiper) "Springes over i coverage scriptet"
-
-From within `03_hybpiper` run  
-`python ~/github/hybpiper/retrieve_sequences.py /data_vol/peter/target/sidonie_target_file/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta . dna > stats_seq_retr.txt`  
-and  
-`mv *.FNA ../04_seqs`  
-The recovered, unaligned multi-FASTA files for each gene can now be found in `04_seqs`.  
-Putatively paralogous genes are excluded  
-`for f in $(cat ../03_hybpiper/gene_paralogs.txt); do rm "${f}.FNA"; done`  
-The text file `stats_seq_retr.txt` which contains the stdout for the programme `retrieve_sequences.py` can be used for the crude exclusion of genes based on number of retrieved sequences
-
 * * *
-## 4\. Coverage trimming and Length filtering
+## 04\. Coverage trimming and Length filtering
 Run the coverage program by running the `coverage_batch.sh`.
 
 Ensure that "supercontig" is chosen in the coverage.py script. This is currently done by commenting two lines of code. 
@@ -158,13 +145,13 @@ The Coverage.py script does the following:
 - Mask/strip any bases with coverage less than 2 
 - Generate a new trimmed sample-level fasta.
 
-Then, in `05_coverage`, run:
+Then, in `04_coverage`, run:
 
 `ls *trimmed.fasta > filelist.txt`
 `/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv`
 
 * * *
-## 5\. Blacklisting
+## 05\. Blacklisting
 This step is kept for removing troublesome species.
 These species usually show up further downstream in the analysis or as a part of the tree building process.
 In order to remove the troublesome species run the `blacklisting_batch.sh`. ***OBS species are hardcoded into the script***
@@ -172,11 +159,11 @@ In order to remove the troublesome species run the `blacklisting_batch.sh`. ***O
 ***
 # From here on out, everything needs to be done together.
 
-## 6\. Alignment
+## 06\. Alignment
 
-From within `06_blacklisting` run MAFFT on all genes  
+From within `05_blacklisting` run MAFFT on all genes  
 `mafft_batch.sh` 
-Aligned genes are found within `07_alignments`
+Aligned genes are found within `06_alignments`
 
 ***OBS! There are currently several mafft_batch.sh scripts in the folder as the different genes were run in parallel due to urgency***
 
@@ -184,39 +171,49 @@ Visualize single gene alignments with AliView. Launch the program with command: 
 Visualize multiple gene alignments with Geneious. Launch from Nautilus.
 
 * * *
-## 7\. mapping
+## 07\. mapping
 Run the `exon_mapper_batch` script.
-This creates new alignments in 08_mapping that contain the original alignments plus the exon sequences of the two species that had the highest recovery success at each locus.
+This creates new alignments in `07_mapping` that contain the original alignments plus the exon sequences of the two species that had the highest recovery success at each locus.
 
-then run `cp *.fasta ../09_optrimal` in order to copy the alignments to the optrimal folder. 
+then run `cp *.fasta ../08_optrimal` in order to copy the alignments to the optrimal folder. 
 
 * * *
-## 8\. Gap trimming using Optrimal
+## 08\. Optrimal
 Create a file called cutoff_trim.txt with the -gt values which should be tested.
 
 Run the `gaptrimming_batch.sh` script.
 
 This will a folder for each of the -gt values. 
-In each of these folders there should ideally be a .fasta file, a .htm file and a noempty.fasta file for each gene.
+In each of these folders there will be created a .fasta file, a .htm file and a noempty.fasta file for each gene.
 in addition a summary file for the trimal process will also be created in the folder.
 
 * * *
-## 9\. Manual editing
-Move all the noempty.fasta files to folders in manual alignment 
-Manually edit sequences to ensure proper alignment. 
+## 09\. Manual editing
+Move all the *aligned.fasta files to folders in manual alignment using the command
+`mv *aligned.fasta /home/owrisberg/Coryphoideae/work_flow/09_manual-edit/01_alignments_for_editing`
+
+Manually edit sequences to ensure proper alignment.
+When manually editing an alignment, move it to `02_edited_alignments` and edit it. 
 * * * 
 
 ## 10\. Tree building
 Run the `treebuilder_batch.sh` script.
 
+The treebuilder script it will copy the files from `09_manual_edit/02_edited_alignments` into `09_manual_edit/04_alignments_for_trees` and perform the following on these alignments. 
+
 This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as *_clean.fasta)
 
-it will then run IQtree on each gene within the directory 
+it will then run IQtree on each gene within the directory, and add the genetrees to the genetrees.tre file in the `/home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree` folder.
 
-Check that MSA format is compatible with RAxML-NG and convert to RAxML binary alignments (RBA). From within `6_trimal` run  
-`for f in *; do raxml-ng --parse --msa $f --model GTR+G; done`  
-If no problems reported run from within `6_trimal`  
-`bash ~/github/coryphoideae_species_tree/raxml_ng.sh`  
-Move all RAxML output to `7_raxml`
+When the script is done running you can run `java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i genetrees.tre -o astral_tree.tre  2> astral.log` in order to produce the species tree from the genetrees.
 
+When astral is done, the astral tree needs to be evaluated using QuartetScores
+`/home/owrisberg/Coryphoideae/github_code/QuartetScores -o astral_tree_QS.tre -e genetrees.tre -r astral_tree.tre -v`
+`sed astral_tree_QS.tre -i'.old' -e 's/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-*[0-9]\.[0-9]*;lq-ic:-*[0-9]\.[0-9]*;eqp-ic:\(-*[0-9]\.[0-9]*\)\]/\2\1/g`
+`sed astral_tree_QS.tre -i'.old' -e 's/\[eqp-ic:-*[0-9]\.*[0-9]*\]//g`
+
+Finally in order to rename the tips in the Quartet_scored tree run
+`python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1`
 * * *
+
+## 

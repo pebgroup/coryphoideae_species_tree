@@ -7,14 +7,13 @@ mkdir 00_secapr
 mkdir 01_data
 mkdir 02_trimmed
 mkdir 03_hybpiper
-mkdir 04_seqs # This folder is empty?
-mkdir 05_coverage
-mkdir 06_blacklisting
-mkdir 07_alignment
-mkdir 08_mapping
-mkdir 09_optrimal
-mkdir 10_manual-edit
-mkdir 11_tree_building
+mkdir 04_coverage
+mkdir 05_blacklisting
+mkdir 06_alignment
+mkdir 07_mapping
+mkdir 08_optrimal
+mkdir 09_manual-edit
+mkdir 10_tree_building
 
 #Building sub folders
 #00
