@@ -51,7 +51,7 @@
 1051,Cryosophila-warscewiczii
 1052,Guihaia-argyrata
 1053,Hemithrinax-ekmaniana
-1054,Hyphaene-coriacea-
+1054,Hyphaene-coriacea
 1055,Itaya-amicorum
 1056,Johannesteijsmannia-altifrons-SBL576
 1057,Kerriodoxa-elegans
@@ -64,7 +64,7 @@
 1064,Maxburretia-furtadoana
 1065,Nannorrhops-ritchieana
 1066,Phoenix-reclinata
-1067,Pritchardia-arecina-
+1067,Pritchardia-arecina
 1068,Rhapis-subtilis
 1069,Sabal-bermudana
 1070,Sabinaria-magnifica
@@ -75,7 +75,7 @@
 1075,Trachycarpus-fortunei
 1076,Trithrinax-brasiliensis
 1077,Washingtonia-filifera
-1078,Zombia-antillarum
+1078,Zombia-antillarum-SBL222
 1079,Aphandra-natalia
 1080,Dypsis-ambositrae
 1081,Eugeissona-tristis
@@ -139,9 +139,9 @@
 1434,Schippia-concolor
 1435,Thrinax-parviflora
 1437,Trithrinax-schizophylla
-1438,Zombia-antillarum
+1438,Zombia-antillarum-angela
 1439,Cryosophila-guagara
-1440,Sabal-etonia-(miamiensis-according-to-Patrick)
+1440,Sabal-etonia-miamiensis-according-to-Patrick
 1442,Sabal-minor
 1445,Sabal-uresana
 1449,Copernicia-alba
@@ -202,4 +202,4 @@
 2067,Wallichia-gracilis
 2068,Livistona-jenkinsiana
 2069,Rhapis-subtilis subsp. Subtilis
-2070,Undetermined_S0_L001_R1_001.fastq
+2070,Undetermined_S0_L001_R1_001
