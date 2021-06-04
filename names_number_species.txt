@@ -138,7 +138,7 @@
 1433,Cryosophila-williamsii-angela
 1434,Schippia-concolor-angela
 1435,Thrinax-parviflora-angela
-1437,Trithrinax-schizophylla-angela
+1437,Trithrinax-schizophylla-angela-1
 1438,Zombia-antillarum-angela
 1439,Cryosophila-guagara-angela
 1440,Sabal-etonia-(miamiensis-according-to-Patrick)-angela
@@ -151,8 +151,8 @@
 1462,Coccothrinax-montana-angela
 1463,Cryosophila-kalbreyeri-angela
 1465,Rhapidophyllum-hystrix-angela
-1469,Trithrinax-schizophylla-angela
-1470,Trithrinax-schizophylla-angela
+1469,Trithrinax-schizophylla-angela-2
+1470,Trithrinax-schizophylla-angela-3
 1475,Coccothrinax-orientalis-angela
 1476,Coccothrinax-readii-angela
 1477,Coccothrinax-spissa-angela

@@ -42,15 +42,15 @@
 1042,Brahea-edulis
 1043,Caryota-rumphiana
 1044,Chamaerops-humilis
-1045,Chelyocarpus-chuco
+1045,Chelyocarpus-chuco-SBL223
 1046,Chuniophoenix-nana
-1047,Coccothrinax-argentata
+1047,Coccothrinax-argentata-MSL26-S8
 1048,Colpothrinax-aphanopetala
 1049,Copernicia-prunifera-SBL524
 1050,Corypha-umbraculifera
 1051,Cryosophila-warscewiczii
 1052,Guihaia-argyrata
-1053,Hemithrinax-ekmaniana
+1053,Hemithrinax-ekmaniana-SBL209
 1054,Hyphaene-coriacea
 1055,Itaya-amicorum
 1056,Johannesteijsmannia-altifrons-SBL576
@@ -70,10 +70,10 @@
 1070,Sabinaria-magnifica
 1071,Saribus-papuanus
 1072,Satranala-decussilvae
-1073,Schippia-concolor
+1073,Schippia-concolor-MSL47
 1074,Serenoa-repens-SBL542
 1075,Trachycarpus-fortunei
-1076,Trithrinax-brasiliensis
+1076,Trithrinax-brasiliensis-MSL21
 1077,Washingtonia-filifera
 1078,Zombia-antillarum-SBL222
 1079,Aphandra-natalia
@@ -81,11 +81,11 @@
 1081,Eugeissona-tristis
 1082,Nypa-fructicans
 1193,Coccothrinax-barbadensis
-1194,Chelyocarpus-chuco
+1194,Chelyocarpus-chuco-angela
 1195,Coccothrinax-crinita
 1197,Chelyocarpus-dianeurus
 1222,Coccothrinax-alexandria
-1224,Trithrinax-brasiliensis
+1224,Trithrinax-brasiliensis-angela-1
 1238,Copernicia-baileyana
 1239,Copernicia-fallaensis
 1244,Chelyocarpus-repens
@@ -93,10 +93,10 @@
 1246,Coccothrinax-borhidiana
 1247,Coccothrinax-gundlachii
 1248,Thrinax-radiata
-1249,Coccothrinax-argentata
-1250,Coccothrinax-argentata
-1251,Hemithrinax-ekmaniana
-1252,Coccothrinax-argentata
+1249,Coccothrinax-argentata-angela-1
+1250,Coccothrinax-argentata-angela-2
+1251,Hemithrinax-ekmaniana-angela
+1252,Coccothrinax-argentata-angela-3
 1256,Sabal-etonia
 1259,Sabal-yapa
 1266,Brahea-armata
@@ -120,11 +120,11 @@
 1354,Coccothrinax-inaguensis
 1355,Coccothrinax-macroglossa
 1362,Serenoa-repens-angela
-1363,Trithrinax-brasiliensis
-1364,Trithrinax-brasiliensis
+1363,Trithrinax-brasiliensis-angela-2
+1364,Trithrinax-brasiliensis-angela-3
 1411,Coccothrinax-proctorii
 1412,Coccothrinax-saxicola
-1413,Trithrinax-brasiliensis
+1413,Trithrinax-brasiliensis-angela-4
 1414,Coccothrinax-torrida
 1415,Copernicia-berteroana
 1416,Copernicia-ekmanii
@@ -136,7 +136,7 @@
 1431,Coccothrinax-miraguama
 1432,Cryosophila-nana
 1433,Cryosophila-williamsii
-1434,Schippia-concolor
+1434,Schippia-concolor-angela
 1435,Thrinax-parviflora
 1437,Trithrinax-schizophylla
 1438,Zombia-antillarum-angela
@@ -156,7 +156,7 @@
 1475,Coccothrinax-orientalis
 1476,Coccothrinax-readii
 1477,Coccothrinax-spissa
-1478,Trithrinax-brasiliensis
+1478,Trithrinax-brasiliensis-angela-5
 1488,Brahea-aculeata
 1489,Brahea-bella
 1492,Copernicia-gigas
@@ -187,19 +187,19 @@
 2046,Lanonia-hexasepala
 2047,Lanonia-magalonii
 2048,Lanonia-poilanei
-2049,Lanonia sp. Nov “kontumensis”
-2050,Lanonia sp. Nov “ngoclinhensis”
+2049,Lanonia-sp.-Nov-“kontumensis”
+2050,Lanonia-sp.-Nov-“ngoclinhensis”
 2055,Licuala-spinosa
-2058,Rhapis -aoensis subsp. Macrantha
+2058,Rhapis-laoensis-subsp.-Macrantha
 2059,Rhapis-micrantha
 2060,Rhapis-puhuongensis
 2061,Rhapis-robusta
-2062,Rhapis-subtilis subsp. Siamensis
+2062,Rhapis-subtilis-subsp.-Siamensis
 2063,Rhapis-vidalii
 2064,Arenga-longicarpa
 2065,Caryota-kiriwongensis
 2066,Caryota-urens
 2067,Wallichia-gracilis
 2068,Livistona-jenkinsiana
-2069,Rhapis-subtilis subsp. Subtilis
+2069,Rhapis-subtilis-subsp.-Subtilis
 2070,Undetermined_S0_L001_R1_001
