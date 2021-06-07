@@ -40,6 +40,7 @@ for fn in os.listdir():
 						binpart.append(1)
 				else:
 						print("Error", fn ,len(exon1),len(exon2))
+						break
 
 			#print(binpart) 
 			# define partitions as ranges
