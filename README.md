@@ -30,14 +30,13 @@ In order to run this pipeline you need a directory with the following folders, t
 - `01_data`
 - `02_trimmed`
 - `03_hybpiper`
-- `04_seqs`
-- `05_coverage`
-- `06_blacklisting`
-- `07_alignment`
-- `08_mapping`
-- `09_optrimal`
-- `10_manual-editing`
-- `11_tree_building`
+- `04_coverage`
+- `05_blacklisting`
+- `06_alignment`
+- `07_mapping`
+- `08_optrimal`
+- `09_manual_edit`
+- `10_tree_building`
 
 ## 00\. Downloading and renaming data
 
@@ -207,10 +206,15 @@ it will then run IQtree on each gene within the directory, and add the genetrees
 
 When the script is done running you can run `java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i genetrees.tre -o astral_tree.tre  2> astral.log` in order to produce the species tree from the genetrees.
 
+You can rename the astral tree by running.
+`python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree.tre astral_tree_renamed.tre`
+
 When astral is done, the astral tree needs to be evaluated using QuartetScores
 `/home/owrisberg/Coryphoideae/github_code/QuartetScores -o astral_tree_QS.tre -e genetrees.tre -r astral_tree.tre -v`
-``sed astral_tree_QS.tre -i'.old' -e 's/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-*[0-9]\.[0-9]*;lq-ic:-*[0-9]\.[0-9]*;eqp-ic:\(-*[0-9]\.[0-9]*\)\]/\2\1/g`` #OBS notice the two ``s
-`sed astral_tree_QS.tre -i'.old' -e 's/\[eqp-ic:-*[0-9]\.*[0-9]*\]//g`
+
+Run these commands in order to apply the correct labels on the Quartet scores
+`sed astral_tree_QS.tre -i'.old' -e s/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-*[0-9]\.[0-9]*;lq-ic:-*[0-9]\.[0-9]*;eqp-ic:\(-*[0-9]\.[0-9]*\)\]/\2\1/g``
+`sed astral_tree_QS.tre -i'.old' -e 's/\[eqp-ic:-*[0-9]\.*[0-9]*\]//g``
 
 Finally in order to rename the tips in the Quartet_scored tree run
 `python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1`
