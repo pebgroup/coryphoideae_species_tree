@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=20
 #SBATCH --account=Coryphoideae
 #              D-HH:MM:SS
-#SBATCH --time=07-00:00:00
+#SBATCH --time=03-00:00:00
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
@@ -15,15 +15,15 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate treebuilder_env
 
 #Cleaning folder with data
-cd /home/owrisberg/Coryphoideae/work_flow/09_manual-edit/04_alignments_for_trees
+cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees
 rm *
 
 #Copying data from manual alignment folder
-cd /home/owrisberg/Coryphoideae/work_flow/09_manual-edit/02_edited_alignments
+cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
 cp *fasta ../04_alignments_for_trees
 
 #Going to folder with data
-cd /home/owrisberg/Coryphoideae/work_flow/09_manual-edit/04_alignments_for_trees
+cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees
 
 #The partitioner should produce 2 files for each gene
 #one file called {gene}_aligned_part.txt which is the partitioning file
