@@ -25,8 +25,8 @@ Directory containing target file on GenomeDK:
 In order to run this pipeline you need a directory with the following folders, this can be quickly produced by running `infrastructure.sh` within the desired directory.
 
 - `00_secapr`
-    - `0_data`
-    - `1_trimmed`
+  - `0_data`
+  - `1_trimmed`
 - `01_data`
 - `02_trimmed`
 - `03_hybpiper`
@@ -126,22 +126,26 @@ The output from this program is saved in the file `paralog.txt`. This file lists
 `sort paralog.txt | uniq | sed 's/^.......................//' > gene_paralogs.txt`
 
 ### Intronerate
+
 In order to generate the super contigs we need to run intronerate.
 Run the `intronerate_batch.sh`
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run***
 
 * * *
+
 ## 04\. Coverage trimming and Length filtering
+
 Run the coverage program by running the `coverage_batch.sh`.
 
-Ensure that "supercontig" is chosen in the coverage.py script. This is currently done by commenting two lines of code. 
+Ensure that "supercontig" is chosen in the coverage.py script. This is currently done by commenting two lines of code.
 
 The Coverage.py script does the following:
+
 - Gather all contigs from each sample in one fasta file
 - map paired and unpaired reads to that fasta using BWA mem
 - Deduplicate reads using Picard
 - Calculate depth using samtools
-- Mask/strip any bases with coverage less than 2 
+- Mask/strip any bases with coverage less than 2
 - Generate a new trimmed sample-level fasta.
 
 Then, in `04_coverage`, run:
@@ -150,18 +154,21 @@ Then, in `04_coverage`, run:
 `/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv`
 
 * * *
+
 ## 05\. Blacklisting
+
 This step is kept for removing troublesome species.
 These species usually show up further downstream in the analysis or as a part of the tree building process.
 In order to remove the troublesome species run the `blacklisting_batch.sh`. ***OBS species are hardcoded into the script***
 
 ***
-# From here on out, everything needs to be done together.
+
+# From here on out, everything needs to be done together
 
 ## 06\. Alignment
 
 From within `05_blacklisting` run MAFFT on all genes  
-`mafft_batch.sh` 
+`mafft_batch.sh`
 Aligned genes are found within `06_alignments`
 
 ***OBS! There are currently several mafft_batch.sh scripts in the folder as the different genes were run in parallel due to urgency***
@@ -170,37 +177,44 @@ Visualize single gene alignments with AliView. Launch the program with command: 
 Visualize multiple gene alignments with Geneious. Launch from Nautilus.
 
 * * *
+
 ## 07\. mapping
+
 Run the `exon_mapper_batch` script.
 This creates new alignments in `07_mapping` that contain the original alignments plus the exon sequences of the two species that had the highest recovery success at each locus.
 
-then run `cp *.fasta ../08_optrimal` in order to copy the alignments to the optrimal folder. 
+then run `cp *.fasta ../08_optrimal` in order to copy the alignments to the optrimal folder.
 
 * * *
+
 ## 08\. Optrimal
+
 Create a file called cutoff_trim.txt with the -gt values which should be tested.
 
 Run the `gaptrimming_batch.sh` script.
 
-This will a folder for each of the -gt values. 
+This will a folder for each of the -gt values.
 In each of these folders there will be created a .fasta file, a .htm file and a noempty.fasta file for each gene.
 in addition a summary file for the trimal process will also be created in the folder.
 
 * * *
+
 ## 09\. Manual editing
+
 Move all the *aligned.fasta files to folders in manual alignment using the command
 `mv *aligned.fasta /home/owrisberg/Coryphoideae/work_flow/09_manual-edit/01_alignments_for_editing`
 
 Manually edit sequences to ensure proper alignment.
-When manually editing an alignment, move it to `02_edited_alignments` and edit it. 
-* * * 
+When manually editing an alignment, move it to `02_edited_alignments` and edit it.
+* * *
 
 ## 10\. Tree building
+
 Run the `treebuilder_batch.sh` script.
 
-The treebuilder script it will copy the files from `09_manual_edit/02_edited_alignments` into `09_manual_edit/04_alignments_for_trees` and perform the following on these alignments. 
+The treebuilder script it will copy the files from `09_manual_edit/02_edited_alignments` into `09_manual_edit/04_alignments_for_trees` and perform the following on these alignments.
 
-This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as *_clean.fasta)
+This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as*_clean.fasta)
 
 it will then run IQtree on each gene within the directory, and add the genetrees to the genetrees.tre file in the `/home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree` folder.
 
@@ -219,5 +233,3 @@ Run these commands in order to apply the correct labels on the Quartet scores
 Finally in order to rename the tips in the Quartet_scored tree run
 `python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1`
 * * *
-
-## 
