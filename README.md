@@ -215,6 +215,7 @@ Run the `treebuilder_batch.sh` script.
 The treebuilder script it will copy the files from `09_manual_edit/02_edited_alignments` into `09_manual_edit/04_alignments_for_trees` and perform the following on these alignments.
 
 This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as*_clean.fasta)
+If the exons of a specific gene are of unequal length the gene is added to a text file called badgenes.text. remember to have a look through this file.
 
 it will then run IQtree on each gene within the directory, and add the genetrees to the genetrees.tre file in the `/home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree` folder.
 

@@ -37,10 +37,11 @@ for fn in os.listdir():
 					binpart.append(1)
 			else:
 					print("Error", fn ,len(exon1),len(exon2))
+					badgenes = open("bad_exons.txt","a")
+					badgenes.write(fn ,len(exon1),len(exon2))
 					break
 					
 
-			#print(binpart) 
 			# define partitions as ranges
 			partitions_intron = []
 			partitions_exon = []

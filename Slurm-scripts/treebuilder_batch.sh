@@ -34,7 +34,17 @@ python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/parti
 echo "Beginning IQtree genetree search"
 
 for f in *_part.txt; do (cp $f ${f/_part.txt}_clean.part); done
-ls *clean.fasta | parallel -j 6 iqtree2 -s {} -T AUTO -ntmax 4 -p {.}.part -B 1000
+
+for f in *_aligned_clean.fasta
+do
+	if [[$f -a ]] && [["${f/_aligned_clean_fasta}_aligned_part.txt" -a ]]
+	then 
+		ls *clean.fasta | parallel -j 6 iqtree2 -s {} -T AUTO -ntmax 4 -p {.}.part -B 1000
+	else
+		echo "Skipping gene" $f
+		continue
+	fi
+done
 
 echo "Done with IQtree"
 
