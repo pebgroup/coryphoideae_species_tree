@@ -219,7 +219,7 @@ If the exons of a specific gene are of unequal length the gene is added to a tex
 
 it will then run IQtree on each gene within the directory, and add the genetrees to the genetrees.tre file in the `/home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree` folder.
 
-When the script is done running you can run `java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i genetrees.tre -o astral_tree.tre  2> astral.log` in order to produce the species tree from the genetrees.
+When the script is done running you can run `java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i genetrees.tre -o astral_tree.tre  2> astral.log` in order to produce the species tree from the genetrees. Concider asking for an interactive job on GDK when doing this.
 
 You can rename the astral tree by running.
 `python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree.tre astral_tree_renamed.tre`

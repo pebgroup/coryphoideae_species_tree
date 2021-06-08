@@ -39,8 +39,8 @@ for fn in os.listdir():
 					print("Error", fn ,len(exon1),len(exon2))
 					badgenes = open("bad_exons.txt","a")
 					badgenes.write(fn)
-					badgenes.write(len(exon1))
-					badgenes.write(len(exon2+"\n"))
+					badgenes.write(str(len(exon1)))
+					badgenes.write(str(len(exon2+"\n")))
 					break
 					
 
