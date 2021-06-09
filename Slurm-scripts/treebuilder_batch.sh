@@ -8,6 +8,8 @@
 #              D-HH:MM:SS
 #SBATCH --time=00-00:30:00
 
+echo "Starting Script"
+
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 
@@ -29,7 +31,6 @@ cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees
 #one file called {gene}_aligned_part.txt which is the partitioning file
 #another called {gene}_aligned_clean.fasta which are just the sequences without the exons
 python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 
-
 
 echo "Beginning IQtree genetree search"
 

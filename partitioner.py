@@ -41,6 +41,7 @@ for fn in os.listdir():
 					badgenes.write(fn)
 					badgenes.write(str(len(exon1)))
 					badgenes.write(str(len(exon2+"\n")))
+					badgenes.close()
 					break
 					
 
