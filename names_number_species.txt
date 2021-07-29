@@ -84,7 +84,7 @@
 1194,Chelyocarpus-chuco-angela
 1195,Coccothrinax-crinita-angela
 1197,Chelyocarpus-dianeurus-angela
-1222,Coccothrinax-alexandria-angela
+1222,Coccothrinax-alexandri-angela
 1224,Trithrinax-brasiliensis-angela
 1238,Copernicia-baileyana-angela
 1239,Copernicia-fallaensis-angela
