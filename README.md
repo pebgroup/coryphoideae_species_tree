@@ -101,20 +101,13 @@ This merges `####_1U.fastq` and `####_2U.fastq` into `####_UN.fastq`
 ### Generate namelist
 
 A list of the fastq files within the directory `02_trimmed` is created in the directory `03_hybpiper` by running the following script from within `02_trimmed`  
-`ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../3_hybpiper/namelist.txt; rm namelist_temp.txt`  
+`ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../03_hybpiper/namelist.txt; rm namelist_temp.txt`  
 The second command removes the last 9 characters. This list is needed for running hybpiper on all the listed names.  
 If all trimmed data are to go into hybpiper the namelist within `01_data` can alternatively be copied to `03_hybpiper` and reused.
 
 ### Execute HybPiper
 
-From within `03_hybpiper` run  
-`bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/hybpiper_gdk.sh`
-
-### Get assembly stats
-
-From within `03_hybpiper` run  
-`python /home/owrisberg/Coryphoideae/github_code/HybPiper/get_seq_lengths.py /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta namelist.txt dna > seq_lengths.txt`  
-and  
+From within `03_hybpiper` run
 `python ~/Coryphoideae/github_code/HybPiper/hybpiper_stats.py seq_lengths.txt namelist.txt > stats.txt`  
 The file `seq_lengths.txt` can be used to make a heatmap in R by running the script `gene_recovery_heatmap_ggplot.R`
 
@@ -161,9 +154,9 @@ This step is kept for removing troublesome species.
 These species usually show up further downstream in the analysis or as a part of the tree building process.
 In order to remove the troublesome species run the `blacklisting_batch.sh`. ***OBS species are hardcoded into the script***
 
-***
+* * *
 
-# From here on out, everything needs to be done together
+## From here on out, everything needs to be done together
 
 ## 06\. Alignment
 
