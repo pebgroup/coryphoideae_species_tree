@@ -6,7 +6,7 @@
 #SBATCH --mem-per-cpu=40g
 #SBATCH --cpus-per-task=24
 #              D-HH:MM:SS
-#SBATCH --time=3-00:00:00
+#SBATCH --time=4-00:00:00
 
 
 #This line should enable the activation of specific conda environments
