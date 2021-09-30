@@ -3,7 +3,7 @@
 #SBATCH --account Coryphoideae
 #SBATCH --job-name=Secapr_data
 #SBATCH --partition normal
-#SBATCH --mem-per-cpu=20g
+#SBATCH --mem-per-cpu=40g
 #SBATCH --cpus-per-task=24
 #              D-HH:MM:SS
 #SBATCH --time=3-00:00:00
