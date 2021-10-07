@@ -3,7 +3,7 @@
 #SBATCH --job-name=Trimming
 #SBATCH --account Coryphoideae
 #              D-HH:MM:SS
-#SBATCH --time 0-05:00:00
+#SBATCH --time 1-0:00:00
 #SBATCH --partition normal
 #SBATCH --mem-per-cpu=20G
 #SBATCH --cpus-per-task=24
@@ -22,7 +22,7 @@ cd /home/owrisberg/Coryphoideae/work_flow/01_data
 
 
 # Creating namelist in data folder
-ls *R1.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > namelist.txt; rm namelist_temp.txt
+#ls *R1.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > namelist.txt; rm namelist_temp.txt
 
 # Running the trimmomatic
 bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/trimmomatic_genomedk_sh.sh

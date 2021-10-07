@@ -19,16 +19,7 @@ conda activate secapr_env
 cd /home/owrisberg/Coryphoideae/work_flow/03_hybpiper
 
 #uncomment to analyse all *.fq.gz files in directory
-inputfiles=( $( ls /home/owrisberg/Coryphoideae/work_flow/01_data | grep *.fastq ) )
+inputfiles=( $( ls /home/owrisberg/Coryphoideae/work_flow/01_data | grep 3*.fastq ) )
 
 #Program to run in array:
-secapr quality_check --${inputfiles[$SLURM_ARRAY_TASK_ID]} . --${inputfiles[$SLURM_ARRAY_TASK_ID]} .
-
-#Getting the sequence lengths
-python /home/owrisberg/Coryphoideae/github_code/HybPiper/get_seq_lengths.py /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta namelist.txt dna > seq_lengths.txt
-
-#Calculating stats based on sequence lengths
-python /home/owrisberg/Coryphoideae/github_code/HybPiper/hybpiper_stats.py seq_lengths.txt namelist.txt > stats.txt
-
-
-secapr quality_check --input . --output .
+secapr quality_check --input ${inputfiles[$SLURM_ARRAY_TASK_ID]} --output ${inputfiles[$SLURM_ARRAY_TASK_ID]}
