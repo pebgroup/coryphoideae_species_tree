@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --account=Coryphoideae
 #              D-HH:MM:SS This is the max running time allowed on GDK
-#SBATCH --time=2-00:00:00
-#SBATCH --array 0-147%50
+#SBATCH --time=0-04:00:00
+#SBATCH --array 0-138%70
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
