@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#SBATCH --job-name=Hybpiper 
+#SBATCH --job-name=Seq_lengths_and_stats
 #SBATCH --partition=normal
 #SBATCH --mem-per-cpu=20G
 #SBATCH --cpus-per-task=4
 #SBATCH --account=Coryphoideae
-#SBATCH --time=0-03:00:00
+#SBATCH --time=0-06:00:00
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
