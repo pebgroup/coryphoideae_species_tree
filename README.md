@@ -112,6 +112,7 @@ From within `03_hybpiper` run
 The file `seq_lengths.txt` can be used to make a heatmap in R by running the script `gene_recovery_heatmap_ggplot.R`
 
 ## Sequence length and Stats
+
 In order to produce a file with the sequence lengths of each of the genes for each species in the `03_hybpiper` folder and the associated stats,
 run the batch script; `seq_length_and_stats.sh`.
 
