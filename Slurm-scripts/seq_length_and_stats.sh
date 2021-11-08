@@ -5,13 +5,16 @@
 #SBATCH --mem-per-cpu=20G
 #SBATCH --cpus-per-task=4
 #SBATCH --account=Coryphoideae
-#SBATCH --time=0-06:00:00
+#SBATCH --time=0-23:59:00
 
 #This line should enable the activation of specific conda environments
 source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 
 #Activating conda base environment 
 conda activate base
+
+#Generating a new namelist
+ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../03_hybpiper/namelist.txt; rm namelist_temp.txt
 
 #Going to folder with data
 cd /home/owrisberg/Coryphoideae/work_flow/03_hybpiper
