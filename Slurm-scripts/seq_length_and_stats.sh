@@ -14,6 +14,7 @@ source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 conda activate base
 
 #Generating a new namelist
+cd /home/owrisberg/Coryphoideae/work_flow/02_trimmed
 ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../03_hybpiper/namelist.txt; rm namelist_temp.txt
 
 #Going to folder with data
