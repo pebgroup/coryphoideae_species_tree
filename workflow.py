@@ -66,7 +66,7 @@ gwf = Workflow()
 ########################################################################################################################
 def hybpiper(species, p1, p2, un, path_out, path_in, done):
     """Hybpiper."""
-    inputs = [path_in + species + p1, path_in + species + p2, path_in + species + un, species]
+    inputs = [path_in + p1, path_in + p2, path_in + un, species]
     outputs = [path_out , path_out + done]
     options = {'cores': 1, 'memory': "20g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
@@ -156,7 +156,7 @@ for i in range(len(sp)):
                                                         p2 = "_2P.fastq",
                                                         un = "_UN.fastq",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/"+sp[i],
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/"+sp[i]))
                                                                       
     
