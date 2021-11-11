@@ -151,12 +151,12 @@ sp = ["1001","1002","1003","1004","1005","1006","1007","1008","1009","1010","101
 
 for i in range(len(sp)):
     #### Running Hybpiper
-    gwf.target_from_template('Hybpiper'+sp[i], hybpiper(species = sp[i],
+    gwf.target_from_template('Hybpiper-'+sp[i], hybpiper(species = sp[i],
                                                         p1 = "_1P.fastq",
                                                         p2 = "_2P.fastq",
                                                         un = "_UN.fastq",
-                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper",
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed",
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/"+sp[i]))
                                                                       
     
