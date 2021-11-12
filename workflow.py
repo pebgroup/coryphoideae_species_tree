@@ -156,8 +156,8 @@ for i in range(len(sp)):
                                                         p2 = "_2P.fastq",
                                                         un = "_UN.fastq",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/"+sp[i],
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/"+sp[i]))
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/"))
                                                                       
     
 
