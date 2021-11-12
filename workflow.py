@@ -77,7 +77,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
         
     /home/owrisberg/Coryphoideae/github_code/HybPiper/reads_first.py --cpu 1 --readfiles {p1} {p2} --unpaired {un} -b /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta --prefix {species} --bwa
 
-    touch {done}/{species}
+    touch {done}
     """.format(species=species, p1 = path_in + species + p1,p2 = path_in + species + p2, un = path_in + species + un , out = path_out, done = done)
 
 
@@ -157,7 +157,7 @@ for i in range(len(sp)):
                                                         un = "_UN.fastq",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done"))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/"+sp[i]))
                                                                       
     
 
