@@ -68,7 +68,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
     """Hybpiper."""
     inputs = [path_in + species +p1, path_in + species + p2, path_in + species + un] # The files which the job will look for before it runs
     outputs = [path_out + "/" + species, done] # The files which will have to be created in order for the job to be "completed"
-    options = {'cores': 1, 'memory': "20g", 'walltime': "23:59:00", 'account':"Coryphoideae"} #Slurm commands
+    options = {'cores': 1, 'memory': "20g", 'walltime': "30:00:00", 'account':"Coryphoideae"} #Slurm commands
 
     spec = """
     source activate base
