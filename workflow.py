@@ -144,11 +144,13 @@ def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted
 
     spec = """
     source activate base
+    
+    cd {path_in}
 
     python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/coverage.py {sp}
     
     touch {done}
-    """.format(sp = species, done = done)
+    """.format(sp = species, done = done, path_in = path_in)
 
     return (inputs, outputs, options, spec)
 
