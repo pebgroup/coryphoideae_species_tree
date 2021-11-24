@@ -134,22 +134,23 @@ def intronerate(species, path_in, done):
 # ########################################################################################################################
 # #############################################---- Coverage ----#########################################################
 # ########################################################################################################################
-# def get_consSeqMask(ref, bam, bed, cov, out, path, done):
-#     """Get consensus fasta."""
-#     inputs = [path+bed]
-#     outputs = [out, path+done]
-#     options = {'cores': 4, 'memory': "20g", 'walltime': "18:00:00", 'account':"megaFauna"}
+def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted_bam_bai, bam, cov,fasta,fasta_amb,fasta_ann,fasta_bwt,fasta_pac,fasta_sa,trimmed_fasta,up_bam):
+    """Calculating coverage of sequences."""
+    inputs = [path_in+species]
+    outputs = [path_out+species+all_bam, path_out+species+all_sorted_bam, path_out+species+all_sorted_bam_bai, path_out+species+bam,
+    path_out+species+cov, path_out+species+fasta, path_out+species+fasta_amb, path_out+species+fasta_ann, path_out+species+fasta_bwt,
+    path_out+species+fasta_pac, path_out+species+fasta_sa, path_out+species+trimmed_fasta, path_out+species+up_bam,done] #ALL the output files
+    options = {'cores': 4, 'memory': "20g", 'walltime': "04:00:00", 'account':"megaFauna"}
 
-#     spec = """
-#     source activate workflowMap
-        
-#     bcftools mpileup -R {bed} -C50 -f {ref} {bam} | bcftools call -c - | vcfutils.pl vcf2fq -d {cov1} -D {cov2} -l 5 | gzip > {out}
+    spec = """
+    source activate base
+
+    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/coverage.py {sp}
     
-#     touch {done}
-#     """.format(ref = path + ref, bam = path+bam, bed = path+bed, cov1=str(float(cov)/3), cov2=str(2*float(cov)),
-#                out = out, done = path+done)
+    touch {done}
+    """.format(sp = species, done = done)
 
-#     return (inputs, outputs, options, spec)
+    return (inputs, outputs, options, spec)
 
 ########################################################################################################################
 ######################################################---- RUN ----#####################################################
@@ -159,7 +160,7 @@ sp = ["1001","1002","1003","1004","1005","1006","1007","1008","1009","1010","101
 
 for i in range(len(sp)):
     #### Running Hybpiper
-    gwf.target_from_template('Hybpiper_'+sp[i], hybpiper(species = sp[i],
+    gwf.target_from_template('Hybpiper '+sp[i], hybpiper(species = sp[i],
                                                         p1 = "_1P.fastq",
                                                         p2 = "_2P.fastq",
                                                         un = "_UN.fastq",
@@ -171,24 +172,35 @@ for i in range(len(sp)):
 
 
     #### Paralogs
-    gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
+    gwf.target_from_template('Paralogs '+sp[i], paralogs(species = sp[i],
                                                                     path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                                     done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i]))
      
     
     #### Getting introns
-    gwf.target_from_template('Intronerate_'+sp[i], intronerate(species= sp[i],
+    gwf.target_from_template('Intronerate '+sp[i], intronerate(species= sp[i],
                                                                     path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                                     done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Intronerate/"+sp[i]))
 
-    # cc = pd.read_table("/home/juraj/megaFauna/data/"+sp[i]+"/cov/covAll100kb"+sp[i]+".cov", header=None)
-    # gwf.target_from_template('consSeq100kb_masked'+sp[i], get_consSeq(ref = "ref/"+ref[i],
-    #                                                                 bam = "bam/"+bam[i],
-    #                                                                 bed = "ref/intersect_35_90.bed",
-    #                                                                 cov = str(cc.iloc[0,0]),
-    #                                                                 out = "/home/juraj/megaFauna/results/"+sp[i]+"/psmc/diploid100kb_masked.fq.gz",
-    #                                                                 path = "/home/juraj/megaFauna/data/"+sp[i]+"/",
-    #                                                                 done= "done/consSeq100kb_masked"+sp[i]))
+
+    #### Coverage
+    gwf.target_from_template('Coverage '+sp[i], coverage(species = sp[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+                                                        all_bam = "_all.bam",
+                                                        all_sorted_bam ="_all_sorted.bam",
+                                                        all_sorted_bam_bai="_all_sorted.bam.bai",
+                                                        bam =".bam",
+                                                        cov=".cov",
+                                                        fasta = ".fasta",
+                                                        fasta_amb = ".fasta.amb",
+                                                        fasta_ann = ".fasta.ann",
+                                                        fasta_bwt = ".fasta.bwt",
+                                                        fasta_pac = ".fasta.pac",
+                                                        fasta_sa = ".fasta.sa",
+                                                        trimmed_fasta = "_trimmed.fasta",
+                                                        up_bam = "_up.bam",
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/"+sp[i]))
 
 
     # #### make psmc input
