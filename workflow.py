@@ -90,7 +90,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 def paralogs(species,path_in, done):
     """Find Paralog genes and write them in the file called paralog.txt"""
     inputs = [path_in + species]
-    outputs = [done+species]
+    outputs = [done]
     options = {'cores': 2, 'memory': "10g", 'walltime': "4:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -115,7 +115,7 @@ def paralogs(species,path_in, done):
 def intronerate(species, path_in, done):
     """Intronerate the sequencec from hybpiper."""
     inputs = [path_in + species]
-    outputs = [done+species]
+    outputs = [done]
     options = {'cores': 4, 'memory': "20g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
     spec = """
