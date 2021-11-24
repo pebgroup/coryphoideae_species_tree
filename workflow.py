@@ -86,44 +86,48 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 ########################################################################################################################
 #############################################---- Paralogs ----#########################################################
 ########################################################################################################################
+
 def paralogs(species,path_in, done):
     """Find Paralog genes and write them in the file called paralog.txt"""
     inputs = [path_in + species]
-    outputs = [done]
+    outputs = [done+species]
     options = {'cores': 2, 'memory': "10g", 'walltime': "4:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate base
 
 
-    cd /home/owrisberg/Coryphoideae/work_flow/03_hybpiper
+    cd {path_in}
         
     python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
 
     
     touch {done}
 
-    """.format(sp = species, done = done)
+    """.format(sp = species, done = done, path_in = path_in)
 
     return (inputs, outputs, options, spec)
 
 # ########################################################################################################################
 # #############################################---- Intronerate ----######################################################
 # ########################################################################################################################
+
 def intronerate(species, path_in, done):
     """Intronerate the sequencec from hybpiper."""
     inputs = [path_in + species]
-    outputs = [done]
+    outputs = [done+species]
     options = {'cores': 4, 'memory': "20g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate base
 
+    cd {path_in}
+
     python3 /home/owrisberg/Coryphoideae/github_code/HybPiper/intronerate.py --prefix {sp} &>> intronerate_out.txt
         
     
     touch {done}
-    """.format(sp = species, done = done)
+    """.format(sp = species, done = done, path_in = path_in)
 
     return (inputs, outputs, options, spec)
 
