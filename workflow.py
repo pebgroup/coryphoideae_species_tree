@@ -86,42 +86,46 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 ########################################################################################################################
 #############################################---- Paralogs ----#########################################################
 ########################################################################################################################
-# def get_consSeqMask(ref, bam, bed, cov, out, path, done):
-#     """Get consensus fasta."""
-#     inputs = [path+bed]
-#     outputs = [out, path+done]
-#     options = {'cores': 4, 'memory': "20g", 'walltime': "18:00:00", 'account':"megaFauna"}
+def paralogs(species,path_in, done):
+    """Find Paralog genes and write them in the file called paralog.txt"""
+    inputs = [path_in + species]
+    outputs = [done]
+    options = {'cores': 2, 'memory': "10g", 'walltime': "4:00:00", 'account':"Coryphoideae"}
 
-#     spec = """
-#     source activate workflowMap
+    spec = """
+    source activate base
+
+
+    cd /home/owrisberg/Coryphoideae/work_flow/03_hybpiper
         
-#     bcftools mpileup -R {bed} -C50 -f {ref} {bam} | bcftools call -c - | vcfutils.pl vcf2fq -d {cov1} -D {cov2} -l 5 | gzip > {out}
-    
-#     touch {done}
-#     """.format(ref = path + ref, bam = path+bam, bed = path+bed, cov1=str(float(cov)/3), cov2=str(2*float(cov)),
-#                out = out, done = path+done)
+    python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
 
-#     return (inputs, outputs, options, spec)
+    
+    touch {done}
+
+    """.format(sp = species, done = done)
+
+    return (inputs, outputs, options, spec)
 
 # ########################################################################################################################
 # #############################################---- Intronerate ----######################################################
 # ########################################################################################################################
-# def get_consSeqMask(ref, bam, bed, cov, out, path, done):
-#     """Get consensus fasta."""
-#     inputs = [path+bed]
-#     outputs = [out, path+done]
-#     options = {'cores': 4, 'memory': "20g", 'walltime': "18:00:00", 'account':"megaFauna"}
+def intronerate(species, path_in, done):
+    """Intronerate the sequencec from hybpiper."""
+    inputs = [path_in + species]
+    outputs = [done]
+    options = {'cores': 4, 'memory': "20g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
-#     spec = """
-#     source activate workflowMap
+    spec = """
+    source activate base
+
+    python3 /home/owrisberg/Coryphoideae/github_code/HybPiper/intronerate.py --prefix {sp} &>> intronerate_out.txt
         
-#     bcftools mpileup -R {bed} -C50 -f {ref} {bam} | bcftools call -c - | vcfutils.pl vcf2fq -d {cov1} -D {cov2} -l 5 | gzip > {out}
     
-#     touch {done}
-#     """.format(ref = path + ref, bam = path+bam, bed = path+bed, cov1=str(float(cov)/3), cov2=str(2*float(cov)),
-#                out = out, done = path+done)
+    touch {done}
+    """.format(sp = species, done = done)
 
-#     return (inputs, outputs, options, spec)
+    return (inputs, outputs, options, spec)
 
 # ########################################################################################################################
 # #############################################---- Coverage ----#########################################################
@@ -157,22 +161,21 @@ for i in range(len(sp)):
                                                         un = "_UN.fastq",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/"+sp[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
                                                                       
     
 
 
-    # #### make mask bed
-    # gwf.target_from_template('makeMaskBed'+sp[i], make_mask_bed(ref = "ref/mask_35_90.fa",
-    #                                                               bed = "ref/mask_35_90.bed",
-    #                                                               path = "/home/juraj/megaFauna/data/"+sp[i]+"/",
-    #                                                               done = "done/makeMaskBed"+sp[i]))
-    # #### get diploid consensus sequence
-    # gwf.target_from_template('intersect_beds'+sp[i], intersect_beds(bed1 = "ref/"+bed1[i],
-    #                                                                 bed2 = "ref/mask_35_90.bed",
-    #                                                                 out = "ref/intersect_35_90.bed",
-    #                                                                 path = "/home/juraj/megaFauna/data/"+sp[i]+"/",
-    #                                                                 done = "done/intersect_beds"+sp[i]))
+    #### Paralogs
+    gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
+                                                                    path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+                                                                    done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i]))
+     
+    
+    #### Getting introns
+    gwf.target_from_template('Intronerate_'+sp[i], intronerate(species= sp[i],
+                                                                    path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+                                                                    done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Intronerate/"+sp[i]))
 
     # cc = pd.read_table("/home/juraj/megaFauna/data/"+sp[i]+"/cov/covAll100kb"+sp[i]+".cov", header=None)
     # gwf.target_from_template('consSeq100kb_masked'+sp[i], get_consSeq(ref = "ref/"+ref[i],
