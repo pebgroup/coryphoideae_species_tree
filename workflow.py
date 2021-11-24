@@ -136,7 +136,7 @@ def intronerate(species, path_in, done):
 # ########################################################################################################################
 def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted_bam_bai, bam, cov,fasta,fasta_amb,fasta_ann,fasta_bwt,fasta_pac,fasta_sa,trimmed_fasta,up_bam):
     """Calculating coverage of sequences."""
-    inputs = [path_in+species]
+    inputs = [path_in+species, path_in+"done/Intronerate/"+species]
     outputs = [path_out+species+all_bam, path_out+species+all_sorted_bam, path_out+species+all_sorted_bam_bai, path_out+species+bam,
     path_out+species+cov, path_out+species+fasta, path_out+species+fasta_amb, path_out+species+fasta_ann, path_out+species+fasta_bwt,
     path_out+species+fasta_pac, path_out+species+fasta_sa, path_out+species+trimmed_fasta, path_out+species+up_bam,done] #ALL the output files
