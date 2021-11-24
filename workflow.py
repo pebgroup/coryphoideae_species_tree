@@ -140,7 +140,7 @@ def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted
     outputs = [path_out+species+all_bam, path_out+species+all_sorted_bam, path_out+species+all_sorted_bam_bai, path_out+species+bam,
     path_out+species+cov, path_out+species+fasta, path_out+species+fasta_amb, path_out+species+fasta_ann, path_out+species+fasta_bwt,
     path_out+species+fasta_pac, path_out+species+fasta_sa, path_out+species+trimmed_fasta, path_out+species+up_bam,done] #ALL the output files
-    options = {'cores': 4, 'memory': "20g", 'walltime': "04:00:00", 'account':"megaFauna"}
+    options = {'cores': 4, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate base
