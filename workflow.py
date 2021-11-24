@@ -160,7 +160,7 @@ sp = ["1001","1002","1003","1004","1005","1006","1007","1008","1009","1010","101
 
 for i in range(len(sp)):
     #### Running Hybpiper
-    gwf.target_from_template('Hybpiper '+sp[i], hybpiper(species = sp[i],
+    gwf.target_from_template('Hybpiper_'+sp[i], hybpiper(species = sp[i],
                                                         p1 = "_1P.fastq",
                                                         p2 = "_2P.fastq",
                                                         un = "_UN.fastq",
@@ -172,19 +172,19 @@ for i in range(len(sp)):
 
 
     #### Paralogs
-    gwf.target_from_template('Paralogs '+sp[i], paralogs(species = sp[i],
+    gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
                                                                     path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                                     done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i]))
      
     
     #### Getting introns
-    gwf.target_from_template('Intronerate '+sp[i], intronerate(species= sp[i],
+    gwf.target_from_template('Intronerate_'+sp[i], intronerate(species= sp[i],
                                                                     path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                                     done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Intronerate/"+sp[i]))
 
 
     #### Coverage
-    gwf.target_from_template('Coverage '+sp[i], coverage(species = sp[i],
+    gwf.target_from_template('Coverage_'+sp[i], coverage(species = sp[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         all_bam = "_all.bam",
                                                         all_sorted_bam ="_all_sorted.bam",
