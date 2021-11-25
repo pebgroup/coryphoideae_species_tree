@@ -63,7 +63,7 @@ subprocess.call(cmd,shell=True)
 print('BAM indexed and sorted')
 
 # remove duplicates
-cmd = 'java -jar ~/software/picard.jar MarkDuplicates I=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted.bam O=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted_deduplicated.bam M=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'marked_dup_metrics.txt REMOVE_DUPLICATES=true'
+cmd = 'picard MarkDuplicates I=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted.bam O=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted_deduplicated.bam M=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'marked_dup_metrics.txt REMOVE_DUPLICATES=true'
 subprocess.call(cmd,shell=True)
 print('reads deduplicated for sample '+sample)
 
