@@ -41,17 +41,17 @@ subprocess.call(cmd,shell=True)
 print(sample+'.fasta indexed')
 
 # BWA mem paired reads
-cmd = 'bwa mem /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_1P.fastq /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_2P.fastq -f | samtools view -b -o /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.bam'
+cmd = 'bwa mem /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_1P.fastq /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_2P.fastq | samtools view -b -o /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.bam'
 subprocess.call(cmd,shell=True)
 print('paired reads mapped to '+sample+'.fasta')
 
 # BWA mem unpaired reads
-cmd = 'bwa mem /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_UN.fastq -f | samtools view -b -o /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_up.bam'
+cmd = 'bwa mem /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_UN.fastq | samtools view -b -o /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('unpaired reads mapped to '+sample+'.fasta')
 
 # merge BAM files
-cmd = 'samtools merge /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all.bam /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.bam /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_up.bam'
+cmd = 'samtools merge -f /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all.bam /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.bam /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('BAMs merged')
 
