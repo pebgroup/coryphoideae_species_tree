@@ -234,12 +234,12 @@ for i in range(len(sp)):
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/"+sp[i]))
 
-for i in range(len(genes)):
-    #### Running Mafft
-    gwf.target_from_template('Hybpiper_'+genes[i], hybpiper(genes = genes[i],
-                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
+# for i in range(len(genes)):
+#     #### Running Mafft
+#     gwf.target_from_template('Hybpiper_'+genes[i], hybpiper(genes = genes[i],
+#                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
+#                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
+#                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
                                                                       
     # #### make psmc input
     # gwf.target_from_template('makePSMCInput100kb_masked'+sp[i], make_input(inp = "psmc/diploid100kb_masked.fq.gz",
