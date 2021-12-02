@@ -67,7 +67,7 @@ gwf = Workflow()
 def hybpiper(species, p1, p2, un, path_out, path_in, done):
     """Hybpiper."""
     inputs = [path_in + species +p1, path_in + species + p2, path_in + species + un] # The files which the job will look for before it runs
-    outputs = [path_out + "/" + species, done] # The files which will have to be created in order for the job to be "completed"
+    outputs = [path_out + "/" + species, done, path_out + "/" + species + "/genes_with_paralog_warnings.txt"] # The files which will have to be created in order for the job to be "completed"
     options = {'cores': 1, 'memory': "20g", 'walltime': "100:00:00", 'account':"Coryphoideae"} #Slurm commands
 
     spec = """
@@ -89,7 +89,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 
 def paralogs(species,path_in, done):
     """Find Paralog genes and write them in the file called paralog.txt"""
-    inputs = [path_in + species]
+    inputs = [path_in + species, path_in + species + "/genes_with_paralog_warnings.txt"]
     outputs = [done]
     options = {'cores': 2, 'memory': "10g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
