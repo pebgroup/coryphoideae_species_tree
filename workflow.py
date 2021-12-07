@@ -88,7 +88,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 #############################################---- Paralogs ----#########################################################
 ########################################################################################################################
 
-def paralogs(species,path_in, done, no_paralogs):
+def paralogs(species,path_in, done):
     """Find Paralog genes and write them in the file called paralog.txt"""
     inputs = [path_in + species]
     outputs = [done]
@@ -97,21 +97,31 @@ def paralogs(species,path_in, done, no_paralogs):
     spec = """
     source activate base
     
-    If os.path.isfile("/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/"+sp[i]+"/genes_with_paralog_warnings.txt"):
-        cd {path_in}
+    
+    cd {path_in}
         
-        python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
+    python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
 
     
-        touch {done}
-    Else:
-        touch {done}
-        touch {np}
+    touch {done}
 
 
-    """.format(sp = species, done = done, path_in = path_in, np=no_paralogs)
-
+    """.format(sp = species, done = done, path_in = path_in)
     return (inputs, outputs, options, spec)
+
+def no_paralogs(species, path_in, done, no_paralogs):
+    """Wrapper script to continue pipeline when Hybpiper finds no paralogs"""
+    inputs = [path_in + species]
+    outputs = [done]
+    options = {'cores': 2, 'memory': "10g", 'walltime': "0:05:00", 'account':"Coryphoideae"}
+
+    spec = """
+
+    touch {done}
+    touch {np}
+
+    """.format(done=done, np=no_paralogs)
+    return(inputs, outputs, options, spec)
 
 # ########################################################################################################################
 # #############################################---- Intronerate ----######################################################
@@ -206,10 +216,16 @@ for i in range(len(sp)):
 
 
     #### Paralogs
-    gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
-                                                        no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs"+sp[i]))
+    if os.path.isfile("/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/"+sp[i]+"/genes_with_paralog_warnings.txt"):
+        gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
+                                                            path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+                                                            done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
+                                                            ))
+    else:
+        gwf.target_from_template('No_Paralogs_'+sp[i], no_paralogs(species = sp[i],
+                                                                path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+                                                                done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
+                                                                no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs"+sp[i]))
      
     
     #### Getting introns
@@ -237,12 +253,12 @@ for i in range(len(sp)):
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/"+sp[i]))
 
-# for i in range(len(genes)):
-#     #### Running Mafft
-#     gwf.target_from_template('Hybpiper_'+genes[i], hybpiper(genes = genes[i],
-#                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
-#                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
-#                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
+for i in range(len(genes)):
+    #### Running Mafft
+    gwf.target_from_template('Hybpiper_'+genes[i], hybpiper(genes = genes[i],
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
                                                                       
     # #### make psmc input
     # gwf.target_from_template('makePSMCInput100kb_masked'+sp[i], make_input(inp = "psmc/diploid100kb_masked.fq.gz",
