@@ -285,7 +285,7 @@ for i in range(len(sp)):
     #### Retrieve sequences
 gwf.target('Retrieve_genes', retrieve(species = sp,
                                         path_in="/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
-                                        path_out="/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/"
+                                        path_out="/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
                                         genes_list=genes))
 
 for i in range(len(genes)):
