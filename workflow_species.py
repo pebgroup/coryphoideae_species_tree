@@ -165,7 +165,7 @@ def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted
     outputs = [path_out+species+all_bam, path_out+species+all_sorted_bam, path_out+species+all_sorted_bam_bai, path_out+species+bam,
     path_out+species+cov, path_out+species+fasta, path_out+species+fasta_amb, path_out+species+fasta_ann, path_out+species+fasta_bwt,
     path_out+species+fasta_pac, path_out+species+fasta_sa, path_out+species+trimmed_fasta, path_out+species+up_bam,done] #ALL the output files
-    options = {'cores': 4, 'memory': "20g", 'walltime': "20:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 4, 'memory': "20g", 'walltime': "08:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate base
@@ -234,5 +234,5 @@ for i in range(len(sp)):
                                                         trimmed_fasta = "_trimmed.fasta",
                                                         up_bam = "_up.bam",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Coverage"+sp[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Coverage/"+sp[i]))
 

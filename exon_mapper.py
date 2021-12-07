@@ -14,7 +14,6 @@ outdir = args.outdir
 # import recovery statistics
 df = pd.read_csv("../03_hybpiper/seq_lengths.txt", sep="\t")
 df = df.drop(0)
-#df = df[~df['Species'].isin(['0188','0189','0190','0016','0056','0094','0192','0147','0200','0165','0096','0186','0064','0127','0093'])] # what is this?
 
 
 # for each aligned locus, identify the two samples with the highest recovery stats
