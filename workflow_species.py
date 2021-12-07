@@ -24,7 +24,7 @@ import os.path
 # import math
 # import glob
 
-gwf = Workflow()
+gwf_species = Workflow()
 
 ########################################################################################################################
 ################################################---- Secapr Quality Check Raw----#######################################
@@ -187,7 +187,7 @@ sp = ["1001","1002","1003","1004","1005","1006","1007","1008","1009","1010","101
 
 for i in range(len(sp)):
     #### Running Hybpiper
-    gwf.target_from_template('Hybpiper_'+sp[i], hybpiper(species = sp[i],
+    gwf_species.target_from_template('Hybpiper_'+sp[i], hybpiper(species = sp[i],
                                                         p1 = "_1P.fastq",
                                                         p2 = "_2P.fastq",
                                                         un = "_UN.fastq",
@@ -200,25 +200,25 @@ for i in range(len(sp)):
 
     #### Paralogs
     if os.path.isfile("/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/"+sp[i]+"/genes_with_paralog_warnings.txt"):
-        gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
+        gwf_species.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
                                                             path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                             done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
                                                             ))
     else:
-        gwf.target_from_template('No_Paralogs_'+sp[i], no_paralogs(species = sp[i],
+        gwf_species.target_from_template('No_Paralogs_'+sp[i], no_paralogs(species = sp[i],
                                                                 path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                                 done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
                                                                 no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs"+sp[i]))
      
     
     #### Getting introns
-    gwf.target_from_template('Intronerate_'+sp[i], intronerate(species= sp[i],
+    gwf_species.target_from_template('Intronerate_'+sp[i], intronerate(species= sp[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Intronerate/"+sp[i]))
 
 
     #### Coverage
-    gwf.target_from_template('Coverage_'+sp[i], coverage(species = sp[i],
+    gwf_species.target_from_template('Coverage_'+sp[i], coverage(species = sp[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         all_bam = "_all.bam",
                                                         all_sorted_bam ="_all_sorted.bam",
