@@ -206,7 +206,7 @@ for i in range(len(sp)):
 
 
     #### Paralogs
-        gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
+    gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
                                                         no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs"+sp[i]))
