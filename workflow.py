@@ -10,6 +10,7 @@ Date: 10/11/2021
 '''
 
 from gwf import Workflow
+import os.path
 # import math
 # import glob
 
@@ -67,7 +68,7 @@ gwf = Workflow()
 def hybpiper(species, p1, p2, un, path_out, path_in, done):
     """Hybpiper."""
     inputs = [path_in + species +p1, path_in + species + p2, path_in + species + un] # The files which the job will look for before it runs
-    outputs = [path_out + species, done, path_out  + species + "/genes_with_paralog_warnings.txt"] # The files which will have to be created in order for the job to be "completed"
+    outputs = [path_out + species, done] # The files which will have to be created in order for the job to be "completed"
     options = {'cores': 1, 'memory': "20g", 'walltime': "100:00:00", 'account':"Coryphoideae"} #Slurm commands
 
     spec = """
@@ -87,24 +88,28 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 #############################################---- Paralogs ----#########################################################
 ########################################################################################################################
 
-def paralogs(species,path_in, done):
+def paralogs(species,path_in, done, no_paralogs):
     """Find Paralog genes and write them in the file called paralog.txt"""
-    inputs = [path_in + species, path_in + species + "/genes_with_paralog_warnings.txt"]
+    inputs = [path_in + species,path_in + species + "/genes_with_paralog_warnings.txt"]
     outputs = [done]
     options = {'cores': 2, 'memory': "10g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate base
-
-
-    cd {path_in}
+    
+    If os.path.isfile("/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/"+sp[i]+"/genes_with_paralog_warnings.txt"):
+        cd {path_in}
         
-    python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
+        python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
 
     
-    touch {done}
+        touch {done}
+    Else:
+        touch {done}
+        touch {np}
 
-    """.format(sp = species, done = done, path_in = path_in)
+
+    """.format(sp = species, done = done, path_in = path_in, np=no_paralogs)
 
     return (inputs, outputs, options, spec)
 
@@ -165,9 +170,6 @@ def Mafft(gene, path_in, path_out, done):
 
     spec = """
     source activate mafft_env
-    
-
-
 
     cd {path_in}
 
@@ -204,9 +206,10 @@ for i in range(len(sp)):
 
 
     #### Paralogs
-    gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
+        gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
+                                                        no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs"+sp[i]))
      
     
     #### Getting introns

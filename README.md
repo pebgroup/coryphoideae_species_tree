@@ -126,6 +126,7 @@ The output from this program is saved in the file `paralog.txt`. This file lists
 ### Intronerate
 
 In order to generate the super contigs we need to run intronerate.
+Intronerate reruns exonarate but finds the introns instead of the exons. 
 Run the `intronerate_batch.sh`
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run***
 
