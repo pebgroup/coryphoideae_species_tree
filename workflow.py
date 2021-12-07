@@ -90,7 +90,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 
 def paralogs(species,path_in, done, no_paralogs):
     """Find Paralog genes and write them in the file called paralog.txt"""
-    inputs = [path_in + species,path_in + species + "/genes_with_paralog_warnings.txt"]
+    inputs = [path_in + species]
     outputs = [done]
     options = {'cores': 2, 'memory': "10g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
