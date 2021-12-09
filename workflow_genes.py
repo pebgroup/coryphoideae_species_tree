@@ -113,7 +113,7 @@ genes = ["EGU105032175","EGU105032229","EGU105032337","EGU105032379","EGU1050330
 
 
     #### Retrieve sequences and sort into files with gene names
-gwf.target('Retrieve_genes', retrieve(path_in="/home/owrisberg/Coryphoideae/work_flow/04_coverage/"))
+gwf.target('Retrieve_genes', retrieve(path_in="/home/owrisberg/Coryphoideae/work_flow/04_coverage/"),outputs=[])
 
 
 #Main workflow for genes
