@@ -28,10 +28,10 @@ gwf = Workflow()
 
 #Think about doing blacklisting here? you could just remove species from the inputs here if you dont want them in the downstream analysis
 
-def retrieve(path_in,):
+def retrieve(path_in):
     """Retrieve gene sequences from all the species and create an unaligned multifasta for each gene."""
     inputs = []
-    outputs = [path_in + "outstats.csv"]
+    outputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt"]
     options = {'cores': 10, 'memory': "20g", 'walltime': "12:00:00", 'account':"Coryphoideae"}
 
     spec = """
