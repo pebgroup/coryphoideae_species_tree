@@ -119,7 +119,7 @@ gwf.target_from_template('Retrieve_genes', retrieve(path_in="/home/owrisberg/Cor
 #Main workflow for genes
 for i in range(len(genes)):
     #### Running Mafft
-    gwf.target_from_template('Mafft_'+genes[i], mafft(genes = genes[i],
+    gwf.target_from_template('Mafft_'+genes[i], mafft(gene = genes[i],
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/done/"+genes[i]))
