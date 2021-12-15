@@ -58,7 +58,7 @@ def mafft(gene, path_in, path_out, done):
     """Aligning all the sequences for each gene."""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt",path_in+gene+".FNA"]
     outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 8, 'memory': "60g", 'walltime': "06:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 24, 'memory': "40g", 'walltime': "06:00:00", 'account':"Coryphoideae"}
 
     spec = """
 
@@ -105,6 +105,76 @@ def exon_map(path_in,path_out,done,gene):
 # #############################################---- Optrimal ----#########################################################
 # ########################################################################################################################
 
+
+def optrim(path_in,path_out,done,gene):
+    """ trimming all alignments for each of the GT values specified"""
+    inputs = ["/home/owrisberg/Coryphoideae/work_flow/06_alignment/done/"+gene]
+    outputs = [done,path_out+gene+"_aligned.fasta"] 
+    options = {'cores': 10, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
+
+    spec="""
+
+    #Activating trimal_env
+    source activate trimal_env
+
+    #Copying data into working folder
+    cd /home/owrisberg/Coryphoideae/work_flow/07_mapping
+    cp *.fasta ../08_optrimal
+
+    #Going to folder with data
+    cd /home/owrisberg/Coryphoideae/work_flow/08_optrimal
+
+    # replace n's with gaps in alignmenets - this will otherwise trip up TrimAl
+    for f in *.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done
+
+    # change back "exo" to "exon"
+    for f in *.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
+
+    #Renaming sequences to remove the .old ending
+    for f in *fasta.old; do
+    	mv -- "$f" "${f%.fasta.old}.fasta"
+    	done
+
+    # create summary tables for all thresholds specified
+    while read cutoff_trim
+    do
+            mkdir $cutoff_trim
+
+            for alignment in *.fasta
+            do
+              trimal -in ${alignment} -out ${cutoff_trim}/${alignment} -htmlout ${cutoff_trim}/${alignment/.fasta}.htm -gt $cutoff_trim
+
+                    # check if alignment was trimmed to extinction by trimAl
+
+                    if grep ' 0 bp' ${cutoff_trim}/${alignment}
+                    then
+                            rm -f ${cutoff_trim}/${alignment}
+                    fi
+            done
+
+            cd ${cutoff_trim}
+            AMAS.py summary -f fasta -d dna -i *.fasta
+
+            mv summary.txt ../summary_${cutoff_trim}.txt
+
+            cd ..
+
+    done < cutoff_trim.txt
+
+    # create summary table for the raw alignments
+    AMAS.py summary -f fasta -d dna -i *.fasta
+    mv summary.txt summary_0.txt
+    rm *.fasta
+
+    Rscript --vanilla /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/optrimAl.R
+
+    #Remove alignments with empty sequences
+    for f in *.fasta;do(python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/noempty.py $f);done
+
+    
+    """.format(path_in=path_in, done=done, gene=gene)
+
+    return(inputs, outputs, options, spec)
 
 
 ########################################################################################################################
