@@ -6,7 +6,7 @@ import pandas as pd
 from Bio import SeqIO
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--outdir", default="08_mapping")
+parser.add_argument("--outdir", default="07_mapping")
 parser.add_argument("--gene")
 args = parser.parse_args()
 outdir = args.outdir
@@ -33,7 +33,7 @@ if gene in df.columns:
 	exon2.id = "exon2"
 	with open("temp.fasta", "w") as output_handle:
 		SeqIO.write([exon1, exon2], output_handle, "fasta")
-	subprocess.call("mafft --add temp.fasta "+fn+" > ../"+outdir+"/"+fn ,shell=True)
+	subprocess.call("mafft --add temp.fasta "+gene+"_aligned.fasta > ../"+outdir+"/"+gene+"_aligned.fasta" ,shell=True)
 	subprocess.call("rm temp.fasta", shell=True)
 else:
 	print(gene+" not there!!!!")
