@@ -42,7 +42,7 @@ def retrieve(path_in):
 
     ls *trimmed.fasta > filelist.txt
 
-    /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv
+    python /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv
 
     touch /home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt
 
