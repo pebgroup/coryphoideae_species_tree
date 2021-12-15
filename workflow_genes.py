@@ -58,7 +58,7 @@ def mafft(gene, path_in, path_out, done):
     """Aligning all the sequences for each gene."""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt",path_in+gene+".FNA"]
     outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 4, 'memory': "40g", 'walltime': "06:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 8, 'memory': "60g", 'walltime': "06:00:00", 'account':"Coryphoideae"}
 
     spec = """
 
