@@ -58,7 +58,7 @@ def mafft(gene, path_in, path_out, done):
     """Aligning all the sequences for each gene."""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt",path_in+gene+".FNA"]
     outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 4, 'memory': "20g", 'walltime': "10:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 4, 'memory': "40g", 'walltime': "06:00:00", 'account':"Coryphoideae"}
 
     spec = """
 
@@ -78,10 +78,11 @@ def mafft(gene, path_in, path_out, done):
 # ########################################################################################################################
 # #############################################---- Exon Mapper ----######################################################
 # ########################################################################################################################
-def exon_map(path_in,done):
-    """Writing the ."""
-    inputs = []
-    outputs = [] 
+def exon_map(path_in,path_out,done,gene):
+    """This creates new alignments in `07_mapping` that contain the original alignments plus the exon sequences of the
+    two species that had the highest recovery success at each locus.."""
+    inputs = ["/home/owrisberg/Coryphoideae/work_flow/06_alignment/done/"+gene]
+    outputs = [done,path_out+gene+"_aligned.fasta"] 
     options = {'cores': 4, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
@@ -93,12 +94,17 @@ def exon_map(path_in,done):
     cd {path_in}
 
     # Running Wolfs Coverage tester
-    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py
+    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene}
 
     touch {done}
-    """.format(path_in=path_in, done=done)
+    """.format(path_in=path_in, done=done, gene=gene)
 
     return(inputs, outputs, options, spec)
+
+# ########################################################################################################################
+# #############################################---- Optrimal ----#########################################################
+# ########################################################################################################################
+
 
 
 ########################################################################################################################
@@ -123,6 +129,12 @@ for i in range(len(genes)):
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/done/"+genes[i]))
+
+    #### Running Exon_mapper
+    gwf.target_from_template('Exon_map_'+genes[i], exon_map(gene = genes[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/done/"+genes[i]))
 
 # gwf.target("Exon_mapper", exon_map(path_in=
 #                                     done="/home/owrisberg/Coryphoideae/work_flow/07_mapping/done/"+genes[i]))
