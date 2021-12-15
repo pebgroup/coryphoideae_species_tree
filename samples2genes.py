@@ -17,7 +17,7 @@
 from Bio import SeqIO
 from statistics import median 
 
-# get list of fasta files to split into genes
+# get list of fasta files to split into genes # This could potentially be written into GWF workflow as species as the filelist.txt is just a list of 
 files2parse = []
 with open("filelist.txt") as files:
 	for line in files:
@@ -27,8 +27,8 @@ with open("filelist.txt") as files:
 # key: gene name
 # item: list of seq records
 genes = {}
-for file2parse in files2parse: 
-	for record in SeqIO.parse(file2parse, "fasta"):
+for file2parse in files2parse: # this loops over each "species" in the files2parse vector
+	for record in SeqIO.parse(file2parse, "fasta"): # This loops over each 
 		sample_gene = record.id.split("_")
 		record.id = sample_gene[0]
 		if sample_gene[1] in genes.keys():
@@ -51,6 +51,6 @@ for gene, seq_set in genes.items():
 	seq_set_keep = [seq for length, seq in zip(lens, seq_set) if length>thres]
 	# write out if more than 3 sequences
 	if len(seq_set_keep) > 3:
-		with open('../06_blacklisting/'+gene+'.FNA', "w") as outfile:
+		with open('../05_blacklisting/'+gene+'.FNA', "w") as outfile:
 			SeqIO.write(seq_set_keep, outfile, "fasta")
 	print(gene+';'+str(round(median(lens)))+';'+str(len(seq_set))+';'+str(len(seq_set_keep))+';'+str(round(thres)))
