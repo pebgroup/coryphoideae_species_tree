@@ -126,7 +126,7 @@ The output from this program is saved in the file `paralog.txt`. This file lists
 ### Intronerate
 
 In order to generate the super contigs we need to run intronerate.
-Intronerate reruns exonarate but finds the introns instead of the exons. 
+Intronerate reruns exonarate but finds the introns instead of the exons.
 Run the `intronerate_batch.sh`
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run***
 
@@ -150,6 +150,8 @@ The Coverage.py script does the following:
 Then, in `04_coverage`, run:
 
 `ls *trimmed.fasta > filelist.txt`
+
+Samples2genes.py is a python script which gathers all the sequences from all species and sorts them into files for each gene.
 `/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv`
 
 * * *
@@ -166,7 +168,7 @@ In order to remove the troublesome species run the `blacklisting_batch.sh`. ***O
 
 ## 06\. Alignment
 
-From within `05_blacklisting` run MAFFT on all genes  
+From within "05_blacklisting" run MAFFT on all genes.
 `mafft_batch.sh`
 Aligned genes are found within `06_alignments`
 
@@ -214,7 +216,7 @@ Run the `treebuilder_batch.sh` script.
 The treebuilder script it will copy the files from `09_manual_edit/02_edited_alignments` into `09_manual_edit/04_alignments_for_trees` and perform the following on these alignments.
 
 This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as*_clean.fasta)
-If the exons of a specific gene are of unequal length the gene is added to a text file called badgenes.text. remember to have a look through this file.
+If the exons of a specific gene are of unequal length the gene is added to a text file called badgenes.text. *remember to have a look through this file*.
 
 it will then run IQtree on each gene within the directory, and add the genetrees to the genetrees.tre file in the `/home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree` folder.
 

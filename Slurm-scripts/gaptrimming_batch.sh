@@ -35,7 +35,7 @@ do
 
         for alignment in *.fasta
         do
-          trimal -in ${alignment} -out ${cutoff_trim}/${alignment} -htmlout ${cutoff_trim}/${alignment/.fasta}.htm -gt $cutoff_trim
+          trimal -in ${alignment} -out ${cutoff_trim}/${alignment} -htmlout ${cutoff_trim}/${alignment/.fasta}.html -gt $cutoff_trim
 
                 # check if alignment was trimmed to extinction by trimAl
 
