@@ -284,7 +284,7 @@ gwf.target_from_template('amas_raw', amas_preb_raw(path_in = "/home/owrisberg/Co
                                                     done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/amas_raw/amaw_raw_done.txt"))
 
 #Running optrim to find optimal trimming trimming threshold.
-gwf.target_from_template('amas_raw', optrim(path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
+gwf.target_from_template('optrim', optrim(path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
                                             done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/optrim/optrim_done.txt"))
 
 
