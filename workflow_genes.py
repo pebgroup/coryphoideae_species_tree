@@ -145,7 +145,7 @@ def amas_preb_gt(path_in,path_out,done,cut_off,gene):
     #Calculating amas summary
     AMAS.py summary -f fasta -d dna -i *.fasta
 
-    mv summary.txt ../summary_{cutoff_trim}.txt
+    mv summary.txt ../summary_{cut_off}.txt
 
     touch {done}
 
