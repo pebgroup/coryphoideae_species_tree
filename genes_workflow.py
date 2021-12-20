@@ -77,7 +77,7 @@ def mafft(gene, path_in, path_out, done):
     cd {path_in}
 
     #Aligning using mafft localpair which should be able to handle sequences flanking an alignable region.
-    mafft --localpair --large --adjustdirectionaccurately --thread 20 {gene}.FNA > {path_out}{gene}_aligned.fasta
+    mafft --globalpair --large --adjustdirectionaccurately --thread 20 {gene}.FNA > {path_out}{gene}_aligned.fasta
     
     touch {done}
 
@@ -283,7 +283,7 @@ for i in range(len(genes)):
 
     #### Running AMAS on the trimmed sequences for each gt value
 for j in range(len(gt_values)):
-    gwf.target_from_template('amas_gt_'+gt_values[j], amas_preb_gt(cut_off=gt_values[j],
+    gwf.target_from_template('amas_preb_gt_'+gt_values[j], amas_preb_gt(cut_off=gt_values[j],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/amas_gt/"+gt_values[j]))
