@@ -31,7 +31,7 @@ done
 			# Checking if a directory exists for the cutoff_trim
             if [[ -d "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/${cutoff_trim}" ]]
 			then
-     			"${cutoff_trim} folder exists."
+     			echo "${cutoff_trim} folder exists."
 			else
 				mkdir $cutoff_trim
 			fi 

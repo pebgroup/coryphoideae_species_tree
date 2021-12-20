@@ -1,9 +1,18 @@
 '''
 ------------------------------------------------------------------------------------------------------------------------
-This workflow is used to produce the phylogeny for the Coryphoideae:
+This workflow is used to treat the gene sequences in order to make them ready for tree building:
 This part of the workflow starts by collecting all the fasta files from the different species and sorting them into files
 based on which gene they come from. This produces a set of files each with a gene name and each file contains all the
-sequences from that gene,
+sequences from that gene.
+
+These gene files are then aligned using mafft, and then trimmed using trimmomatic with different treshold values ranging 
+from 0.10 to 0.95. 
+
+The parsimony informative bases are then counted for all the genes for all the cutoff values and the best treshold value
+?for each gene? Is determined using optrimal.R
+
+The trimmed genes are then transferred to 09_manual_edit for inspection after which the trees_workflow.py can be run to
+produce the trees.
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -270,7 +279,7 @@ for i in range(len(genes)):
     gwf.target_from_template('gt_trimming_'+genes[i], optrim_preb(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/trimal_get/"+genes[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/trimal_gt/"+genes[i]))
 
     #### Running AMAS on the trimmed sequences for each gt value
 for j in range(len(gt_values)):
