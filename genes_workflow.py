@@ -122,7 +122,7 @@ def optrim_preb(path_in,done,gene,path_out):
     inputs = [path_in+gene+"_aligned.fasta"]
     outputs = [path_out+gene+"_aligned.fasta",path_out+"0.1/"+gene+"_aligned.fasta",path_out+"0.15/"+gene+"_aligned.fasta",path_out+"0.20/"+gene+"_aligned.fasta",path_out+"0.25/"+gene+"_aligned.fasta",path_out+"0.3/"+gene+"_aligned.fasta",
     path_out+"0.33/"+gene+"_aligned.fasta",path_out+"0.4/"+gene+"_aligned.fasta",path_out+"0.45/"+gene+"_aligned.fasta",path_out+"0.5/"+gene+"_aligned.fasta",path_out+"0.55/"+gene+"_aligned.fasta",path_out+"0.6/"+gene+"_aligned.fasta",
-    path_out+"0.67/"+gene+"_aligned.fasta",path_out+"0.7/"+gene+"_aligned.fasta",path_out+"0.75/"+gene+"_aligned.fasta",path_out+"0.8/"+gene+"_aligned.fasta",path_out+"0.85/"+gene+"_aligned.fasta",path_out+"0.9/"+gene+"_aligned.fasta",path_out+"0.95/"+gene+"_aligned.fasta"] 
+    path_out+"0.67/"+gene+"_aligned.fasta"] 
     options = {'cores': 10, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
