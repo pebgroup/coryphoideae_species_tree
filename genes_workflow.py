@@ -117,12 +117,12 @@ def exon_map(path_in,path_out,done,gene):
 # #############################################---- Optrimal ----#########################################################
 # ########################################################################################################################
 
-def optrim_preb(path_in,done,gene,path_out):
+def gt_trimming(path_in,done,gene,path_out):
     """ trimming all alignments for each of the GT values specified"""
     inputs = [path_in+gene+"_aligned.fasta"]
     outputs = [path_out+gene+"_aligned.fasta",path_out+"0.1/"+gene+"_aligned.fasta",path_out+"0.15/"+gene+"_aligned.fasta",path_out+"0.20/"+gene+"_aligned.fasta",path_out+"0.25/"+gene+"_aligned.fasta",path_out+"0.3/"+gene+"_aligned.fasta",
     path_out+"0.33/"+gene+"_aligned.fasta",path_out+"0.4/"+gene+"_aligned.fasta",path_out+"0.45/"+gene+"_aligned.fasta",path_out+"0.5/"+gene+"_aligned.fasta",path_out+"0.55/"+gene+"_aligned.fasta",path_out+"0.6/"+gene+"_aligned.fasta",
-    path_out+"0.67/"+gene+"_aligned.fasta"] 
+    path_out+"0.67/"+gene+"_aligned.fasta",path_out+"0.7/"+gene+"_aligned.fasta",path_out+"0.75/"+gene+"_aligned.fasta",path_out+"0.80/"+gene+"_aligned.fasta",path_out+"0.85/"+gene+"_aligned.fasta",path_out+"0.90/"+gene+"_aligned.fasta",path_out+"0.95/"+gene+"_aligned.fasta"] 
     options = {'cores': 10, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
@@ -276,7 +276,7 @@ for i in range(len(genes)):
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/done/"+genes[i]))
 
     #### Running optrim_preb
-    gwf.target_from_template('gt_trimming_'+genes[i], optrim_preb(gene = genes[i],
+    gwf.target_from_template('gt_trimming_'+genes[i], gt_trimming(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/trimal_gt/"+genes[i]))
