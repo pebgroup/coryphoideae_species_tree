@@ -68,7 +68,7 @@ def mafft(gene, path_in, path_out, done):
     """Aligning all the sequences for each gene."""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt",path_in+gene+".FNA"]
     outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 20, 'memory': "100g", 'walltime': "48:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 1, 'memory': "500g", 'walltime': "48:00:00", 'account':"Coryphoideae"}
 
     spec = """
 
@@ -77,7 +77,7 @@ def mafft(gene, path_in, path_out, done):
     cd {path_in}
 
     #Aligning using mafft localpair which should be able to handle sequences flanking an alignable region.
-    mafft --globalpair --large --adjustdirectionaccurately --thread 20 {gene}.FNA > {path_out}{gene}_aligned.fasta
+    mafft --globalpair --large --adjustdirectionaccurately --thread 1 {gene}.FNA > {path_out}{gene}_aligned.fasta
     
     touch {done}
 
