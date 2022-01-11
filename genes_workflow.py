@@ -205,7 +205,7 @@ def optrim(path_in,done):
     inputs = [path_in+"summary_0.txt",path_in+"summary_0.1.txt",path_in+"summary_0.15.txt",path_in+"summary_0.20.txt",path_in+"summary_0.25.txt",path_in+"summary_0.3.txt",
     path_in+"summary_0.33.txt",path_in+"summary_0.4.txt",path_in+"summary_0.45.txt",path_in+"summary_0.5.txt",path_in+"summary_0.55.txt",path_in+"summary_0.6.txt",path_in+"summary_0.67.txt",
     path_in+"summary_0.7.txt",path_in+"summary_0.75.txt",path_in+"summary_0.8.txt",path_in+"summary_0.85.txt",path_in+"summary_0.9.txt",path_in+"summary_0.95.txt"]
-    outputs = []
+    outputs = [done]
     options = {'cores': 10, 'memory': "20g", 'walltime': "08:00:00", 'account':"Coryphoideae"}
 
     spec="""
