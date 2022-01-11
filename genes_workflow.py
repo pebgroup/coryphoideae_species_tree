@@ -213,7 +213,7 @@ def optrim(path_in,done):
     #Going to folder with trimmed files
     cd {path_in}
 
-    Rscript --vanilla /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/optrimAl.R
+    Rscript --vanilla /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/optrimal.R
 
     touch {done}
 
