@@ -177,7 +177,7 @@ def amas_preb_raw(path_in,path_out,done):
     path_in+"HEY977_aligned.fasta",path_in+"HEY982_aligned.fasta",path_in+"HEY985_aligned.fasta",path_in+"HEY989_aligned.fasta"]
 
     outputs = [path_out+"summary_0.txt",done]
-    options = {'cores': 10, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 10, 'memory': "50g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
 
