@@ -24,7 +24,7 @@ gwf = Workflow()
 # #########################################---- Copying alignments ----###################################################
 # ########################################################################################################################
 
-def partitioner(path_in,done, gene):
+def partitioner(path_in, gene):
     """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments/"+gene+"_aligned.fasta"]
     outputs = [path_in+gene+"_aligned.part.txt",path_in+gene+"_aligned.clean.fasta"]
@@ -56,7 +56,7 @@ def partitioner(path_in,done, gene):
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --{gene}
 
 
-    """.format(path_in = path_in, done=done, gene = gene)
+    """.format(path_in = path_in, gene = gene)
 
     return (inputs, outputs, options, spec)
 
