@@ -30,18 +30,14 @@ def partitioner(path_in, gene):
     outputs = [path_in+gene+"_aligned.part.txt",path_in+gene+"_aligned.clean.fasta"]
     options = {'cores': 10, 'memory': "30g", 'walltime': "00:40:00", 'account':"Coryphoideae"}
 
-
-	#The partitioner should produce 2 files for each gene
-#one file called {gene}_aligned_part.txt which is the partitioning file
-#another called {gene}_aligned_clean.fasta which are just the sequences without the exons
-
     spec = """
 
 	source activate treebuilder_env
 
 	#Removing files used for last round of tree searching
 	cd {path_in}
-	rm {gene}*
+	rm {gene}_aligned_part.txt
+	rm {gene}_aligned_clean.fasta
 
 	#Copying manually edited genes
 	cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
@@ -53,6 +49,7 @@ def partitioner(path_in, gene):
 	#The partitioner should produce 2 files for each gene
 	#one file called gene_aligned_part.txt which is the partitioning file
 	#another called gene_aligned_clean.fasta which are just the sequences without the exons
+
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --{gene}
 
 
