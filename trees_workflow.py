@@ -41,11 +41,11 @@ def partitioner(path_in, gene):
 
 	#Removing files used for last round of tree searching
 	cd {path_in}
-	rm *.fasta
+	rm {gene}*
 
 	#Copying manually edited genes
 	cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
-	cp *.fasta ../04_alignments_for_trees
+	cp {gene}_aligned.fasta ../04_alignments_for_trees
 
 	#Going to folder with data
 	cd {path_in}
