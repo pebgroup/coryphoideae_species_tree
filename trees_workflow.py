@@ -62,43 +62,28 @@ def partitioner(path_in, gene):
 # #############################################---- IQ-tree ----#############################################################
 # ########################################################################################################################
 
-# def iq_tree(path_in, gene, ):
-#     """Using Iq-tree to produce trees for each gene"""
-#     inputs = [path_in+gene+"_aligned_part.txt"]
-#     outputs = []
-#     options = {'cores': 20, 'memory': "10g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
+def iq_tree(path_in, gene,path_out ):
+    """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
+    inputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta"]
+    outputs = [path_out+gene+"_part.txt.tre"]
+    options = {'cores': 20, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
-#     spec = """
+    spec = """
 
-# 	#IQtree genetree search
-# 	for f in *_part.txt; do (cp $f ${f/_part.txt}_clean.part); done
+	source activate treebuilder_env
 
-# 	cp {gene} 
+	cd {path_in}
 
-# 	for f in *_aligned_clean.fasta
-# 	do
-# 		if [[$f -a ]] && [["${f/_aligned_clean_fasta}_aligned_part.txt" -a ]]
-# 		then 
-# 			ls *clean.fasta | parallel -j 6 iqtree2 -s {} -T AUTO -ntmax 4 -p {.}.part -B 1000
-# 		else
-# 			echo "Skipping gene" $f
-# 			continue
-# 		fi
-# 	done
+	#Actual IQtree tree search. 
+	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned.part.txt -B 1000
 
 
-# 	#Clean up and file transfer
-# 		for f in *_aligned_clean.fasta 
-# 	do
-# 		mv ${f/clean.fasta}clean.part.treefile /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees/${f/clean.fasta}part.txt.tre
-# 		mv ${f/clean.fasta}part.txt* /home/owrisberg/Coryphoideae/work_flow/11_tree_building/01_genetrees #This works
-# 	 	mv ${f/_aligned_clean.fasta}.fasta 05_alignments_used_in_trees
-# 	 	rm ${f}
-# 	done
+	mv {gene}_clean.part.treefile {path_out}{gene}_part.txt.tre
 
-# 	""".format(path_in = path_in, gene = gene)
 
-#     return (inputs, outputs, options, spec)
+	""".format(path_in = path_in, gene = gene, path_out=path_out)
+
+    return (inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
@@ -123,5 +108,9 @@ for i in range(len(genes)):
     #### Running Mafft
     gwf.target_from_template('Partition_'+genes[i], partitioner(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees/"))
+
+	gwf.target_from_template('IQtree_'+genes[i], iq_tree(gene = genes[i],
+	                                                    path_in = "/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees/",
+														path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
 
     
