@@ -36,8 +36,8 @@ def partitioner(path_in, gene):
 
 	#Removing files used for last round of tree searching
 	cd {path_in}
-	[-f {gene}_aligned_part.txt] && rm {gene}_aligned_part.txt || echo "{gene}_aligned_part.txt does not exist"
-	[-f {gene}_aligned_clean.fasta] && rm {gene}_aligned_clean.fasta || echo "{gene}_aligned_clean.fasta does not exist"
+	[ -f {gene}_aligned_part.txt ] && rm {gene}_aligned_part.txt || echo "{gene}_aligned_part.txt does not exist"
+	[ -f {gene}_aligned_clean.fasta ] && rm {gene}_aligned_clean.fasta || echo "{gene}_aligned_clean.fasta does not exist"
 
 	#Copying manually edited genes
 	cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
@@ -50,7 +50,7 @@ def partitioner(path_in, gene):
 	#one file called gene_aligned_part.txt which is the partitioning file
 	#another called gene_aligned_clean.fasta which are just the sequences without the exons
 
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --{gene}
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene}
 
 
     """.format(path_in = path_in, gene = gene)
