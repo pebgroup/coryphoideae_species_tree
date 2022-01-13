@@ -78,7 +78,7 @@ def iq_tree(path_in, gene,path_out ):
 	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned_part.txt -B 1000
 
 
-	mv {gene}_clean.part.treefile {path_out}{gene}_part.txt.tre
+	mv {gene}_aligned_part.txt.treefile {path_out}{gene}_part.txt.tre
 
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
@@ -102,11 +102,17 @@ def rename_reroot(path_in, gene,path_out ):
 
 	cd {path_in}
 
-	#Actual IQtree tree search. 
-	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned.part.txt -B 1000
+	for f in *.tre
+	do 
+		echo Removing {gene} from tip labels
+		python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/genenameremover.py $f ${f/_aligned_part.txt.tre} #Removes gene-name
+		
+		python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py $f #Roots the phylogeny with outgroup
+		nw_ed temp.tre 'i & (b<30)' o >> /home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree/genetrees.tre #Moves trees used in treebuilding
+		rm temp.tre
+	done
 
 
-	mv {gene}_clean.part.treefile {path_out}{gene}_part.txt.tre
 
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
