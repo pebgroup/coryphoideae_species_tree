@@ -75,7 +75,7 @@ def iq_tree(path_in, gene,path_out ):
 	cd {path_in}
 
 	#Actual IQtree tree search. 
-	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned.part.txt -B 1000
+	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned_part.txt -B 1000
 
 
 	mv {gene}_clean.part.treefile {path_out}{gene}_part.txt.tre
@@ -87,9 +87,31 @@ def iq_tree(path_in, gene,path_out ):
 
 
 # ########################################################################################################################
-# #############################################---- IQ-tree ----#############################################################
+# #############################################---- Renaming & Rerooting ----#############################################################
 # ########################################################################################################################
+def rename_reroot(path_in, gene,path_out ):
+    """Using genenameremover to remove the gene names from all the tip labels
+	And using rerooter.py to root each individual gene tree based on the available outgroup"""
+    inputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta"]
+    outputs = [path_out+gene+"_part.txt.tre"]
+    options = {'cores': 20, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
+    spec = """
+
+	source activate treebuilder_env
+
+	cd {path_in}
+
+	#Actual IQtree tree search. 
+	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned.part.txt -B 1000
+
+
+	mv {gene}_clean.part.treefile {path_out}{gene}_part.txt.tre
+
+
+	""".format(path_in = path_in, gene = gene, path_out=path_out)
+
+    return (inputs, outputs, options, spec)
 
 
 ########################################################################################################################
