@@ -50,7 +50,7 @@ def partitioner(path_in, gene):
 	#one file called gene_aligned_part.txt which is the partitioning file
 	#another called gene_aligned_clean.fasta which are just the sequences without the exons
 
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene}
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene}_aligned.fasta
 
 
     """.format(path_in = path_in, gene = gene)
