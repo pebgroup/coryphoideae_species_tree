@@ -36,14 +36,14 @@ def partitioner(path_in, gene):
 
 	#Removing files used for last round of tree searching
 	cd {path_in}
-	if [[ -f {gene}_aligned_part.txt]]
+	if [[-f {gene}_aligned_part.txt]];
 	then
 		rm {gene}_aligned_part.txt
 	else
 		echo "{gene}_aligned_part.txt does not exist"
 	fi
 
-	if [[ -f {gene}_aligned_clean.fasta]]
+	if [[ -f {gene}_aligned_clean.fasta]];
 	then
 		rm {gene}_aligned_clean.fasta
 	else
