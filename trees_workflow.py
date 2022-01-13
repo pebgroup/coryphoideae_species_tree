@@ -36,20 +36,8 @@ def partitioner(path_in, gene):
 
 	#Removing files used for last round of tree searching
 	cd {path_in}
-	if [[-f {gene}_aligned_part.txt]];
-	then
-		rm {gene}_aligned_part.txt
-	else
-		echo "{gene}_aligned_part.txt does not exist"
-	fi
-
-	if [[ -f {gene}_aligned_clean.fasta]];
-	then
-		rm {gene}_aligned_clean.fasta
-	else
-		echo "{gene}_aligned_clean.fasta does not exist"
-	fi
-	
+	[-f {gene}_aligned_part.txt] && rm {gene}_aligned_part.txt || echo "{gene}_aligned_part.txt does not exist"
+	[-f {gene}_aligned_clean.fasta] && rm {gene}_aligned_clean.fasta || echo "{gene}_aligned_clean.fasta does not exist"
 
 	#Copying manually edited genes
 	cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
