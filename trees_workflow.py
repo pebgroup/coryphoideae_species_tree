@@ -168,5 +168,5 @@ for i in range(len(genes)):
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
 
 # Gathering Genetrees into single file and contracting low support branches
-gwf.target_from_template('RR_'+genes[i], newick_contracting(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees",
+gwf.target_from_template('Newick_Contracting', newick_contracting(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
