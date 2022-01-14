@@ -195,7 +195,7 @@ Create a file called cutoff_trim.txt with the -gt values which should be tested.
 Run the `gaptrimming_batch.sh` script.
 
 This will a folder for each of the -gt values.
-In each of these folders there will be created a .fasta file, a .htm file and a noempty.fasta file for each gene.
+In each of these folders there will be created a .fasta file, a .html file and a noempty.fasta file for each gene.
 in addition a summary file for the trimal process will also be created in the folder.
 
 * * *
