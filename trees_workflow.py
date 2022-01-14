@@ -143,6 +143,58 @@ def newick_contracting(path_in,path_out ):
 
 
 
+# ########################################################################################################################
+# #####################################---- Astral Tree Search ----#####################################################
+# ########################################################################################################################
+def astral(path_in, gene_tree_file):
+    """Using Astral to construct a species tree based on the genetrees"""
+    inputs = [path_in+"genetrees.tre"]
+    outputs = [path_in+"astral_tree.tre"]
+    options = {'cores': 20, 'memory': "40g", 'walltime': "10:30:00", 'account':"Coryphoideae"}
+
+    spec = """
+
+	source activate treebuilder_env
+
+	cd {path_in}
+
+	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i {gene_tree_file} -o astral_tree.tre  2> astral.log
+
+
+	""".format(path_in = path_in, gene_tree_file = gene_tree_file)
+
+    return (inputs, outputs, options, spec)
+
+
+# ########################################################################################################################
+# ############################################---- Quartetscores ----#####################################################
+# ########################################################################################################################
+def quartet_scores(path_in):
+    """Using Astral to construct a species tree based on the genetrees"""
+    inputs = [path_in+"genetrees.tre", path_in+"astral_tree.tre"]
+    outputs = [path_in+"astral_tree_QS_renamed.tre"]
+    options = {'cores': 20, 'memory': "40g", 'walltime': "10:30:00", 'account':"Coryphoideae"}
+
+    spec = """
+
+	source activate treebuilder_env
+
+	cd {path_in}
+
+	#Running quartet scores
+    /home/owrisberg/Coryphoideae/github_code/QuartetScores -o astral_tree_QS.tre -e genetrees.tre -r astral_tree.tre -v
+
+	#Correcting labels from Quartetscores
+	sed astral_tree_QS.tre -i'.old' -e s/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-*[0-9]\.[0-9]*;lq-ic:-*[0-9]\.[0-9]*;eqp-ic:\(-*[0-9]\.[0-9]*\)\]/\2\1/g`
+	sed astral_tree_QS.tre -i'.old' -e 's/\[eqp-ic:-*[0-9]\.*[0-9]*\]//g`
+
+	#Renaming tips in tree
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1
+
+	""".format(path_in = path_in)
+
+    return (inputs, outputs, options, spec)
+
 
 ########################################################################################################################
 ######################################################---- RUN ----#####################################################
@@ -170,3 +222,10 @@ for i in range(len(genes)):
 # Gathering Genetrees into single file and contracting low support branches
 gwf.target_from_template('Newick_Contracting', newick_contracting(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
+
+# Running Astral on the Genetrees
+gwf.target_from_template('Astral', astral(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
+                                                        gene_tree_file="genetrees.tre"))
+
+#Running Quartet scores and renaming tips
+gwf.target_from_template('Quartet_Scores', quartet_scores(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
