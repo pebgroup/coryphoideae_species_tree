@@ -66,7 +66,7 @@ rm -f /home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree
 echo "Done with cleanup"
 echo "Starting rerooting of genetrees"
 
-#Some rerooting, removing og gene in species name and general cleanup
+#Some rerooting, removing of gene in species name and general cleanup
 for f in *.tre
 do 
 	echo $f ${f/_aligned_part.txt.tre}

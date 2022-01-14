@@ -215,6 +215,8 @@ def optrim(path_in,done):
 
     Rscript --vanilla /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/optrimal.R
 
+    mv dldp_* optrim_output/
+
     touch {done}
 
     """.format(path_in=path_in, done=done)
