@@ -41,6 +41,7 @@ def partitioner(path_in, gene):
 
 	#Copying manually edited genes
 	cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
+	echo "copying {gene} into folder 04_alignments_for_trees"
 	cp {gene}_aligned.fasta ../04_alignments_for_trees
 
 	#Going to folder with data
