@@ -131,6 +131,9 @@ def newick_contracting(path_in,path_out ):
 
 	source activate treebuilder_env
 
+	echo "this is the path in: {path_in}"
+	echo "this is the path out: {path_out}"
+
 	cd {path_in}
 
 	for f in *_rooted.tre
