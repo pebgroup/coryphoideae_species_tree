@@ -136,9 +136,10 @@ def newick_contracting(path_in,path_out ):
 
 	cd {path_in}
 
+
 	for f in *_rooted.tre
 	do 
-		nw_ed temp.tre 'i & (b<30)' o >> {path_out}genetrees.tre #Moves trees used in treebuilding
+		nw_ed $f 'i & (b<30)' o >> {path_out}genetrees.tre #Moves trees used in treebuilding
 
 	done
 
