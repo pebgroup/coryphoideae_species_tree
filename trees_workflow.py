@@ -173,11 +173,34 @@ def astral(path_in, gene_tree_file):
 
 
 # ########################################################################################################################
+# ############################################---- Renaming ----#####################################################
+# ########################################################################################################################
+def renaming(path_in):
+    """Reneming the tips in the phylogeny based on the names_for_tips.csv"""
+    inputs = [path_in+"astral_tree.tre"]
+    outputs = [path_in+"astral_tree_renamed.tre"]
+    options = {'cores': 1, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
+
+    spec = """
+
+	source activate treebuilder_env
+
+	cd {path_in}
+
+	#Renaming tips in tree
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree.tre astral_tree_renamed.tre --bs 1
+
+	""".format(path_in = path_in)
+
+    return (inputs, outputs, options, spec)
+
+
+# ########################################################################################################################
 # ############################################---- Quartetscores ----#####################################################
 # ########################################################################################################################
 def quartet_scores(path_in):
     """Using Astral to construct a species tree based on the genetrees"""
-    inputs = [path_in+"genetrees.tre", path_in+"astral_tree.tre"]
+    inputs = [path_in+"genetrees.tre", path_in+"astral_tree_renamed.tre"]
     outputs = [path_in+"astral_tree_QS_renamed.tre"]
     options = {'cores': 20, 'memory': "40g", 'walltime': "10:30:00", 'account':"Coryphoideae"}
 
@@ -194,8 +217,6 @@ def quartet_scores(path_in):
 	sed astral_tree_QS.tre -i'.old' -e s/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-*[0-9]\.[0-9]*;lq-ic:-*[0-9]\.[0-9]*;eqp-ic:\(-*[0-9]\.[0-9]*\)\]/\2\1/g`
 	sed astral_tree_QS.tre -i'.old' -e 's/\[eqp-ic:-*[0-9]\.*[0-9]*\]//g`
 
-	#Renaming tips in tree
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1
 
 	""".format(path_in = path_in)
 
@@ -233,5 +254,8 @@ gwf.target_from_template('Newick_Contracting', newick_contracting(path_in = "/ho
 gwf.target_from_template('Astral', astral(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
                                                         gene_tree_file="genetrees.tre"))
 
-#Running Quartet scores and renaming tips
-gwf.target_from_template('Quartet_Scores', quartet_scores(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
+# Renaming the tips
+gwf.target_from_template('Renaming', renaming(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
+
+# Running Quartet scores
+#gwf.target_from_template('Quartet_Scores', quartet_scores(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
