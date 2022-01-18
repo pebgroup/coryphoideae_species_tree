@@ -27,7 +27,7 @@ with open(args.mapping, mode='r', encoding='utf-8-sig') as f:
 			tree = re.sub(rf',{searchterm}\)',','+LINE[1]+')',tree)
 		else: 
 			tree = re.sub(rf'\({searchterm},','('+LINE[1]+',',tree) # comma after searchterm used to be an :
-			tree = re.sub(rf',{searchterm})',','+LINE[1]+')',tree) # ) after searchterm used to be an :
+			tree = re.sub(rf',{searchterm}\)',','+LINE[1]+')',tree) # ) after searchterm used to be an :
 
 with open(args.outfile, "w") as f:
 	print(tree,file=f)
