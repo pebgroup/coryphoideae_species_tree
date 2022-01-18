@@ -21,13 +21,13 @@ with open(args.mapping, mode='r', encoding='utf-8-sig') as f:
 		line = line.strip()
 		LINE = line.split(",")
 		searchterm = LINE[0]
-		print("this is LINE[0] ",LINE[0]," and this is LINE[1] ", LINE[1])
+		print("Replacing ",LINE[0]," with ", LINE[1])
 		if args.bs == 0:
 			tree = re.sub(rf'\({searchterm},','('+LINE[1]+',',tree)
 			tree = re.sub(rf',{searchterm}\)',','+LINE[1]+')',tree)
 		else: 
-			tree = re.sub(rf'\({searchterm}:','('+LINE[1]+':',tree)
-			tree = re.sub(rf',{searchterm}:',','+LINE[1]+':',tree)
+			tree = re.sub(rf'\({searchterm},','('+LINE[1]+',',tree) # comma after searchterm used to be an :
+			tree = re.sub(rf',{searchterm})',','+LINE[1]+')',tree) # ) after searchterm used to be an :
 
 with open(args.outfile, "w") as f:
 	print(tree,file=f)
