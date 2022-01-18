@@ -188,7 +188,7 @@ def renaming(path_in):
 	cd {path_in}
 
 	#Renaming tips in tree
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree.tre astral_tree_renamed.tre --bs 1
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree.tre astral_tree_renamed.tre --bs 0
 
 	""".format(path_in = path_in)
 
