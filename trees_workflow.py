@@ -164,7 +164,7 @@ def astral(path_in, gene_tree_file):
 
 	cd {path_in}
 
-	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i {gene_tree_file} -o astral_tree.tre  2> astral.log
+	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i {gene_tree_file} -o astral_tree.tre
 
 
 	""".format(path_in = path_in, gene_tree_file = gene_tree_file)

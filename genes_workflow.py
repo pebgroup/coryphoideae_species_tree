@@ -105,7 +105,7 @@ def exon_map(path_in,path_out,done,gene):
     #Going to folder with data
     cd {path_in}
 
-    # Running Wolfs Coverage tester
+    # Running Wolfs Exon_mapper
     python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene}
 
     touch {done}
@@ -295,17 +295,3 @@ gwf.target_from_template('optrim', optrim(path_in = "/home/owrisberg/Coryphoidea
 
 
 
-# gwf.target("Exon_mapper", exon_map(path_in=
-#                                     done="/home/owrisberg/Coryphoideae/work_flow/07_mapping/done/"+genes[i]))
-                                                                      
-    # #### make psmc input
-    # gwf.target_from_template('makePSMCInput100kb_masked'+sp[i], make_input(inp = "psmc/diploid100kb_masked.fq.gz",
-    #                                                                      out = "psmc/diploid100kb_masked.psmcfa",
-    #                                                                      path = "/home/juraj/megaFauna/results/"+sp[i]+"/",
-    #                                                                      done = "done/makePSMCInput100kb_masked"+sp[i]))
-
-    # #### run psmc
-    # gwf.target_from_template('runPSMC100kb_masked'+sp[i], run_psmc(inp = "psmc/diploid100kb_masked.psmcfa",
-    #                                                              out = "psmc/diploid100kb_masked.psmc",
-    #                                                              path = "/home/juraj/megaFauna/results/"+sp[i]+"/",
-    #                                                              done = "done/runPSMC100kb_masked"+sp[i]))
