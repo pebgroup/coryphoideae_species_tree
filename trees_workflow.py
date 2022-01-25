@@ -66,7 +66,7 @@ def partitioner(path_in, gene):
 def iq_tree(path_in, gene,path_out ):
     """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
     inputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta"]
-    outputs = [path_out+gene+"_part.txt.tre"]
+    outputs = [path_out+gene+".txt.tre"]
     options = {'cores': 20, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -78,8 +78,10 @@ def iq_tree(path_in, gene,path_out ):
 	#Actual IQtree tree search. 
 	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned_part.txt -B 1000 -redo
 
+	sed -i 's/_R_//g' {gene}_aligned_part.txt.treefile
 
-	mv {gene}_aligned_part.txt.treefile {path_out}{gene}_part.txt.tre
+
+	mv {gene}_aligned_part.txt.treefile {path_out}{gene}.txt.tre
 
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
@@ -104,10 +106,10 @@ def rename_reroot(path_in, gene):
 	cd {path_in}
 
 	echo Removing {gene} from tip labels
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/genenameremover.py --gene {gene} --treefile {gene}_part.txt.tre
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/genenameremover.py --gene {gene} --treefile {gene}.txt.tre
 
 	echo Rerooting each genetree based on the outgroup	
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py --gene {gene} --treefile {gene}_part.txt.tre 
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py --gene {gene} --treefile {gene}.txt.tre 
 
 
 	""".format(path_in = path_in, gene = gene)
@@ -223,6 +225,30 @@ def quartet_scores(path_in):
     return (inputs, outputs, options, spec)
 
 
+# ########################################################################################################################
+# #####################################---- Astral Tree annotation ----#####################################################
+# ########################################################################################################################
+def astral_annotation(path_in, gene_tree_file, species_tree_file):
+    """Using Astral to construct a species tree based on the genetrees"""
+    inputs = [path_in+"genetrees.tre", path_in+species_tree_file]
+    outputs = [path_in+"astral_tree_annotated.tre"]
+    options = {'cores': 20, 'memory': "40g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
+
+    spec = """
+
+	source activate treebuilder_env
+
+	cd {path_in}
+
+	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -q {species_tree_file} -i {gene_tree_file} -o astral_tree_annotated.tre
+
+
+	""".format(path_in = path_in, gene_tree_file = gene_tree_file, species_tree_file = species_tree_file)
+
+    return (inputs, outputs, options, spec)
+
+
+
 ########################################################################################################################
 ######################################################---- RUN ----#####################################################
 ########################################################################################################################
@@ -259,3 +285,8 @@ gwf.target_from_template('Renaming', renaming(path_in = "/home/owrisberg/Corypho
 
 # Running Quartet scores
 #gwf.target_from_template('Quartet_Scores', quartet_scores(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
+
+# Running Astral on the Genetrees
+gwf.target_from_template('Astral_annotation', astral_annotation(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
+                                                        gene_tree_file="genetrees.tre",
+														species_tree_file="astral_tree.tre"))
