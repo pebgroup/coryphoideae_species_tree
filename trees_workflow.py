@@ -240,7 +240,7 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file):
 
 	cd {path_in}
 
-	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -q {species_tree_file} -i {gene_tree_file} -o astral_tree_annotated.tre
+	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -q {species_tree_file} -i {gene_tree_file} -t 2 -o astral_tree_annotated.tre
 
 
 	""".format(path_in = path_in, gene_tree_file = gene_tree_file, species_tree_file = species_tree_file)
