@@ -265,10 +265,10 @@ def quartet_scores(path_in):
 # ########################################################################################################################
 # #####################################---- Astral Tree annotation ----#####################################################
 # ########################################################################################################################
-def astral_annotation(path_in, gene_tree_file, species_tree_file):
+def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
     """Using Astral to construct a species tree based on the genetrees"""
     inputs = [path_in+"genetrees.tre", path_in+species_tree_file]
-    outputs = [path_in+"astral_tree_annotated.tre"]
+    outputs = [path_in+outfile]
     options = {'cores': 20, 'memory': "40g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -277,10 +277,10 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file):
 
 	cd {path_in}
 
-	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -q {species_tree_file} -i {gene_tree_file} -t 2 -o astral_tree_annotated.tre
+	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -q {species_tree_file} -i {gene_tree_file} -t 2 -o {outfile}
 
 
-	""".format(path_in = path_in, gene_tree_file = gene_tree_file, species_tree_file = species_tree_file)
+	""".format(path_in = path_in, gene_tree_file = gene_tree_file, species_tree_file = species_tree_file, outfile=outfile)
 
     return (inputs, outputs, options, spec)
 
@@ -331,7 +331,8 @@ gwf.target_from_template('Renaming', renaming(path_in = "/home/owrisberg/Corypho
 # Running Astral_annotation on the Genetrees
 gwf.target_from_template('Astral_annotation', astral_annotation(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
                                                         gene_tree_file="genetrees.tre",
-														species_tree_file="astral_tree.tre"))
+														species_tree_file="astral_tree.tre",
+														outfile="astral_tree_annotated.tre"))
 
 
 
@@ -360,4 +361,5 @@ gwf.target_from_template('Renaming_orthologs', renaming(path_in = "/home/owrisbe
 # Running Astral_annotation on the Genetrees
 gwf.target_from_template('Astral_annotation_orthologs', astral_annotation(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
                                                         gene_tree_file="genetrees_orthologs.tre",
-														species_tree_file="astral_tree_orthologs.tre"))
+														species_tree_file="astral_tree_orthologs.tre",
+														outfile="astral_tree_orthologs_annotated.tre"))
