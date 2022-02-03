@@ -214,10 +214,10 @@ def astral(path_in, gene_tree_file,output):
 # ########################################################################################################################
 # ############################################---- Renaming ----#####################################################
 # ########################################################################################################################
-def renaming(path_in, tree):
+def renaming(path_in, tree_in, tree_out):
     """Reneming the tips in the phylogeny based on the names_for_tips.csv"""
-    inputs = [path_in+"astral_tree.tre"]
-    outputs = [path_in+"astral_tree_renamed.tre"]
+    inputs = [path_in+tree_in]
+    outputs = [path_in+tree_out]
     options = {'cores': 1, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -227,9 +227,9 @@ def renaming(path_in, tree):
 	cd {path_in}
 
 	#Renaming tips in tree
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree} astral_tree_renamed.tre --bs 1
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree} {tree_out} --bs 1
 
-	""".format(path_in = path_in, tree=tree)
+	""".format(path_in = path_in, tree_in=tree_in, tree_out=tree_out)
 
     return (inputs, outputs, options, spec)
 
@@ -322,7 +322,8 @@ gwf.target_from_template('Astral', astral(path_in = "/home/owrisberg/Coryphoidea
 
 # Renaming the tips
 gwf.target_from_template('Renaming', renaming(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
-                                                        tree="astral_tree.tre"))
+                                                        tree_in="astral_tree.tre",
+														tree_out="astral_tree_renamed.tre"))
 
 # Running Quartet scores
 #gwf.target_from_template('Quartet_Scores', quartet_scores(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
@@ -350,7 +351,8 @@ gwf.target_from_template('Astral_orthologs', astral(path_in = "/home/owrisberg/C
 
 # Renaming the tips
 gwf.target_from_template('Renaming_orthologs', renaming(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
-                                                        tree="astral_tree_orthologs.tre"))
+                                                        tree_in="astral_tree_orthologs.tre",
+														tree_out="astral_tree_orthologs_renamed"))
 
 # Running Quartet scores
 #gwf.target_from_template('Quartet_Scores', quartet_scores(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
