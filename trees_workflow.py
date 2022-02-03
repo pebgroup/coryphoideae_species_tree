@@ -227,7 +227,7 @@ def renaming(path_in, tree_in, tree_out):
 	cd {path_in}
 
 	#Renaming tips in tree
-	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree} {tree_out} --bs 1
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree_in} {tree_out} --bs 1
 
 	""".format(path_in = path_in, tree_in=tree_in, tree_out=tree_out)
 
