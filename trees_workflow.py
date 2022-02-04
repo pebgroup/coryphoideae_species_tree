@@ -358,7 +358,7 @@ gwf.target_from_template('Astral_orthologs', astral(path_in = "/home/owrisberg/C
 # Renaming the tips
 gwf.target_from_template('Renaming_orthologs', renaming(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
                                                         tree_in="astral_tree_orthologs.tre",
-														tree_out="astral_tree_orthologs_renamed"))
+														tree_out="astral_tree_orthologs_renamed.tre"))
 
 # Running Quartet scores
 #gwf.target_from_template('Quartet_Scores', quartet_scores(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/"))
