@@ -13,6 +13,12 @@ gene = args.gene
 tree = dendropy.Tree.get(path=treefile, schema="newick")
 tips = str(tree.taxon_namespace)
 
+#Rooting tree on outgroup species. 
+# 1079, Aphandra natalia
+# 1080, Dypsis ambositrae
+# 1081, Eugeissona tristis
+# 1082, Nypa fructicans
+
 if "1079" in tips and "1080" in tips and "1081" in tips and "1082" in tips:
     cmd = "pxrr -t "+treefile+" -g 1079,1080,1081,1082 -o {gene}_rooted.tre".format(gene=gene)
 else:
