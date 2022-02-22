@@ -26,14 +26,14 @@
 1026,Phoenix rupicola
 1027,Phoenix sylvestris
 1028,Phoenix theophrasti
-1029,Pritchardia aylmer robinsonii
+1029,Pritchardia remota
 1030,Pritchardia thurstonii
 1031,Rhapis evansii
 1032,Tahina spectabilis
 1033,Thrinax morissii
 1034,Trachycarpus geminisectus
 1035,Trachycarpus takil
-1036,Wallichia densiflora
+1036,Wallichia oblongifolia
 1037,Arenga undulatifolia MSL72 S42
 1038,Arenga undulatifolia SBL593
 1039,Bismarckia nobilis
@@ -84,7 +84,7 @@
 1194,Chelyocarpus chuco angela
 1195,Coccothrinax crinita
 1197,Chelyocarpus dianeurus
-1222,Coccothrinax alexandria
+1222,Coccothrinax alexandri
 1224,Trithrinax brasiliensis angela 1
 1238,Copernicia baileyana
 1239,Copernicia fallaensis
@@ -101,7 +101,7 @@
 1259,Sabal yapa
 1266,Brahea armata
 1267,Brahea dulcis
-1268,Brahea nitida
+1268,Brahea calcarea
 1269,Brahea sarukhanii
 1273,Copernicia glabrescens
 1274,Copernicia hospita
@@ -145,7 +145,7 @@
 1442,Sabal minor
 1445,Sabal uresana
 1449,Copernicia alba
-1459,Coccothrinax hiorami
+1459,Coccothrinax hioramii
 1460,Coccothrinax jamaicensis
 1461,Coccothrinax litoralis
 1462,Coccothrinax montana
@@ -190,18 +190,18 @@
 2049,Lanonia sp. Nov “kontumensis”
 2050,Lanonia sp. Nov “ngoclinhensis”
 2055,Licuala spinosa
-2058,Rhapis laoensis subsp. Macrantha
+2058,Rhapis laoensis subsp. macrantha
 2059,Rhapis micrantha
 2060,Rhapis puhuongensis
 2061,Rhapis robusta
-2062,Rhapis subtilis subsp. Siamensis
+2062,Rhapis subtilis subsp. siamensis
 2063,Rhapis vidalii
 2064,Arenga longicarpa
 2065,Caryota kiriwongensis
 2066,Caryota urens
 2067,Wallichia gracilis
 2068,Livistona jenkinsiana
-2069,Rhapis subtilis subsp. Subtilis
+2069,Rhapis subtilis subsp. subtilis
 2070,Undetermined_S0_L001_R1_001
 3000,Licuala borneensis
 3002,Licuala distans
@@ -281,8 +281,8 @@
 3150,Licuala kunstleri
 3152,Licuala lanata
 3154,Licuala lanuginosa
-3156,Licuala lauterbachii subsp. Bismarck
-3158,Licuala lauterbachii subsp. Bougainvillensis
+3156,Licuala lauterbachii subsp. bismarck
+3158,Licuala lauterbachii subsp. bougainvillensis
 3160,Licuala lauterbachii var. lauterbachii
 3162,Licuala leopoldii
 3164,Licuala leprosa
@@ -344,10 +344,10 @@
 3276,Livistona endauensis
 3278,Livistona exigua
 3280,Livistona fulva
-3282,Chamaerops humilis
+3282,Livistona humilis
 3284,Livistona inermis
 3286,Livistona lanuginosa
-3288,Livistona lorophylla
+3288,Livistona leichhardtii
 3290,Licuala bachmaensis
 3292,Livistona mariae
 3294,Livistona muelleri
@@ -382,7 +382,7 @@
 3352,Trachycarpus ravenii
 3354,Trachycarpus ukhrulensis
 3356,Licuala cattienensis
-3358,Wallichia distincta
+3358,Wallichia disticha
 3360,Wallichia lidiae
 3362,Washingtonia robusta
 3364,Arenga longipes
@@ -403,7 +403,7 @@
 3394,Gen SP_2
 3396,Livistona halongensis
 3398,Livistona saribus
-3400,Licuala sp
+3400,Licuala sp nov hybrid or chinensis
 3402,Rhapis excelsa
 3404,Rhapis kebangensis
 3406,Licuala spicata
