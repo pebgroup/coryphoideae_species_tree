@@ -1,8 +1,12 @@
 '''
 ------------------------------------------------------------------------------------------------------------------------
-This workflow is used to build the trees from the aligned gene sequences.
+***GUIDE***:
+This workflow is used to build the trees from the manually aligned gene sequences.
+It should automatically check if the genes in the manual aligned gene folder are newer than the ones used to create the
+last phylogeny, and if they are it should run the whole pipe again.
 
-
+Also it should only call the partitioner, iq_tree on the newly edited file, and then the rest of the pipe on all the 
+genes at the same time. 
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -177,7 +181,7 @@ def newick_contracting_orthologs(path_in,path_out ):
 
 	cd {path_in}
 
-	while IFS= read -r line; do
+	while IFS= read -r line; do7
 		echo "$line"
 		nw_ed $line 'i & (b<30)' o >> {path_out}genetrees_orthologs.tre #Moves trees used in treebuilding
 	done < ortholog_genes.txt

@@ -50,27 +50,27 @@ gwf = Workflow()
 # ########################################################################################################################
 # ################################################---- Trimmomatic ----###################################################
 # ########################################################################################################################
-# def trimmomatic(ref, output, path, done):
-#     """Trimming raw data"""
-#     inputs = [path+ref]
-#     outputs = [path + output, path+done]
-#     options = {'cores': 1, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
+def trimmomatic(ref, output, path, done):
+    """Trimming raw data"""
+    inputs = [path+ref]
+    outputs = [path + output, path+done]
+    options = {'cores': 16, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
-#     spec = """
-#     source activate trimmomatic_env
+    spec = """
+    source activate trimmomatic_env
 
-#     trimmomatic PE -threads 16 -phred33 {input}_R1.fastq {input}_R2.fastq -baseout {output}.fastq\
-#     ILLUMINACLIP:/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/share/trimmomatic-0.39-1/adapters/TruSeq3-PE-2.fa:2:30:10:1:true\
-#     LEADING:3\
-#     TRAILING:3\
-#     MAXINFO:40:0.8\
-#     MINLEN:36\
-#     2>> stderr_trim_loop_output.txt
+    trimmomatic PE -threads 16 -phred33 {input}_R1.fastq {input}_R2.fastq -baseout {output}.fastq\
+    ILLUMINACLIP:/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/share/trimmomatic-0.39-1/adapters/TruSeq3-PE-2.fa:2:30:10:1:true\
+    LEADING:3\
+    TRAILING:3\
+    MAXINFO:40:0.8\
+    MINLEN:36\
+    2>> stderr_trim_loop_output.txt
     
-#     touch {done}
-#     """.format(input = path + ref, output = path+output, done = path+done)
+    touch {done}
+    """.format(input = path + ref, output = path+output, done = path+done)
 
-#     return (inputs, outputs, options, spec)
+    return (inputs, outputs, options, spec)
 
 ########################################################################################################################
 ################################################---- Hybpiper ----######################################################
@@ -89,6 +89,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
     /home/owrisberg/Coryphoideae/github_code/HybPiper/reads_first.py --cpu 1 --readfiles {p1} {p2} --unpaired {un} -b /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta --prefix {species} --bwa
 
     touch {done}
+
     """.format(species=species, p1 = path_in + species + p1,p2 = path_in + species + p2, un = path_in + species + un , out = path_out, done = done)
 
 
