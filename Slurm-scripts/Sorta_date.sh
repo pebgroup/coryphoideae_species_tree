@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #SBATCH --account Coryphoideae
-#SBATCH --job-name=Intronerate
+#SBATCH --job-name=Sorta_date
 #SBATCH --partition normal
 #SBATCH --mem-per-cpu=20g
 #SBATCH --cpus-per-task=24
 #              D-HH:MM:SS
-#SBATCH --time=0-10:00:00
+#SBATCH --time=0-1:00:00
 
 # This File runs the sortadate functions on the gene trees and gives you a list of stats which can be used to determine which genes should be used in dating
 #
