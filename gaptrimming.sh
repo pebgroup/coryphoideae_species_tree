@@ -24,6 +24,7 @@ done
     # change back "exo" to "exon"
     for f in $gene?aligned.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
 
+    for f in $gene?aligned.fasta; do (sed -i'.old' -e 's/HEY883-/HEY883n/g' $f); done
 
     # create summary tables for all thresholds specified
     while read cutoff_trim
