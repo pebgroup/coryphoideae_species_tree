@@ -181,7 +181,7 @@ def newick_contracting_orthologs(path_in,path_out ):
 
 	cd {path_in}
 
-	while IFS= read -r line; do7
+	while IFS= read -r line; do
 		echo "$line"
 		nw_ed $line 'i & (b<30)' o >> {path_out}genetrees_orthologs.tre #Moves trees used in treebuilding
 	done < ortholog_genes.txt
@@ -292,6 +292,37 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
     return (inputs, outputs, options, spec)
 
 
+# ########################################################################################################################
+# #####################################---- SortaDate ----#####################################################
+# ########################################################################################################################
+def sorta_date(path_in,path_out,astral_tree):
+    """Using SortaDate to produce a CSV file which can be used to evaluate the use of different genes in dating the trees"""
+    inputs = [astral_tree]
+    outputs = [path_out+"var",path_out+"bp",path_out+"comb", path_out+"gg"]
+    options = {'cores': 3, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
+
+    spec = """
+
+	#Activating conda base environment 
+	conda activate base
+
+	#Get the root-to-tip variance with
+	python {SortaDate}get_var_length.py {path_in} --flend _rooted.tre --outf {path_out}var --outg 1079,1080,1081,1082
+
+	#Get the bipartition support with
+	python {SortaDate}get_bp_genetrees.py {path_in} {astral_tree} --flend _rooted.tre --outf {path_out}bp
+
+	#Combine the results from these two runs with
+	python {SortaDate}combine_results.py {path_out}var {path_out}bp --outf {path_out}comb
+
+	#Sort and get the list of the good genes with
+	python {SortaDate}get_good_genes.py {path_out}comb --max 3 --order 3,1,2 --outf {path_out}gg
+
+	""".format(path_in = path_in,path_out = path_out, SortaDate = "/home/owrisberg/Coryphoideae/github_code/SortaDate/src/", astral_tree = astral_tree)
+
+    return (inputs, outputs, options, spec)
+
+
 
 
 
@@ -344,6 +375,11 @@ gwf.target_from_template('Astral_annotation', astral_annotation(path_in = "/home
                                                         gene_tree_file="genetrees.tre",
 														species_tree_file="astral_tree.tre",
 														outfile="astral_tree_annotated.tre"))
+
+# Running SortaDate on the Astral tree using the genetrees
+gwf.target_from_template('Sorta_date', sorta_date(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/",
+                                                        path_out ="/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/",
+														astral_tree="/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree.tre"))
 
 
 
