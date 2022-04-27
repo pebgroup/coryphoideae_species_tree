@@ -99,7 +99,7 @@ def iq_tree(path_in, gene,path_out ):
 def rename_reroot(path_in, gene):
     """Using genenameremover to remove the gene names from all the tip labels
 	And using rerooter.py to root each individual gene tree based on the available outgroup"""
-    inputs = [path_in+gene+"_part.txt.tre"]
+    inputs = [path_in+gene+"txt.tre"] # changed _part.txt.tre to .txt.tre
     outputs = [path_in+gene+"_rooted.tre"]
     options = {'cores': 5, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
@@ -290,6 +290,8 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
 	""".format(path_in = path_in, gene_tree_file = gene_tree_file, species_tree_file = species_tree_file, outfile=outfile)
 
     return (inputs, outputs, options, spec)
+
+
 
 
 
