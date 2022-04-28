@@ -295,10 +295,10 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
 # ########################################################################################################################
 # #####################################---- SortaDate ----#####################################################
 # ########################################################################################################################
-def sorta_date(path_in,path_out,astral_tree):
+def sorta_date(path_in,path_out,astral_tree, done):
     """Using SortaDate to produce a CSV file which can be used to evaluate the use of different genes in dating the trees"""
     inputs = [astral_tree]
-    outputs = [path_out+"var",path_out+"bp",path_out+"comb", path_out+"gg"]
+    outputs = [path_out+"var",path_out+"bp",path_out+"comb", path_out+"gg", done]
     options = {'cores': 3, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -318,7 +318,9 @@ def sorta_date(path_in,path_out,astral_tree):
 	#Sort and get the list of the good genes with
 	python {SortaDate}get_good_genes.py {path_out}comb --max 3 --order 3,1,2 --outf {path_out}gg
 
-	""".format(path_in = path_in,path_out = path_out, SortaDate = "/home/owrisberg/Coryphoideae/github_code/SortaDate/src/", astral_tree = astral_tree)
+	touch {done}
+
+	""".format(path_in = path_in,path_out = path_out, SortaDate = "/home/owrisberg/Coryphoideae/github_code/SortaDate/src/", astral_tree = astral_tree, done = done)
 
     return (inputs, outputs, options, spec)
 
@@ -379,7 +381,8 @@ gwf.target_from_template('Astral_annotation', astral_annotation(path_in = "/home
 # Running SortaDate on the Astral tree using the genetrees
 gwf.target_from_template('Sorta_date', sorta_date(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/",
                                                         path_out ="/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/",
-														astral_tree="/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree.tre"))
+														astral_tree="/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree.tre",
+														done = "/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/done_sorta_date"))
 
 
 
