@@ -316,7 +316,7 @@ def sorta_date(path_in,path_out,astral_tree, done):
 	python {SortaDate}combine_results.py {path_out}var {path_out}bp --outf {path_out}comb
 
 	#Sort and get the list of the good genes with
-	python {SortaDate}get_good_genes.py {path_out}comb --max 3 --order 3,1,2 --outf {path_out}gg
+	python {SortaDate}get_good_genes.py {path_out}comb --max 1000 --order 3,1,2 --outf {path_out}gg
 
 	touch {done}
 
