@@ -304,7 +304,7 @@ def sorta_date(path_in,path_out,astral_tree):
     spec = """
 
 	#Activating conda base environment 
-	conda activate base
+	source activate base
 
 	#Get the root-to-tip variance with
 	python {SortaDate}get_var_length.py {path_in} --flend _rooted.tre --outf {path_out}var --outg 1079,1080,1081,1082
