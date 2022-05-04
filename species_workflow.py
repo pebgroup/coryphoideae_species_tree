@@ -160,7 +160,7 @@ def intronerate(species, path_in, done):
 # ########################################################################################################################
 # #############################################---- Coverage ----#########################################################
 # ########################################################################################################################
-def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted_bam_bai, bam, cov,fasta,fasta_amb,fasta_ann,fasta_bwt,fasta_pac,fasta_sa,trimmed_fasta,up_bam):
+def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted_bam_bai, bam, cov,fasta,fasta_amb,fasta_ann,fasta_bwt,fasta_pac,fasta_sa,trimmed_fasta,up_bam,dir_in,dir_out,dir_wrk):
     """Calculating coverage of sequences."""
     inputs = [path_in+species, path_in+"done/Intronerate/"+species]
     outputs = [path_out+species+all_bam, path_out+species+all_sorted_bam, path_out+species+all_sorted_bam_bai, path_out+species+bam,
@@ -173,11 +173,11 @@ def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted
     
     cd {path_in}
 
-    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/coverage.py {sp}
+    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/coverage.py {sp} {dir_in} {dir_out} {dir_wrk}
     
     touch {done}
 
-    """.format(sp = species, done = done, path_in = path_in)
+    """.format(sp = species, done = done, path_in = path_in, dir_in = dir_in, dir_out = dir_out, dir_wrk = dir_wrk)
 
     return (inputs, outputs, options, spec)
 
@@ -235,5 +235,8 @@ for i in range(len(sp)):
                                                         trimmed_fasta = "_trimmed.fasta",
                                                         up_bam = "_up.bam",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Coverage/"+sp[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Coverage/"+sp[i],
+                                                        dir_in ="/home/owrisberg/Coryphoideae/work_flow/01_data", #Folder with raw reads
+                                                        dir_out ="/home/owrisberg/Coryphoideae/work_flow/04_coverage", # folder with coverage
+                                                        dir_wrk = "/home/owrisberg/Coryphoideae/work_flow" )) # 
 

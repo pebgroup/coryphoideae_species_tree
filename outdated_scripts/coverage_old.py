@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 '''
 ------------------------------------------------------------------------------------------------------------------------
 This workflow is used in a Workflow to estimate coverage. 
@@ -9,33 +7,29 @@ Eddited by Sarah E.K. Kessel
 ------------------------------------------------------------------------------------------------------------------------
 '''
 
+#!/usr/bin/python3
+
 import os, argparse, subprocess
 from Bio import SeqIO
 from Bio.Seq import Seq
 
 parser = argparse.ArgumentParser()
 parser.add_argument("sample")
-parser.add_argument("directory_in")
-parser.add_argument("directory_out")
-parser.add_argument("directory_wrk")
 args = parser.parse_args()
 sample = str(args.sample)
-directory_in = str(args.directory_in)
-directory_out = str(args.directory_out)
-directory_wrk = str(args.directory_wrk)
 
 # depth required to KEEP (i.e. anything <trshld will be discarded)
 trshld = 2
-
-# Go to working directory
-cmd = 'cd '+directory_wrk
-subprocess.call(cmd,shell=True)
 
 # Get all subdirectories in the current working directory. these are the loci recovered by hybpiper
 loci = next(os.walk(sample))[1]
 sequences = {}
 
 for locus in loci: 
+
+	#exon
+	#pth = sample+'/'+locus+'/'+sample+'/sequences/FNA/'+locus+'.FNA'	
+
 	#supercontig
 	pth = sample+'/'+locus+'/'+sample+'/sequences/intron/'+locus+'_supercontig.fasta'	
 	
@@ -45,52 +39,45 @@ for locus in loci:
 			#sequences.append(record)
 			sequences[record.id] = record
 			
-with open(directory_out+sample+'.fasta', "w") as outfile:
+with open('/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta', "w") as outfile:
  	SeqIO.write(list(sequences.values()), outfile, "fasta")
 
 print(sample+'.fasta generated')
 	
 # BWA index targets
-cmd = 'bwa index '+directory_out+sample+'.fasta'
+cmd = 'bwa index /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta'
 subprocess.call(cmd,shell=True)
 print(sample+'.fasta indexed')
 
-# BWA mem paired reads and @HD tag
-cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_clean-Read1.fastq '+directory_in+sample+'_clean-Read2.fastq | samtools view -b -h -o '+directory_out+sample+'_no.bam'
+# BWA mem paired reads
+cmd = 'bwa mem /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_1P.fastq /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_2P.fastq | samtools view -b -o /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.bam'
 subprocess.call(cmd,shell=True)
 print('paired reads mapped to '+sample+'.fasta')
 
 # BWA mem unpaired reads
-cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_clean-Read12-single.fastq | samtools view -b -h -o '+directory_out+sample+'_no_up.bam'
+cmd = 'bwa mem /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.fasta /home/owrisberg/Coryphoideae/work_flow/02_trimmed/'+sample+'_UN.fastq | samtools view -b -o /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('unpaired reads mapped to '+sample+'.fasta')
 
-# @HD
-cmd = 'bam polishbam --in '+directory_out+sample+'_no_up.bam --out '+directory_out+sample+'_up.bam --HD "@HD	VN:1.3 SO:coordinate"'
-subprocess.call(cmd,shell=True)
-cmd = 'bam polishbam --in '+directory_out+sample+'_no.bam --out '+directory_out+sample+'.bam --HD "@HD	VN:1.3 SO:coordinate"'
-subprocess.call(cmd,shell=True)
-print('@HD added')
-
 # merge BAM files
-cmd = 'samtools merge -f '+directory_out+sample+'_all.bam '+directory_out+sample+'.bam '+directory_out+sample+'_up.bam'
+cmd = 'samtools merge -f /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all.bam /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.bam /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('BAMs merged')
 
 # sort and index BAM files
-cmd = 'samtools sort '+directory_out+sample+'_all.bam -o '+directory_out+sample+'_all_sorted.bam'
+cmd = 'samtools sort /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all.bam -o /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted.bam'
 subprocess.call(cmd,shell=True)
-cmd = 'samtools index '+directory_out+sample+'_all_sorted.bam'
+cmd = 'samtools index /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted.bam'
 subprocess.call(cmd,shell=True)
 print('BAM indexed and sorted')
 
 # remove duplicates
-cmd = 'picard MarkDuplicates I='+directory_out+sample+'_all_sorted.bam O='+directory_out+sample+'_all_sorted_deduplicated.bam M='+directory_out+sample+'_marked_dup_metrics.txt REMOVE_DUPLICATES=true'
+cmd = 'picard MarkDuplicates I=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted.bam O=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted_deduplicated.bam M=/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'marked_dup_metrics.txt REMOVE_DUPLICATES=true'
 subprocess.call(cmd,shell=True)
 print('reads deduplicated for sample '+sample)
 
 # calculate coverage
-cmd = 'samtools depth '+directory_out+sample+'_all_sorted_deduplicated.bam > '+directory_out+sample+'.cov'
+cmd = 'samtools depth /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_all_sorted_deduplicated.bam > /home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.cov'
 subprocess.call(cmd,shell=True)
 print('coverage calculated for sample '+sample)
 
@@ -101,7 +88,7 @@ def n2N(sqnc, pstn):
 	return "".join(sqnc)
 
 # process coverage
-with open(directory_out+sample+'.cov', "r") as covfile:
+with open('/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'.cov', "r") as covfile:
 	for line in covfile:
 		line = line.strip()
 		LINE = line.split("\t")
@@ -117,7 +104,7 @@ for nm in sequences.keys():
 print('coverage trimming completed, keeping only positions with coverage of '+str(trshld)+' or above')
 
 # write outfile
-with open(directory_out+sample+'_trimmed.fasta', "w") as outfile:
+with open('/home/owrisberg/Coryphoideae/work_flow/04_coverage/'+sample+'_trimmed.fasta', "w") as outfile:
 	SeqIO.write(list(sequences.values()), outfile, "fasta")
 print('trimmed seqs written to '+sample+'_trimmed.fasta')
 
