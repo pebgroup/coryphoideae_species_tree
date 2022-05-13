@@ -380,9 +380,9 @@ gwf.target_from_template('Astral_annotation', astral_annotation(path_in = "/home
 
 # Running SortaDate on the Astral tree using the genetrees
 gwf.target_from_template('Sorta_date', sorta_date(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/",
-                                                        path_out ="/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/",
+                                                        path_out ="/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/all_genes/",
 														astral_tree="/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree.tre",
-														done = "/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/done_sorta_date"))
+														done = "/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/all_genes/done_sorta_date"))
 
 
 
@@ -413,3 +413,9 @@ gwf.target_from_template('Astral_annotation_orthologs', astral_annotation(path_i
                                                         gene_tree_file="genetrees_orthologs.tre",
 														species_tree_file="astral_tree_orthologs.tre",
 														outfile="astral_tree_orthologs_annotated.tre"))
+
+# Running SortaDate on the Astral tree using the genetrees
+gwf.target_from_template('Sorta_date_orthologs', sorta_date(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/copy_of_ortholog_gene_trees/",
+                                                        path_out ="/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/orthologs/",
+														astral_tree="/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_orthologs.tre",
+														done = "/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/orthologs/done_sorta_date_orthologs"))
