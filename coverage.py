@@ -17,18 +17,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument("sample")
 parser.add_argument("directory_in")
 parser.add_argument("directory_out")
-parser.add_argument("directory_wrk")
 args = parser.parse_args()
 sample = str(args.sample)
 directory_in = str(args.directory_in)
 directory_out = str(args.directory_out)
-directory_wrk = str(args.directory_wrk)
 
 # depth required to KEEP (i.e. anything <trshld will be discarded)
 trshld = 2
 
 # Go to working directory
-cmd = 'cd '+directory_wrk
+cmd = 'cd '+directory_out
 subprocess.call(cmd,shell=True)
 
 # Get all subdirectories in the current working directory. these are the loci recovered by hybpiper
@@ -50,29 +48,30 @@ with open(directory_out+sample+'.fasta', "w") as outfile:
 
 print(sample+'.fasta generated')
 	
-# BWA index targets
+# BWA index targets (indexes database sequences in the FASTA format)
 cmd = 'bwa index '+directory_out+sample+'.fasta'
 subprocess.call(cmd,shell=True)
 print(sample+'.fasta indexed')
 
-# BWA mem paired reads and @HD tag
-cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_clean-Read1.fastq '+directory_in+sample+'_clean-Read2.fastq | samtools view -b -h -o '+directory_out+sample+'_no.bam'
+# BWA mem (aligns 70bp-1Mbp by seeding alignments with the Maximal Exact Matches MEM's and extending these seeds with the affine-gap smith-waterman algorithm)
+# Paired reads
+cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_1P.fastq '+directory_in+sample+'_2P.fastq | samtools view -b -h -o '+directory_out+sample+'_no.bam'
 subprocess.call(cmd,shell=True)
 print('paired reads mapped to '+sample+'.fasta')
 
-# BWA mem unpaired reads
-cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_clean-Read12-single.fastq | samtools view -b -h -o '+directory_out+sample+'_no_up.bam'
+# Unpaired reads
+cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_UN.fastq | samtools view -b -h -o '+directory_out+sample+'_no_up.bam'
 subprocess.call(cmd,shell=True)
 print('unpaired reads mapped to '+sample+'.fasta')
 
-# @HD
+# Adding @HD tag which samtools complains about missing 
 cmd = 'bam polishbam --in '+directory_out+sample+'_no_up.bam --out '+directory_out+sample+'_up.bam --HD "@HD	VN:1.3 SO:coordinate"'
 subprocess.call(cmd,shell=True)
-cmd = 'bam polishbam --in '+directory_out+sample+'_no.bam --out '+directory_out+sample+'.bam --HD "@HD	VN:1.3 SO:coordinate"'
+cmd = 'bam polishbam --in '+directory_out+sample+'_no.bam --out '+directory_out+sample+'.bam --HD "@HD 	VN:1.3 SO:coordinate"'
 subprocess.call(cmd,shell=True)
 print('@HD added')
 
-# merge BAM files
+# merge BAM files 
 cmd = 'samtools merge -f '+directory_out+sample+'_all.bam '+directory_out+sample+'.bam '+directory_out+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('BAMs merged')
@@ -95,6 +94,7 @@ subprocess.call(cmd,shell=True)
 print('coverage calculated for sample '+sample)
 
 # define function to replace nth position of sequence with N
+# I am considering chaning the N to something else because it is giving me problems in my pibeline by changeing exon to exo- later 
 def n2N(sqnc, pstn):
 	sqnc = list(sqnc)
 	sqnc[int(pstn)-1] = "N"

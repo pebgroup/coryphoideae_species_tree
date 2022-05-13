@@ -236,7 +236,7 @@ for i in range(len(sp)):
                                                         up_bam = "_up.bam",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Coverage/"+sp[i],
-                                                        dir_in ="/home/owrisberg/Coryphoideae/work_flow/01_data", #Folder with raw reads
-                                                        dir_out ="/home/owrisberg/Coryphoideae/work_flow/04_coverage", # folder with coverage
+                                                        dir_in ="/home/owrisberg/Coryphoideae/work_flow/02_trimmed/", #Folder with raw reads
+                                                        dir_out ="/home/owrisberg/Coryphoideae/work_flow/04_coverage/", # folder with coverage
                                                         dir_wrk = "/home/owrisberg/Coryphoideae/work_flow" )) # 
 
