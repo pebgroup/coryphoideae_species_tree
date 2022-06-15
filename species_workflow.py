@@ -61,7 +61,7 @@ def trimmomatic(species, path_in, path_out, done):
     Afterwards combines paired and unpaired reads for forward and reverse reads respectively for each species 
     to enable post-trimming secapr quality_check for comparability before and after trimming """
     inputs = []
-    outputs = [path_out+species+".fastq", done]
+    outputs = [path_out+species+".fastq", done, path_out+species+"_1P.fastq", path_out+species+"_2P.fastq", path_out+species+"_UN.fastq"]
     options = {'cores': 16, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
     spec = """
