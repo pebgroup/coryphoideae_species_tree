@@ -232,7 +232,7 @@ gwf.target_from_template('Quality_check_Raw', secapr_quality_check_raw(path_out=
 #### Running Secapr quality check on trimmed data
 gwf.target_from_template('Quality_check_trimmed', secapr_quality_check_trimmed(path_out= "/home/owrisberg/Coryphoideae/work_flow/00_secapr/1_trimmed/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/secapr_trimmed"
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/secapr_trimmed",
                                                         trim_done = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/done/"))
 
 
