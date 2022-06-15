@@ -79,7 +79,7 @@ def trimmomatic(species, path_in, path_out, done):
     cat {path_out}{species}_2P.fastq {path_out}{species}_2U.fastq > {path_out}secapr_postrim/{species}_2PU.fastq
 
     touch {done}
-    """.format(input = path_in + species, output = path_out+species, done = done, species = species)
+    """.format(input = path_in + species, output = path_out+species, done = done, species = species, path_out = path_out)
 
     return (inputs, outputs, options, spec)
 
