@@ -75,8 +75,8 @@ def trimmomatic(species, path_in, path_out, done):
     MINLEN:36\
     2>> stderr_trim_loop_output.txt
 
-    cat {species}_1P.fastq {species}_1U.fastq > secapr_postrim/{species}_1PU.fastq
-    cat {species}_2P.fastq {species}_2U.fastq > secapr_postrim/{species}_2PU.fastq
+    cat {path_out}{species}_1P.fastq {path_out}{species}_1U.fastq > {path_out}secapr_postrim/{species}_1PU.fastq
+    cat {path_out}{species}_2P.fastq {path_out}{species}_2U.fastq > {path_out}secapr_postrim/{species}_2PU.fastq
 
     touch {done}
     """.format(input = path_in + species, output = path_out+species, done = done, species = species)
@@ -254,8 +254,6 @@ for i in range(len(sp)):
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
                                                                       
-    
-
 
     #### Paralogs
     if os.path.isfile("/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/"+sp[i]+"/genes_with_paralog_warnings.txt"):
