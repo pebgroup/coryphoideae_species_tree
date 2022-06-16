@@ -57,8 +57,8 @@ def trimmomatic(species, path_in, path_out, done):
     Afterwards combines paired and unpaired reads for forward and reverse reads respectively for each species 
     to enable post-trimming secapr quality_check for comparability before and after trimming """
     inputs = []
-    outputs = [path_out+species+"UN_.fastq", done, path_out+species+"_1P.fastq", path_out+species+"_2P.fastq"]
-    options = {'cores': 16, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
+    outputs = [path_out+species+"_UN.fastq", done, path_out+species+"_1P.fastq", path_out+species+"_2P.fastq"]
+    options = {'cores': 16, 'memory': "10g", 'walltime': "01:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate trimmomatic_env
@@ -75,7 +75,11 @@ def trimmomatic(species, path_in, path_out, done):
     cat {path_out}{species}_2P.fastq {path_out}{species}_2U.fastq > {path_out}secapr_postrim/{species}_2PU.fastq
     cat {path_out}{species}_1U.fastq {path_out}{species}_2U.fastq > {path_out}secapr_postrim/{species}_UN.fastq
 
+
+    echo Removing {path_out}{species}_1U.fastq
     rm {path_out}{species}_1U.fastq
+
+    echo Removing {path_out}{species}_2U.fastq
     rm {path_out}{species}_2U.fastq
 
     touch {done}
