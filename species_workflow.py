@@ -73,7 +73,7 @@ def trimmomatic(species, path_in, path_out, done):
 
     cat {path_out}{species}_1P.fastq {path_out}{species}_1U.fastq > {path_out}secapr_postrim/{species}_1PU.fastq 
     cat {path_out}{species}_2P.fastq {path_out}{species}_2U.fastq > {path_out}secapr_postrim/{species}_2PU.fastq
-    cat {path_out}{species}_1U.fastq {path_out}{species}_2U.fastq > {path_out}secapr_postrim/{species}_UN.fastq
+    cat {path_out}{species}_1U.fastq {path_out}{species}_2U.fastq > {path_out}{species}_UN.fastq
 
 
     echo Removing {path_out}{species}_1U.fastq
