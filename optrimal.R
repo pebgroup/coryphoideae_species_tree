@@ -88,6 +88,11 @@ overlost <- names(optrim_loss[optrim_loss > 0.3])
 
 write(overlost, 'overlost.txt', sep = '\n')
 
+
+
 file.copy(paste(optrim, '/', names(optrim), sep = ''), getwd())
 
 # file.remove(paste(overlost, sep = ''))
+
+
+"optrimal final"
