@@ -55,12 +55,12 @@ print(sample+'.fasta indexed')
 
 # BWA mem (aligns 70bp-1Mbp by seeding alignments with the Maximal Exact Matches MEM's and extending these seeds with the affine-gap smith-waterman algorithm)
 # Paired reads
-cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_1P.fastq '+directory_in+sample+'_2P.fastq | samtools view -b -h -o '+directory_out+sample+'_no.bam'
+cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_1P.fastq '+directory_in+sample+'_2P.fastq | samtools view -b -h -o '+directory_out+sample+'.bam'
 subprocess.call(cmd,shell=True)
 print('paired reads mapped to '+sample+'.fasta')
 
 # Unpaired reads
-cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_UN.fastq | samtools view -b -h -o '+directory_out+sample+'_no_up.bam'
+cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_UN.fastq | samtools view -b -h -o '+directory_out+sample+'_up.bam'
 subprocess.call(cmd,shell=True)
 print('unpaired reads mapped to '+sample+'.fasta')
 
