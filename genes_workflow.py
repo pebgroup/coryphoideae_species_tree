@@ -273,7 +273,7 @@ for i in range(len(genes)):
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/done/"+genes[i]))
 
-    #### Running optrim_preb
+    #### Running optrim_preb 
     gwf.target_from_template('gt_trimming_'+genes[i], gt_trimming(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/trimal_gt/"+genes[i]))

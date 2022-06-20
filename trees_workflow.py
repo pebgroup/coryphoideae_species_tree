@@ -80,7 +80,7 @@ def iq_tree(path_in, gene,path_out ):
 	cd {path_in}
 
 	#Actual IQtree tree search. 
-	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned_part.txt -B 1000 -redo
+	iqtree2 -s {gene}_aligned_clean.fasta -T AUTO -ntmax 20 -p {gene}_aligned_part.txt -B 1000 -redo 
 
 	sed -i 's/_R_//g' {gene}_aligned_part.txt.treefile
 

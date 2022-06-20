@@ -64,12 +64,13 @@ cmd = 'bwa mem '+directory_out+sample+'.fasta '+directory_in+sample+'_UN.fastq |
 subprocess.call(cmd,shell=True)
 print('unpaired reads mapped to '+sample+'.fasta')
 
-# Adding @HD tag which samtools complains about missing 
-cmd = 'bam polishbam --in '+directory_out+sample+'_no_up.bam --out '+directory_out+sample+'_up.bam --HD "@HD	VN:1.3 SO:coordinate"'
-subprocess.call(cmd,shell=True)
-cmd = 'bam polishbam --in '+directory_out+sample+'_no.bam --out '+directory_out+sample+'.bam --HD "@HD 	VN:1.3 SO:coordinate"'
-subprocess.call(cmd,shell=True)
-print('@HD added')
+# Commented out this part as this should not be necessary with samtools 1.3.1
+# # Adding @HD tag which samtools complains about missing 
+# cmd = 'bam polishbam --in '+directory_out+sample+'_no_up.bam --out '+directory_out+sample+'_up.bam --HD "@HD	VN:1.3 SO:coordinate"'
+# subprocess.call(cmd,shell=True)
+# cmd = 'bam polishbam --in '+directory_out+sample+'_no.bam --out '+directory_out+sample+'.bam --HD "@HD 	VN:1.3 SO:coordinate"'
+# subprocess.call(cmd,shell=True)
+# print('@HD added')
 
 # merge BAM files 
 cmd = 'samtools merge -f '+directory_out+sample+'_all.bam '+directory_out+sample+'.bam '+directory_out+sample+'_up.bam'
