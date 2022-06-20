@@ -220,11 +220,11 @@ def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted
     
     cd {path_in}
 
-    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/coverage.py {sp} {dir_in} {dir_out} {dir_wrk}
+    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/coverage.py {sp} {dir_in} {dir_out}
     
     touch {done}
 
-    """.format(sp = species, done = done, path_in = path_in, dir_in = dir_in, dir_out = dir_out, dir_wrk = dir_wrk)
+    """.format(sp = species, done = done, path_in = path_in, dir_in = dir_in, dir_out = dir_out)
 
     return (inputs, outputs, options, spec)
 
@@ -304,6 +304,5 @@ for i in range(len(sp)):
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Coverage/"+sp[i],
                                                         dir_in ="/home/owrisberg/Coryphoideae/work_flow/02_trimmed/", #Folder with raw reads
-                                                        dir_out ="/home/owrisberg/Coryphoideae/work_flow/04_coverage/", # folder with coverage
-                                                        dir_wrk = "/home/owrisberg/Coryphoideae/work_flow" )) # 
+                                                        dir_out ="/home/owrisberg/Coryphoideae/work_flow/04_coverage/")) # folder with coverage
 
