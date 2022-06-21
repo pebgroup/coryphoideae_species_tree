@@ -65,6 +65,7 @@ subprocess.call(cmd,shell=True)
 print('unpaired reads mapped to '+sample+'.fasta')
 
 # Commented out this part as this should not be necessary with samtools 1.3.1
+# Also I had to change 
 # # Adding @HD tag which samtools complains about missing 
 # cmd = 'bam polishbam --in '+directory_out+sample+'_no_up.bam --out '+directory_out+sample+'_up.bam --HD "@HD	VN:1.3 SO:coordinate"'
 # subprocess.call(cmd,shell=True)
