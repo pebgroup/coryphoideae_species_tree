@@ -145,25 +145,27 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 #############################################---- Paralogs ----#########################################################
 ########################################################################################################################
 
-def paralogs(species,path_in, done):
+def paralogs(species,path_in, done, no_paralogs, in_done):
     """Find Paralog genes and write them in the file called paralog.txt"""
-    inputs = [path_in + species]
+    inputs = [path_in + species, in_done]
     outputs = [done]
     options = {'cores': 2, 'memory': "10g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate base
     
-    
-    cd {path_in}
-        
-    python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
-
+    if test -f /home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{species}/genes_with_paralog_warnings.txt; then
+        echo "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{species}/genes_with_paralog_warnings.txt exists" 
+        cd {path_in}
+        python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
+    else
+        echo "the genes_with_paralog_warnings.txt does not exist and we run the no parallels part"
+        touch {np}
+    fi
     
     touch {done}
 
-
-    """.format(sp = species, done = done, path_in = path_in)
+    """.format(sp = species, done = done, path_in = path_in, np = no_paralogs)
     return (inputs, outputs, options, spec)
 
 def no_paralogs(species, path_in, done, no_paralogs):
@@ -263,20 +265,21 @@ for i in range(len(sp)):
                                                         un = "_UN.fastq",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i],))
                                                                       
 
     #### Paralogs
-    if os.path.isfile("/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/"+sp[i]+"/genes_with_paralog_warnings.txt"):
-        gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
-                                                            path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
-                                                            done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
-                                                            ))
-    else:
-        gwf.target_from_template('No_Paralogs_'+sp[i], no_paralogs(species = sp[i],
-                                                                path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
-                                                                done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
-                                                                no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs/"+sp[i]))
+    
+    gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
+                                                        no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs/"+sp[i],
+                                                        in_done="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper"+sp[i]))
+    # else:
+    #     gwf.target_from_template('No_Paralogs_'+sp[i], no_paralogs(species = sp[i],
+    #                                                             path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
+    #                                                             done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
+    #                                                             no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs/"+sp[i]))
      
     
     #### Getting introns
