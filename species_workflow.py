@@ -149,13 +149,13 @@ def paralogs(species,path_in, done, no_paralogs, in_done):
     """Find Paralog genes and write them in the file called paralog.txt"""
     inputs = [path_in + species, in_done]
     outputs = [done]
-    options = {'cores': 2, 'memory': "10g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 2, 'memory': "10g", 'walltime': "0:30:00", 'account':"Coryphoideae"}
 
     spec = """
     source activate base
     
-    if test -f /home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{species}/genes_with_paralog_warnings.txt; then
-        echo "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{species}/genes_with_paralog_warnings.txt exists" 
+    if test -f /home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{sp}/genes_with_paralog_warnings.txt; then
+        echo "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{sp}/genes_with_paralog_warnings.txt exists" 
         cd {path_in}
         python /home/owrisberg/Coryphoideae/github_code/HybPiper/paralog_investigator.py {sp} 2>> paralog.txt
     else
