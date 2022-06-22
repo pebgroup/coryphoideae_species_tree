@@ -274,7 +274,7 @@ for i in range(len(sp)):
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
                                                         no_paralogs="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/No_paralogs/"+sp[i],
-                                                        in_done="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper"+sp[i]))
+                                                        in_done="/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i]))
     # else:
     #     gwf.target_from_template('No_Paralogs_'+sp[i], no_paralogs(species = sp[i],
     #                                                             path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
