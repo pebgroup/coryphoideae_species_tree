@@ -186,7 +186,7 @@ def no_paralogs(species, path_in, done, no_paralogs):
 # #############################################---- Intronerate ----######################################################
 # ########################################################################################################################
 
-def intronerate(species, path_in, done, in_done):
+def intronerate(species, path_in, done):
     """Intronerate the sequencec from hybpiper."""
     inputs = [path_in + species, path_in+"done/Hybpiper/"+species]
     outputs = [done]
