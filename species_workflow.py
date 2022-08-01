@@ -298,7 +298,7 @@ for i in range(len(sp)):
     #### Running fastqc on raw data
     gwf.target_from_template('fastqc_raw_'+sp[i], fastqc_raw(species = sp[i],
                                                         path_in= "/home/owrisberg/Coryphoideae/work_flow/01_data/",
-                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/0_data",
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/0_data/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/raw_data/"+sp[i]))
 
 
