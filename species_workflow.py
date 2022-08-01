@@ -308,11 +308,11 @@ for i in range(len(sp)):
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/trimmed_data"+sp[i]))
 
-        #### Running fastqc on the trimmed data
-    gwf.target_from_template('fastqc_trimmed_'+sp[i], fastqc_raw(species = sp[i],
+    #### Running fastqc on the trimmed data
+    gwf.target_from_template('fastqc_trimmed_'+sp[i], fastqc_trimmed(species = sp[i],
                                                         path_in= "/home/owrisberg/Coryphoideae/work_flow/02_trimmed",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/1_trimmed",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/raw_data/"+sp[i]))                                                   
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/trimmed_data/"+sp[i]))                                                   
 
 
     #### Running Hybpiper
