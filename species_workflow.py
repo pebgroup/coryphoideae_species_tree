@@ -53,7 +53,7 @@ def fastqc_raw(species,path_in ,path_out, done,):
 def fastqc_trimmed(species,path_in ,path_out, done,):
     """Quality checking using fastqc as this should work on individual species"""
     inputs = [path_in+species+"_UN.fastq", path_in+species+"_1P.fastq", path_in+species+"_2P.fastq","/home/owrisberg/Coryphoideae/work_flow/02_trimmed/done/"+species ]
-    outputs = [path_out, done]
+    outputs = [path_out+species, done]
     options = {'cores': 1, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
 
