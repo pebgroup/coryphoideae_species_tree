@@ -176,9 +176,11 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
     spec = """
     source activate base
 
-    cd {out}
+    cd /scratch/Hybpiper_{species}
         
     /home/owrisberg/Coryphoideae/github_code/HybPiper/reads_first.py --cpu 1 --readfiles {p1} {p2} --unpaired {un} -b /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta --prefix {species} --bwa
+
+    mv {species} /home/owrisberg/Coryphoideae/work_flow/03_hybpiper/
 
     touch {done}
 
