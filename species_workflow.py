@@ -102,8 +102,7 @@ def trimmomatic(species, path_in, path_out, done):
     Afterwards combines paired and unpaired reads for forward and reverse reads respectively for each species 
     to enable post-trimming secapr quality_check for comparability before and after trimming """
     inputs = []
-    outputs = [path_out+species+"_UN.fastq", done, path_out+species+"_1P.fastq", path_out+species+"_2P.fastq",
-                path_out+"secapr_postrim/"+species+"_1PU.fastq",path_out+"secapr_postrim/"+species+"_2PU.fastq"]
+    outputs = [path_out+species+"_UN.fastq", done, path_out+species+"_1P.fastq", path_out+species+"_2P.fastq"]
     options = {'cores': 16, 'memory': "10g", 'walltime': "01:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -313,7 +312,7 @@ for i in range(len(sp)):
 
     #### Running fastqc on the trimmed data
     gwf.target_from_template('fastqc_trimmed_'+sp[i], fastqc_trimmed(species = sp[i],
-                                                        path_in= "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
+                                                        path_in= "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/secapr_postrim/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/1_trimmed/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/trimmed_data/"+sp[i]))                                                   
 
