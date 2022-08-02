@@ -37,7 +37,7 @@ def fastqc_raw(species,path_in ,path_out, done,):
 
 
     spec = """
-    source activate secapr_env
+    conda activate secapr_env
 
     fastqc -o {output} {path_in}{species}_R1.fastq {path_in}{species}_R2.fastq
     
@@ -59,7 +59,7 @@ def fastqc_trimmed(species,path_in ,path_out, done,):
 
 
     spec = """
-    source activate secapr_env
+    conda activate secapr_env
 
     fastqc -o {output} {path_in}{species}_1PU.fastq {path_in}{species}_2PU.fastq {path_in}{species}_UN.fastq
     
@@ -83,7 +83,7 @@ def fastqc_trimmed(species,path_in ,path_out, done,):
 
 
 #     spec = """
-#     source activate secapr_env
+#     conda activate secapr_env
 
 #     secapr quality_check --input {input} --output {output}
     
@@ -106,7 +106,7 @@ def trimmomatic(species, path_in, path_out, done):
     options = {'cores': 16, 'memory': "10g", 'walltime': "01:00:00", 'account':"Coryphoideae"}
 
     spec = """
-    source activate trimmomatic_env
+    conda activate trimmomatic_env
 
     trimmomatic PE -threads 16 -phred33 {input}_R1.fastq {input}_R2.fastq -baseout {output}.fastq\
     ILLUMINACLIP:/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/share/trimmomatic-0.39-1/adapters/TruSeq3-PE-2.fa:2:30:10:1:true\
@@ -152,7 +152,7 @@ def trimmomatic(species, path_in, path_out, done):
 
 
 #     spec = """
-#     source activate secapr_env
+#     conda activate secapr_env
 
 #     cd /home/owrisberg/Coryphoideae/work_flow/02_trimmed/secapr_postrim
 
@@ -174,7 +174,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
     options = {'cores': 1, 'memory': "20g", 'walltime': "100:00:00", 'account':"Coryphoideae"} #Slurm commands
 
     spec = """
-    source activate base
+    conda activate base
 
     cd /scratch/Hybpiper_{species}
         
@@ -200,7 +200,7 @@ def paralogs(species,path_in, done, no_paralogs, in_done):
     options = {'cores': 2, 'memory': "10g", 'walltime': "0:30:00", 'account':"Coryphoideae"}
 
     spec = """
-    source activate base
+    conda activate base
     
     if test -f /home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{sp}/genes_with_paralog_warnings.txt; then
         echo "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/{sp}/genes_with_paralog_warnings.txt exists" 
@@ -241,7 +241,7 @@ def intronerate(species, path_in, done):
     options = {'cores': 4, 'memory': "20g", 'walltime': "16:00:00", 'account':"Coryphoideae"}
 
     spec = """
-    source activate base
+    conda activate base
 
     cd {path_in}
 
@@ -266,7 +266,7 @@ def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted
     options = {'cores': 4, 'memory': "20g", 'walltime': "08:00:00", 'account':"Coryphoideae"}
 
     spec = """
-    source activate base
+    conda activate base
     
     cd {path_in}
 
