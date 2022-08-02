@@ -32,7 +32,7 @@ gwf = Workflow()
 def fastqc_raw(species,path_in ,path_out, done,):
     """Quality checking using fastqc as this should work on individual species"""
     inputs = []
-    outputs = [path_out+species+"_fastqc.html", done]
+    outputs = [path_out+species+"_R1_fastqc.html",path_out+species+"_R2_fastqc.html", done]
     options = {'cores': 1, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
 
@@ -41,6 +41,7 @@ def fastqc_raw(species,path_in ,path_out, done,):
 
     fastqc -o {output} {path_in}{species}_R1.fastq {path_in}{species}_R2.fastq
     
+    echo touching {done}
     touch {done}
 
     """.format(path_in = path_in,species = species, output = path_out, done = done)
@@ -52,8 +53,8 @@ def fastqc_raw(species,path_in ,path_out, done,):
 ########################################################################################################################
 def fastqc_trimmed(species,path_in ,path_out, done,):
     """Quality checking using fastqc as this should work on individual species"""
-    inputs = [path_in+species+"_UN.fastq", path_in+species+"_1P.fastq", path_in+species+"_2P.fastq","/home/owrisberg/Coryphoideae/work_flow/02_trimmed/done/"+species ]
-    outputs = [path_out+species, done]
+    inputs = [path_in+species+"_UN.fastq", path_in+species+"_1P.fastq", path_in+species+"_2P.fastq","/home/owrisberg/Coryphoideae/work_flow/02_trimmed/done/"+species]
+    outputs = [path_out+species+"_1P_fastqc.html", path_out+species+"_2P_fastqc.html",path_out+species+"_1PU_fastqc.html",path_out+species+"_2PU_fastqc.html",path_out+species+"_UN_fastqc.html" ,done]
     options = {'cores': 1, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
 
@@ -313,7 +314,6 @@ for i in range(len(sp)):
                                                         path_in= "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/1_trimmed/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/trimmed_data/"+sp[i]))                                                   
-
 
     #### Running Hybpiper
     gwf.target_from_template('Hybpiper_'+sp[i], hybpiper(species = sp[i],
