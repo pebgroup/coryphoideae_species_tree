@@ -175,6 +175,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 
     spec = """
     echo activating base environment
+    conda info --envs
     source activate base
 
     echo cd'ing to slurm job id
