@@ -174,8 +174,10 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
     options = {'cores': 1, 'memory': "20g", 'walltime': "100:00:00", 'account':"Coryphoideae"} #Slurm commands
 
     spec = """
+    echo activating base environment
     source activate base
 
+    echo cd'ing to gwf job id
     cd /scratch/$GWF_JOBID
         
     /home/owrisberg/Coryphoideae/github_code/HybPiper/reads_first.py --cpu 1 --readfiles {p1} {p2} --unpaired {un} -b /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta --prefix {species} --bwa
