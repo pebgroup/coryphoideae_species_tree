@@ -181,7 +181,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 
     conda activate base
 
-    echo cd'ing to slurm job id
+    echo cding to slurm job id
     cd /scratch/$SLURM_JOBID
         
     /home/owrisberg/Coryphoideae/github_code/HybPiper/reads_first.py --cpu 1 --readfiles {p1} {p2} --unpaired {un} -b /home/owrisberg/Coryphoideae/target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta --prefix {species} --bwa
