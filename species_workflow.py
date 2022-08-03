@@ -37,7 +37,8 @@ def fastqc_raw(species,path_in ,path_out, done,):
 
 
     spec = """
-    source activate secapr_env
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate secapr_env
 
     fastqc -o {output} {path_in}{species}_R1.fastq {path_in}{species}_R2.fastq
     
@@ -59,7 +60,8 @@ def fastqc_trimmed(species,path_in ,path_out, done,):
 
 
     spec = """
-    source activate secapr_env
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate secapr_env
 
     fastqc -o {output} {path_in}{species}_1PU.fastq {path_in}{species}_2PU.fastq {path_in}{species}_UN.fastq
     
@@ -106,7 +108,8 @@ def trimmomatic(species, path_in, path_out, done):
     options = {'cores': 16, 'memory': "10g", 'walltime': "01:00:00", 'account':"Coryphoideae"}
 
     spec = """
-    source activate trimmomatic_env
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate trimmomatic_env
 
     trimmomatic PE -threads 16 -phred33 {input}_R1.fastq {input}_R2.fastq -baseout {output}.fastq\
     ILLUMINACLIP:/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/share/trimmomatic-0.39-1/adapters/TruSeq3-PE-2.fa:2:30:10:1:true\
