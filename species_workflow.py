@@ -175,8 +175,11 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done):
 
     spec = """
     echo activating base environment
-    conda info --envs
-    source activate base
+
+    #This line should enable the activation of specific conda environments
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+
+    conda activate base
 
     echo cd'ing to slurm job id
     cd /scratch/$SLURM_JOBID
