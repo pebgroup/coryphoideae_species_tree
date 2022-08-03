@@ -316,7 +316,7 @@ for i in range(len(sp)):
     gwf.target_from_template('trimmomatic_'+sp[i], trimmomatic(species = sp[i],
                                                         path_in= "/home/owrisberg/Coryphoideae/work_flow/01_data/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/trimmed_data"+sp[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/00_secapr/done/"+sp[i]))
 
     #### Running fastqc on the trimmed data
     gwf.target_from_template('fastqc_trimmed_'+sp[i], fastqc_trimmed(species = sp[i],
