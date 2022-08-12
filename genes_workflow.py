@@ -41,11 +41,11 @@ def retrieve(path_in):
     """Retrieve gene sequences from all the species and create an unaligned multifasta for each gene."""
     inputs = []
     outputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt"]
-    options = {'cores': 10, 'memory': "20g", 'walltime': "12:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 10, 'memory': "20g", 'walltime': "36:00:00", 'account':"Coryphoideae"}
 
     spec = """
-
-    source activate base
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate base
 
     cd {path_in}
 
@@ -72,7 +72,8 @@ def mafft(gene, path_in, path_out, done):
 
     spec = """
 
-    source activate mafft_env
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate mafft_env
 
     cd {path_in}
 
@@ -99,8 +100,9 @@ def exon_map(path_in,path_out,done,gene):
 
     spec="""
 
-    #Activating conda base environment 
-    source activate base
+    #Activating conda base environment
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate base
 
     #Going to folder with data
     cd {path_in}
@@ -149,7 +151,8 @@ path_in+"done/trimal_gt/HEY514",path_in+"done/trimal_gt/HEY51",path_in+"done/tri
     spec="""
 
     #Activating trimal_env
-    source activate trimal_env
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate trimal_env
 
     #Going to folder with trimmed files
     cd {path_in}/{cut_off}
@@ -182,7 +185,8 @@ def amas_preb_raw(path_in,path_out,done):
     spec="""
 
     #Activating trimal_env
-    source activate trimal_env
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate trimal_env
 
     #Going to folder with trimmed files
     cd {path_in}
@@ -209,6 +213,8 @@ def optrim(path_in,done):
     options = {'cores': 10, 'memory': "20g", 'walltime': "08:00:00", 'account':"Coryphoideae"}
 
     spec="""
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate base
 
     #Going to folder with trimmed files
     cd {path_in}
@@ -230,6 +236,8 @@ def no_empty(path_in,path_out,done,gene):
     options = {'cores': 10, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate base
 
     #Going to folder with trimmed files
     cd {path_in}
