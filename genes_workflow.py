@@ -41,7 +41,7 @@ def retrieve(path_in):
     """Retrieve gene sequences from all the species and create an unaligned multifasta for each gene."""
     inputs = []
     outputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt"]
-    options = {'cores': 10, 'memory': "20g", 'walltime': "36:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 10, 'memory': "20g", 'walltime': "1:00:00", 'account':"Coryphoideae"}
 
     spec = """
     source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
@@ -65,10 +65,11 @@ def retrieve(path_in):
 # ########################################################################################################################
 
 def mafft(gene, path_in, path_out, done):
-    """Aligning all the sequences for each gene."""
+    """Aligning all the sequences for each gene.
+        Some Genes require a LOT of memory to not result in an Out Of Memory error (500g) but most will do fine with way less"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt",path_in+gene+".FNA"]
     outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 1, 'memory': "50g", 'walltime': "48:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 1, 'memory': "300g", 'walltime': "48:00:00", 'account':"Coryphoideae"}
 
     spec = """
 
