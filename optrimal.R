@@ -89,7 +89,7 @@ overlost <- names(optrim_loss[optrim_loss > 0.3])
 write(overlost, 'overlost.txt', sep = '\n')
 
 
-
+#This line of code copies the sequence with the optimal trimming value into the current directory. 
 file.copy(paste(optrim, '/', names(optrim), sep = ''), getwd())
 
 # file.remove(paste(overlost, sep = ''))
