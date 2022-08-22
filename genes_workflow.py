@@ -226,6 +226,8 @@ def optrim(path_in,done):
 
     touch {done}
 
+    cp *_aligned.fasta /home/owrisberg/Coryphoideae/work_flow/09_Cialign/
+
     """.format(path_in=path_in, done=done)
 
     return(inputs, outputs, options, spec)
@@ -250,8 +252,69 @@ def no_empty(path_in,path_out,done,gene):
     """.format(path_in=path_in, done=done, gene=gene)
 
     return(inputs, outputs, options, spec)
+########################################################################################################################
+####################################################---- CIALIGN ----###################################################
+########################################################################################################################
 
 
+def cialign(genes, path_in, path_out, done):
+    """ CIAlign allows the user to:
+
+    Remove sources of noise from their Multiple sequence alignment by:
+        Remove insertions which are not present in the majority of sequences
+        Remove sequences below a threshold number of bases or amino acids
+        Crop poorly aligned sequence ends
+        Remove columns containing only gaps
+        Remove sequences above a threshold level percentage of divergence from the majority"""
+
+    inputs = [path_in + genes + "_aligned.fasta"]
+    outputs = [path_out+genes+"_cialign.fasta_cleaned.fasta"]
+    options = {'cores': 8, 'memory': "100g", 'walltime': "12:00:00", 'account':"Coryphoideae"}
+
+    spec = """
+
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate cialign_env
+
+    cd {path_in}
+
+    CIAlign --infile {genes}_aligned.fasta --all --outfile_stem {path_out}{genes}_cialign.fasta
+
+    """.format(genes = genes, done = done, path_in = path_in, path_out=path_out)
+
+    return (inputs, outputs, options, spec)
+    
+
+
+
+
+########################################################################################################################
+#####################################################---- Taper ----####################################################
+########################################################################################################################
+
+def taper(path_in, genes, path_out, done):
+    """Using TAPER AFTER CIAlign to remove errors in small species-specific stretches of the multiple sequence alignments"""
+    inputs = [path_in+genes+"_cialign.fasta_cleaned.fasta"]
+    outputs = [path_out+genes+"_output_tapper.fasta"]
+    options = {'cores': 1, 'memory': "40g", 'walltime': "02:00:00", 'account':"Coryphoideae"}
+
+    spec = """
+     
+    cd {path_in}
+        
+    #Activate the enviroment
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate my_env
+        
+    julia /home/owrisberg/Coryphoideae/github_code/TAPER/correction_multi.jl {genes}_cialign.fasta_cleaned.fasta > {genes}_output_tapper.fasta 
+    
+    mv {genes}_output_tapper.fasta {path_in}TAPER
+
+    touch {done}
+        
+    """.format(path_in = path_in, genes = genes, path_out = path_out, done =done)
+
+    return (inputs, outputs, options, spec)
 
 ########################################################################################################################
 ######################################################---- RUN ----#####################################################
@@ -302,5 +365,14 @@ gwf.target_from_template('amas_raw', amas_preb_raw(path_in = "/home/owrisberg/Co
 gwf.target_from_template('optrim', optrim(path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
                                             done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/optrim/optrim_done.txt"))
 
-
-
+for i in range(len(genes)):
+    #### Running CIAlign
+    gwf.target_from_template('CIAlign_'+genes[i], cialign(gene = genes[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/done/"+genes[i]))
+    #### Running TAPER
+    gwf.target_from_template('TAPER_'+genes[i], taper(gene = genes[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/",
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/done"+genes[i]))
