@@ -304,7 +304,7 @@ def taper(path_in, genes, path_out, done):
         
     #Activate the enviroment
     source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
-    conda activate my_env
+    conda activate cialign_env
         
     julia /home/owrisberg/Coryphoideae/github_code/TAPER/correction_multi.jl {genes}_cialign.fasta_cleaned.fasta > {genes}_output_tapper.fasta 
     
