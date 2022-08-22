@@ -257,7 +257,7 @@ def no_empty(path_in,path_out,done,gene):
 ########################################################################################################################
 
 
-def cialign(genes, path_in, path_out, done):
+def cialign(gene, path_in, path_out, done):
     """ CIAlign allows the user to:
 
     Remove sources of noise from their Multiple sequence alignment by:
@@ -267,8 +267,8 @@ def cialign(genes, path_in, path_out, done):
         Remove columns containing only gaps
         Remove sequences above a threshold level percentage of divergence from the majority"""
 
-    inputs = [path_in + genes + "_aligned.fasta"]
-    outputs = [path_out+genes+"_cialign.fasta_cleaned.fasta"]
+    inputs = [path_in + gene + "_aligned.fasta"]
+    outputs = [path_out+gene+"_cialign.fasta_cleaned.fasta"]
     options = {'cores': 8, 'memory': "100g", 'walltime': "12:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -280,7 +280,7 @@ def cialign(genes, path_in, path_out, done):
 
     CIAlign --infile {genes}_aligned.fasta --all --outfile_stem {path_out}{genes}_cialign.fasta
 
-    """.format(genes = genes, done = done, path_in = path_in, path_out=path_out)
+    """.format(genes = gene, done = done, path_in = path_in, path_out=path_out)
 
     return (inputs, outputs, options, spec)
     
@@ -292,10 +292,10 @@ def cialign(genes, path_in, path_out, done):
 #####################################################---- Taper ----####################################################
 ########################################################################################################################
 
-def taper(path_in, genes, path_out, done):
+def taper(path_in, gene, path_out, done):
     """Using TAPER AFTER CIAlign to remove errors in small species-specific stretches of the multiple sequence alignments"""
-    inputs = [path_in+genes+"_cialign.fasta_cleaned.fasta"]
-    outputs = [path_out+genes+"_output_tapper.fasta"]
+    inputs = [path_in+gene+"_cialign.fasta_cleaned.fasta"]
+    outputs = [path_out+gene+"_output_tapper.fasta"]
     options = {'cores': 1, 'memory': "40g", 'walltime': "02:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -312,7 +312,7 @@ def taper(path_in, genes, path_out, done):
 
     touch {done}
         
-    """.format(path_in = path_in, genes = genes, path_out = path_out, done =done)
+    """.format(path_in = path_in, genes = gene, path_out = path_out, done =done)
 
     return (inputs, outputs, options, spec)
 
