@@ -380,4 +380,4 @@ for i in range(len(genes)):
     gwf.target_from_template('TAPER_'+genes[i], taper(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/done"+genes[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/done/"+genes[i]))
