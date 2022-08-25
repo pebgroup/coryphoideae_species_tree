@@ -31,9 +31,9 @@ if gene in df.columns:
 	sp = df_red["Species"][1]
 	exon2 = list(SeqIO.parse("../03_hybpiper/"+sp+"/"+gene+"/"+sp+"/sequences/FNA/"+gene+".FNA", "fasta"))[0]
 	exon2.id = "exon2"
-	with open("temp.fasta", "w") as output_handle:
+	with open(gene+"_temp.fasta", "w") as output_handle:
 		SeqIO.write([exon1, exon2], output_handle, "fasta")
-	subprocess.call("mafft --add temp.fasta "+gene+"_aligned.fasta > ../"+outdir+"/"+gene+"_aligned.fasta" ,shell=True)
-	subprocess.call("rm temp.fasta", shell=True)
+	subprocess.call("mafft --add "+gene+"_temp.fasta "+gene+"_aligned.fasta > ../"+outdir+"/"+gene+"_aligned.fasta" ,shell=True)
+	subprocess.call("rm "+gene+"_temp.fasta", shell=True)
 else:
 	print(gene+" not there!!!!")
