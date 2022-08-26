@@ -36,17 +36,18 @@ def partitioner(path_in, gene):
 
     spec = """
 
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	#Removing files used for last round of tree searching
-	cd {path_in}
-	[ -f {gene}_aligned_part.txt ] && rm {gene}_aligned_part.txt || echo "{gene}_aligned_part.txt does not exist"
-	[ -f {gene}_aligned_clean.fasta ] && rm {gene}_aligned_clean.fasta || echo "{gene}_aligned_clean.fasta does not exist"
+	#cd {path_in}
+	#[ -f {gene}_aligned_part.txt ] && rm {gene}_aligned_part.txt || echo "{gene}_aligned_part.txt does not exist"
+	#[ -f {gene}_aligned_clean.fasta ] && rm {gene}_aligned_clean.fasta || echo "{gene}_aligned_clean.fasta does not exist"
 
 	#Copying manually edited genes
-	cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
-	echo "copying {gene} into folder 04_alignments_for_trees"
-	cp {gene}_aligned.fasta ../04_alignments_for_trees
+	#cd /home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments
+	#echo "copying {gene} into folder 04_alignments_for_trees"
+	#cp {gene}_aligned.fasta ../04_alignments_for_trees
 
 	#Going to folder with data
 	cd {path_in}
@@ -74,8 +75,8 @@ def iq_tree(path_in, gene,path_out ):
     options = {'cores': 20, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec = """
-
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	cd {path_in}
 
@@ -104,8 +105,8 @@ def rename_reroot(path_in, gene):
     options = {'cores': 5, 'memory': "10g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
     spec = """
-
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	cd {path_in}
 
@@ -136,7 +137,8 @@ def newick_contracting(path_in,path_out ):
 
     spec = """
 
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	echo "this is the path in: {path_in}"
 	echo "this is the path out: {path_out}"
@@ -174,7 +176,8 @@ def newick_contracting_orthologs(path_in,path_out ):
 
     spec = """
 
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	echo "this is the path in: {path_in}"
 	echo "this is the path out: {path_out}"
@@ -206,7 +209,8 @@ def astral(path_in, gene_tree_file,output):
 
     spec = """
 
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	cd {path_in}
 
@@ -229,7 +233,8 @@ def renaming(path_in, tree_in, tree_out):
 
     spec = """
 
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	cd {path_in}
 
@@ -252,7 +257,8 @@ def quartet_scores(path_in):
 
     spec = """
 
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	cd {path_in}
 
@@ -280,7 +286,8 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
 
     spec = """
 
-	source activate treebuilder_env
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
 
 	cd {path_in}
 
@@ -304,7 +311,8 @@ def sorta_date(path_in,path_out,astral_tree, done):
     spec = """
 
 	#Activating conda base environment 
-	source activate base
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate base
 
 	#Get the root-to-tip variance with
 	python {SortaDate}get_var_length.py {path_in} --flend _rooted.tre --outf {path_out}var --outg 1079,1080,1081,1082

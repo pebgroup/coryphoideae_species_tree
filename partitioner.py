@@ -15,7 +15,7 @@ gene = args.gene
 
 sequences = [] # gather sequences to keep in the final alignment (all but the exons)
 # extract aligned exon sequences
-for record in SeqIO.parse(gene+"_aligned.fasta", "fasta"):
+for record in SeqIO.parse(gene+"_output_tapper.fasta", "fasta"):
 	if record.id == "exon1":
 		exon1 = record.seq
 	elif record.id == "exon2":

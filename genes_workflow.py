@@ -270,7 +270,23 @@ def cialign(gene, path_in, path_out, done):
         Remove sequences below a threshold number of bases or amino acids
         Crop poorly aligned sequence ends
         Remove columns containing only gaps
-        Remove sequences above a threshold level percentage of divergence from the majority"""
+        Remove sequences above a threshold level percentage of divergence from the majority
+        
+        Some of the species had almost had super short sequences for some genes, and after CIAlign had removed erroneus positions in the alignments, these species-gene combinations
+        were now empty. This caused errors in the CIAlign algorithm and I therefore had to remove the following species-gene combinations manually from the alignments.
+        
+        1268-EGU105033626
+        1197-EGU105039282
+        1245-EGU105039282
+        1033-EGU105040813
+        1048-EGU105040813
+        1076-EGU105048474
+        1049-EGU105054498
+        1267-EGU105056365
+        1344-EGU105056714
+        1245-EGU105058990
+        
+         """
 
     inputs = [path_in + gene + "_aligned.fasta"]
     outputs = [path_out+gene+"_cialign.fasta_cleaned.fasta"]
