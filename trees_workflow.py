@@ -354,7 +354,7 @@ for i in range(len(genes)):
 
     #### Creating the partition files for each gene
     gwf.target_from_template('Partition_'+genes[i], partitioner(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees/",
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
 														done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
 
 	#Running IQ_tree
