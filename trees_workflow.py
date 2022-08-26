@@ -28,7 +28,7 @@ gwf = Workflow()
 # ########################---- Copying alignments and creating partitions ----############################################
 # ########################################################################################################################
 
-def partitioner(path_in, gene):
+def partitioner(path_in, gene, done):
     """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments/"+gene+"_aligned.fasta"]
     outputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta"]
@@ -58,8 +58,10 @@ def partitioner(path_in, gene):
 
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene}
 
+	touch {done}
 
-    """.format(path_in = path_in, gene = gene)
+
+    """.format(path_in = path_in, gene = gene, done = done)
 
     return (inputs, outputs, options, spec)
 
@@ -352,7 +354,8 @@ for i in range(len(genes)):
 
     #### Creating the partition files for each gene
     gwf.target_from_template('Partition_'+genes[i], partitioner(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees/"))
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees/",
+														done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
 
 	#Running IQ_tree
     gwf.target_from_template('IQtree_'+genes[i], iq_tree(gene = genes[i],
