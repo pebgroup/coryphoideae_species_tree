@@ -359,7 +359,7 @@ for i in range(len(genes)):
 
 	#Running IQ_tree
     gwf.target_from_template('IQtree_'+genes[i], iq_tree(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/04_alignments_for_trees/",
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
 	
 	#Running Rename Reroot
