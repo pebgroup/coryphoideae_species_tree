@@ -31,7 +31,7 @@ gwf = Workflow()
 def partitioner(path_in, gene, done):
     """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_manual_edit/02_edited_alignments/"+gene+"_aligned.fasta"]
-    outputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta"]
+    outputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta", done]
     options = {'cores': 1, 'memory': "5g", 'walltime': "00:20:00", 'account':"Coryphoideae"}
 
     spec = """
