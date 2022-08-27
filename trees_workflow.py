@@ -72,7 +72,7 @@ gwf = Workflow()
 
 def iq_tree(path_in, gene,path_out ):
     """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
-    inputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta"]
+    inputs = [path_in+gene+"_output_tapper.fasta"]
     outputs = [path_out+gene+".txt.tre"]
     options = {'cores': 20, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
@@ -354,9 +354,9 @@ bad_genes = ["EGU105059594","EGU105059996"]
 for i in range(len(genes)):
 
     #### Creating the partition files for each gene
-    gwf.target_from_template('Partition_'+genes[i], partitioner(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
-														done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
+    # gwf.target_from_template('Partition_'+genes[i], partitioner(gene = genes[i],
+    #                                                     path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
+	# 													done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
 
 	#Running IQ_tree
     gwf.target_from_template('IQtree_'+genes[i], iq_tree(gene = genes[i],
