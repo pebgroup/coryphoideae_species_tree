@@ -89,7 +89,7 @@ def iq_tree(path_in, gene,path_out ):
 
 
 	mv {gene}*.treefile {path_out}{gene}.txt.tre
-	mv *output_tapper* {path_out}logfiles/
+	
 
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
