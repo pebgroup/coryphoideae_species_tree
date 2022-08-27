@@ -276,14 +276,25 @@ def cialign(gene, path_in, path_out, done):
         were now empty. This caused errors in the CIAlign algorithm and I therefore had to remove the following species-gene combinations manually from the alignments.
         
         1268-EGU105033626
+
         1197-EGU105039282
         1245-EGU105039282
+        1435-EGU105039282
+
         1033-EGU105040813
         1048-EGU105040813
+        1051-EGU105040813
+        3054-EGU105040813
+        4089-EGU105040813
+
         1076-EGU105048474
+
         1049-EGU105054498
+
         1267-EGU105056365
+
         1344-EGU105056714
+
         1245-EGU105058990
         
          """
@@ -299,7 +310,9 @@ def cialign(gene, path_in, path_out, done):
 
     cd {path_in}
 
-    CIAlign --infile {genes}_aligned.fasta --all --outfile_stem {path_out}{genes}_cialign.fasta
+    CIAlign --infile {genes}_aligned.fasta --remove_divergent --outfile_stem {path_out}{genes}_cialign.fasta
+
+    touch {done}
 
     """.format(genes = gene, done = done, path_in = path_in, path_out=path_out)
 
