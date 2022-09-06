@@ -217,9 +217,6 @@ def astral(path_in, gene_tree_file,output):
 
 	cd {path_in}
 
-	#Renaming species in genetrees
-	sed -i -e 's/_R_//g' {gene_tree_file}
-
 	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i {gene_tree_file} -o {output}
 
 
