@@ -231,7 +231,7 @@ def astral(path_in, gene_tree_file,output):
 # ########################################################################################################################
 # ############################################---- Renaming ----#####################################################
 # ########################################################################################################################
-def renaming(path_in, tree_in, tree_out):
+def renaming(path_in, tree_in,gene_tree_file, tree_out):
     """Reneming the tips in the phylogeny based on the names_for_tips.csv"""
     inputs = [path_in+tree_in]
     outputs = [path_in+tree_out]
@@ -253,7 +253,7 @@ def renaming(path_in, tree_in, tree_out):
 	#Renaming tips in tree
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree_in} {tree_out} --bs 1
 
-	""".format(path_in = path_in, tree_in=tree_in, tree_out=tree_out)
+	""".format(path_in = path_in, tree_in=tree_in, tree_out=tree_out, gene_tree_file = gene_tree_file)
 
     return (inputs, outputs, options, spec)
 
@@ -388,6 +388,7 @@ gwf.target_from_template('Astral', astral(path_in = "/home/owrisberg/Coryphoidea
 # Renaming the tips
 gwf.target_from_template('Renaming', renaming(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
                                                         tree_in="astral_tree.tre",
+														gene_tree_file="genetrees.tre",
 														tree_out="astral_tree_renamed.tre"))
 
 # Running Quartet scores
@@ -424,6 +425,7 @@ gwf.target_from_template('Astral_orthologs', astral(path_in = "/home/owrisberg/C
 # Renaming the tips
 gwf.target_from_template('Renaming_orthologs', renaming(path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
                                                         tree_in="astral_tree_orthologs.tre",
+														gene_tree_file="genetrees_orthologs.tre",
 														tree_out="astral_tree_orthologs_renamed.tre"))
 
 # Running Quartet scores
