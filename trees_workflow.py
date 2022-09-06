@@ -217,6 +217,9 @@ def astral(path_in, gene_tree_file,output):
 
 	cd {path_in}
 
+	#Renaming species in genetrees
+	sed -i -e 's/_R_//g' {gene_tree_file}
+
 	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i {gene_tree_file} -o {output}
 
 
@@ -243,6 +246,9 @@ def renaming(path_in, tree_in, tree_out):
 
 	#Removing _R_ from sequences which have been reversed
 	sed -i -e 's/_R_//g' {tree_in}
+
+	#Renaming species in genetrees which have been reversed 
+	sed -i -e 's/_R_//g' {gene_tree_file}
 
 	#Renaming tips in tree
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree_in} {tree_out} --bs 1
