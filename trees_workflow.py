@@ -241,6 +241,9 @@ def renaming(path_in, tree_in, tree_out):
 
 	cd {path_in}
 
+	#Removing _R_ from sequences which have been reversed
+	sed -i -e 's/_R_//g' {tree_in}
+
 	#Renaming tips in tree
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree_in} {tree_out} --bs 1
 
