@@ -85,7 +85,6 @@ def iq_tree(path_in, gene,path_out ):
 	#Actual IQtree tree search. 
 	iqtree2 -s {gene}_output_tapper.fasta -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
 
-	#sed -i 's/_R_//g' {gene}_aligned_part.txt.treefile
 
 
 	mv {gene}*.treefile {path_out}{gene}.txt.tre
@@ -115,6 +114,9 @@ def rename_reroot(path_in, gene):
 
 	echo Removing {gene} from tip labels
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/genenameremover.py --gene {gene} --treefile {gene}.txt.tre
+
+	#Removing _R_ from sequences which have been reversed
+	sed -i -e 's/_R_//g' {gene}.txt.tre
 
 	echo Rerooting each genetree based on the outgroup	
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rooter.py --gene {gene} --treefile {gene}.txt.tre 
@@ -206,7 +208,7 @@ def newick_contracting_orthologs(path_in,path_out ):
 # ########################################################################################################################
 def astral(path_in, gene_tree_file,output):
     """Using Astral to construct a species tree based on the genetrees"""
-    inputs = [path_in+"genetrees.tre"]
+    inputs = [path_in+gene_tree_file]
     outputs = [path_in+output]
     options = {'cores': 20, 'memory': "40g", 'walltime': "24:00:00", 'account':"Coryphoideae"}
 
@@ -229,7 +231,7 @@ def astral(path_in, gene_tree_file,output):
 # ############################################---- Renaming ----#####################################################
 # ########################################################################################################################
 def renaming(path_in, tree_in,gene_tree_file, tree_out):
-    """Reneming the tips in the phylogeny based on the names_for_tips.csv"""
+    """Renaming the tips in the phylogeny based on the names_for_tips.csv"""
     inputs = [path_in+tree_in]
     outputs = [path_in+tree_out]
     options = {'cores': 1, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
@@ -240,12 +242,6 @@ def renaming(path_in, tree_in,gene_tree_file, tree_out):
 	conda activate treebuilder_env
 
 	cd {path_in}
-
-	#Removing _R_ from sequences which have been reversed
-	sed -i -e 's/_R_//g' {tree_in}
-
-	#Renaming species in genetrees which have been reversed 
-	sed -i -e 's/_R_//g' {gene_tree_file}
 
 	#Renaming tips in tree
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv {tree_in} {tree_out} --bs 1
