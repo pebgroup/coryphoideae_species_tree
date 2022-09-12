@@ -16,7 +16,7 @@ gene = args.gene
 file_ending = args.file_ending
 
 #Creating output file ending
-out_file_ending = file_ending.replace(".fasta", "_mapped.fasta" )
+output_file_ending = file_ending.replace(".fasta", "_mapped.fasta" )
 
 
 # import recovery statistics
