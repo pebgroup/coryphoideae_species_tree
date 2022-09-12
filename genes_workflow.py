@@ -243,32 +243,6 @@ def cialign(gene, path_in, path_out, done):
         Crop poorly aligned sequence ends
         Remove columns containing only gaps
         Remove sequences above a threshold level percentage of divergence from the majority
-        
-        Some of the species had almost had super short sequences for some genes, and after CIAlign had removed erroneus positions in the alignments, these species-gene combinations
-        were now empty. This caused errors in the CIAlign algorithm and I therefore had to remove the following species-gene combinations manually from the alignments.
-        
-        1268-EGU105033626
-
-        1197-EGU105039282
-        1245-EGU105039282
-        1435-EGU105039282
-
-        1033-EGU105040813
-        1048-EGU105040813
-        1051-EGU105040813
-        3054-EGU105040813
-        4089-EGU105040813
-
-        1076-EGU105048474
-
-        1049-EGU105054498
-
-        1267-EGU105056365
-
-        1344-EGU105056714
-
-        1245-EGU105058990
-        
          """
 
     inputs = [path_in + gene + "_aligned.fasta"]
@@ -343,10 +317,10 @@ def exon_map(path_in,path_out,done,gene):
     cd {path_in}
 
     # Running Wolfs Exon_mapper
-    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene}
+    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene} --outdir {path_out}
 
     touch {done}
-    """.format(path_in=path_in, done=done, gene=gene)
+    """.format(path_in=path_in, done=done, gene=gene, path_out=path_out)
 
     return(inputs, outputs, options, spec)
 
