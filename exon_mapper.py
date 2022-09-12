@@ -39,7 +39,7 @@ if gene in df.columns:
 	exon2.id = "exon2"
 	with open(gene+"_temp.fasta", "w") as output_handle:
 		SeqIO.write([exon1, exon2], output_handle, "fasta")
-	subprocess.call("mafft --add "+gene+"_temp.fasta "+gene+file_ending" > ../../"+outdir+"/"+gene+output_file_ending,shell=True)
+	subprocess.call("mafft --add "+gene+"_temp.fasta "+gene+file_ending+" > ../../"+outdir+"/"+gene+output_file_ending,shell=True)
 	subprocess.call("rm "+gene+"_temp.fasta", shell=True)
 else:
 	print(gene+" not there!!!!")
