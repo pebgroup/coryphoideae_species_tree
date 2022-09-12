@@ -317,7 +317,7 @@ def exon_map(path_in,path_out,done,gene):
     cd {path_in}
 
     # Running Wolfs Exon_mapper
-    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene} --outdir {path_out}
+    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene} --outdir {path_out} --file_ending _output_tapper.fasta
 
     touch {done}
     """.format(path_in=path_in, done=done, gene=gene, path_out=path_out)
