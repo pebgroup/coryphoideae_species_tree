@@ -78,7 +78,7 @@ def mafft(gene, path_in, path_out, done):
 
     cd {path_in}
 
-    #Aligning using mafft localpair which should be able to handle sequences flanking an alignable region.
+    #Aligning using mafft localpair which should be able to handle divergent sequences flanking an alignable region.
     mafft --globalpair --large --adjustdirectionaccurately --thread 1 {gene}.FNA > {path_out}{gene}_aligned.fasta
     
     touch {done}
@@ -87,34 +87,6 @@ def mafft(gene, path_in, path_out, done):
 
     return (inputs, outputs, options, spec)
 
-
-# ########################################################################################################################
-# #############################################---- Exon Mapper ----######################################################
-# ########################################################################################################################
-
-def exon_map(path_in,path_out,done,gene):
-    """This creates new alignments in `07_mapping` that contain the original alignments plus the exon sequences of the
-    two species that had the highest recovery success at each locus.."""
-    inputs = ["/home/owrisberg/Coryphoideae/work_flow/06_alignment/done/"+gene]
-    outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 4, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
-
-    spec="""
-
-    #Activating conda base environment
-    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
-    conda activate base
-
-    #Going to folder with data
-    cd {path_in}
-
-    # Running Wolfs Exon_mapper
-    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene}
-
-    touch {done}
-    """.format(path_in=path_in, done=done, gene=gene)
-
-    return(inputs, outputs, options, spec)
 
 # ########################################################################################################################
 # #############################################---- Optrimal ----#########################################################
@@ -231,7 +203,7 @@ def optrim(path_in,done):
 
     touch {done}
 
-    cp *_aligned.fasta /home/owrisberg/Coryphoideae/work_flow/09_Cialign/
+    cp *_aligned.fasta /home/owrisberg/Coryphoideae/work_flow/08_cialign/
 
     """.format(path_in=path_in, done=done)
 
@@ -329,7 +301,7 @@ def cialign(gene, path_in, path_out, done):
 def taper(path_in, gene, path_out, done):
     """Using TAPER AFTER CIAlign to remove errors in small species-specific stretches of the multiple sequence alignments"""
     inputs = [path_in+gene+"_cialign.fasta_cleaned.fasta"]
-    outputs = [path_out+gene+"_output_tapper.fasta"]
+    outputs = [path_out+gene+"_output_tapper.fasta",]
     options = {'cores': 1, 'memory': "40g", 'walltime': "02:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -350,6 +322,35 @@ def taper(path_in, gene, path_out, done):
 
     return (inputs, outputs, options, spec)
 
+# ########################################################################################################################
+# #############################################---- Exon Mapper ----######################################################
+# ########################################################################################################################
+
+def exon_map(path_in,path_out,done,gene):
+    """This creates new alignments in `07_mapping` that contain the original alignments plus the exon sequences of the
+    two species that had the highest recovery success at each locus.."""
+    inputs = ["/home/owrisberg/Coryphoideae/work_flow/08_cialign/TAPER/done/"+gene]
+    outputs = [done,path_out+gene+"_aligned.fasta"] 
+    options = {'cores': 4, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
+
+    spec="""
+
+    #Activating conda base environment
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    conda activate base
+
+    #Going to folder with data
+    cd {path_in}
+
+    # Running Wolfs Exon_mapper
+    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene}
+
+    touch {done}
+    """.format(path_in=path_in, done=done, gene=gene)
+
+    return(inputs, outputs, options, spec)
+
+
 ########################################################################################################################
 ######################################################---- RUN ----#####################################################
 ########################################################################################################################
@@ -369,44 +370,44 @@ gwf.target_from_template('Retrieve_genes', retrieve(path_in="/home/owrisberg/Cor
 for i in range(len(genes)):
     #### Running Mafft
     gwf.target_from_template('Mafft_'+genes[i], mafft(gene = genes[i],
-                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/done/"+genes[i]))
-
-    #### Running Exon_mapper
-    gwf.target_from_template('Exon_map_'+genes[i], exon_map(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
-                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/done/"+genes[i]))
 
     #### Running optrim_preb 
     gwf.target_from_template('gt_trimming_'+genes[i], gt_trimming(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/07_mapping/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/trimal_gt/"+genes[i]))
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/trimal_gt/"+genes[i]))
 
     #### Running AMAS on the trimmed sequences for each gt value
 for j in range(len(gt_values)):
     gwf.target_from_template('amas_preb_gt_'+gt_values[j], amas_preb_gt(cut_off=gt_values[j],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
-                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/amas_gt/"+gt_values[j]))
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/amas_gt/"+gt_values[j]))
 #Running AMAS on raw sequences
-gwf.target_from_template('amas_raw', amas_preb_raw(path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
-                                                    path_out = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
-                                                    done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/amas_raw/amaw_raw_done.txt"))
+gwf.target_from_template('amas_raw', amas_preb_raw(path_in = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
+                                                    path_out = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
+                                                    done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/amas_raw/amaw_raw_done.txt"))
 
 #Running optrim to find optimal trimming trimming threshold.
-gwf.target_from_template('optrim', optrim(path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
-                                            done = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/done/optrim/optrim_done.txt"))
+gwf.target_from_template('optrim', optrim(path_in = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
+                                            done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/optrim/optrim_done.txt"))
 
 for i in range(len(genes)):
     #### Running CIAlign
     gwf.target_from_template('CIAlign_'+genes[i], cialign(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/",
-                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/done/"+genes[i]))
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/done/"+genes[i]))
     #### Running TAPER
     gwf.target_from_template('TAPER_'+genes[i], taper(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/",
-                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/done/"+genes[i]))
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/",
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/TAPER/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/TAPER/done/"+genes[i]))
+
+    #### Running Exon_mapper
+    gwf.target_from_template('Exon_map_'+genes[i], exon_map(gene = genes[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/TAPER/",
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/09_mapping/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/09_mapping/done/"+genes[i]))

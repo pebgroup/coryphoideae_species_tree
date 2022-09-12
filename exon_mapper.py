@@ -6,7 +6,7 @@ import pandas as pd
 from Bio import SeqIO
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--outdir", default="07_mapping")
+parser.add_argument("--outdir")
 parser.add_argument("--gene")
 args = parser.parse_args()
 outdir = args.outdir
