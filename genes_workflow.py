@@ -398,16 +398,16 @@ for i in range(len(genes)):
     #### Running CIAlign
     gwf.target_from_template('CIAlign_'+genes[i], cialign(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
-                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/done/"+genes[i]))
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/08_cialign/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_cialign/done/"+genes[i]))
     #### Running TAPER
     gwf.target_from_template('TAPER_'+genes[i], taper(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/",
-                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/TAPER/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/TAPER/done/"+genes[i]))
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_cialign/",
+                                                        path_out= "/home/owrisberg/Coryphoideae/work_flow/08_cialign/TAPER/",
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/08_cialign/TAPER/done/"+genes[i]))
 
     #### Running Exon_mapper
     gwf.target_from_template('Exon_map_'+genes[i], exon_map(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_Cialign/TAPER/",
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/08_cialign/TAPER/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/09_mapping/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/09_mapping/done/"+genes[i]))
