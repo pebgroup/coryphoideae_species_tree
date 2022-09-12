@@ -301,7 +301,7 @@ def cialign(gene, path_in, path_out, done):
 def taper(path_in, gene, path_out, done):
     """Using TAPER AFTER CIAlign to remove errors in small species-specific stretches of the multiple sequence alignments"""
     inputs = [path_in+gene+"_cialign.fasta_cleaned.fasta"]
-    outputs = [path_out+gene+"_output_tapper.fasta",]
+    outputs = [path_out+gene+"_output_tapper.fasta", done]
     options = {'cores': 1, 'memory': "40g", 'walltime': "02:00:00", 'account':"Coryphoideae"}
 
     spec = """
