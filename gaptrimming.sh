@@ -12,11 +12,11 @@ done
     source activate trimal_env
 
     #Copying data into working folder
-    cd /home/owrisberg/Coryphoideae/work_flow/07_mapping
-    cp $gene?aligned.fasta ../08_optrimal
+    cd /home/owrisberg/Coryphoideae/work_flow/06_alignment
+    cp $gene?aligned.fasta ../07_optrimal
 
     #Going to folder with data
-    cd /home/owrisberg/Coryphoideae/work_flow/08_optrimal
+    cd /home/owrisberg/Coryphoideae/work_flow/07_optrimal
 
     # replace n's with gaps in alignmenets - this will otherwise trip up TrimAl
     for f in $gene?aligned.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done
