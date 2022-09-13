@@ -47,8 +47,8 @@ def partitioner(path_in,path_out, gene, done):
 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene} --file_ending _output_tapper_mapped.fasta
 	
 	#Moving files to the correct folders
-	mv {gene}_aligned_clean.fasta {path_out}
-	mv {gene}_aligned_part.txt {path_out} 
+	mv {gene}_clean.fasta {path_out}
+	mv {gene}_part.txt {path_out} 
 
 	touch {done}
 
