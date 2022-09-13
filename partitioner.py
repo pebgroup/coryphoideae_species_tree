@@ -68,10 +68,16 @@ for i in range(len(exon1)):
 				partitions_intron.append(current_part)
 			else:
 				partitions_exon.append(current_part)
+	
+	print("This is the name of the _part.txt file")
+	print(".".join(gene.split(".")[:-1])+"_part.txt")
 	# write RAxML style partition file
 	with open(".".join(gene.split(".")[:-1])+"_part.txt", "w") as partfile:
 		print("DNA, intron = " + ", ".join(["-".join([str(j) for j in i]) for i in partitions_intron]), file=partfile)
 		print("DNA, exon = " + ", ".join(["-".join([str(j) for j in i]) for i in partitions_exon]), file=partfile)
+
+print("This is the name of the _clean.fasta file")
+print(".".join(gene.split(".")[:-1])+"_clean.fasta")
 # write alignment without exon sequences
 with open(".".join(gene.split(".")[:-1])+"_clean.fasta", "w") as al:	
 	SeqIO.write(sequences, al, "fasta")
