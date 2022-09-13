@@ -7,15 +7,16 @@ from Bio import SeqIO
 parser = argparse.ArgumentParser()
 parser.add_argument("--smoother", default=10, help='minimum length of a partition to be accepted (default 10bp)')
 parser.add_argument("--gene", help="The gene for which you want to create a partition")
+parser.add_argument("--file_ending", help="The file endings of the fasta files you want to create partitions for.")
 args = parser.parse_args()
 smoother = int(args.smoother)
 gene = args.gene
-
+file_ending = args.file_ending
 
 
 sequences = [] # gather sequences to keep in the final alignment (all but the exons)
 # extract aligned exon sequences
-for record in SeqIO.parse(gene+"_output_tapper.fasta", "fasta"):
+for record in SeqIO.parse(gene+file_ending, "fasta"):
 	print(record)
 	if record.id == "exon1":
 		exon1 = record.seq
