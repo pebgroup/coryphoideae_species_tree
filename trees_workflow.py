@@ -64,7 +64,7 @@ def partitioner(path_in,path_out, gene, done):
 
 def iq_tree(path_in, gene,path_out ):
     """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
-    inputs = [path_in+gene+"_aligned_part.txt", path_in+gene+"_aligned_clean.fasta"]
+    inputs = [path_in+gene+"_part.txt", path_in+gene+"_clean.fasta"]
     outputs = [path_out+gene+".txt.tre"]
     options = {'cores': 20, 'memory': "20g", 'walltime': "08:00:00", 'account':"Coryphoideae"}
 
@@ -75,7 +75,7 @@ def iq_tree(path_in, gene,path_out ):
 	cd {path_in}
 
 	#Actual IQtree tree search. 
-	iqtree2 -s {gene}_aligned_clean.fasta -p {gene}_aligned_part.txt -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
+	iqtree2 -s {gene}_clean.fasta -p {gene}_part.txt -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
 
 
 
