@@ -28,7 +28,7 @@ gwf = Workflow()
 def partitioner(path_in,path_out, gene, done):
     """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_mapping/"+gene+"_output_tapper_mapped.fasta"]
-    outputs = [path_in+gene+"_aligned_part.txt",path_in+gene+"_aligned_clean.fasta", done]
+    outputs = [path_out+gene+"_aligned_part.txt",path_out+gene+"_aligned_clean.fasta", done]
     options = {'cores': 1, 'memory': "5g", 'walltime': "00:20:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -350,12 +350,12 @@ for i in range(len(genes)):
     ### Creating the partition files for each gene
     gwf.target_from_template('Partition_'+genes[i], partitioner(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/09_mapping/",
-														path_out= "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/",
+														path_out= "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
 														done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
 
 	#Running IQ_tree
     gwf.target_from_template('IQtree_'+genes[i], iq_tree(gene = genes[i],
-                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/09_Cialign/TAPER/",
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
 	
 	#Running Rename Reroot
