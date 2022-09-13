@@ -304,7 +304,7 @@ def exon_map(path_in,path_out,done,gene):
     """This creates new alignments in `07_mapping` that contain the original alignments plus the exon sequences of the
     two species that had the highest recovery success at each locus.."""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/08_cialign/TAPER/done/"+gene]
-    outputs = [done,path_out+gene+"_aligned.fasta"] 
+    outputs = [done,path_out+gene+"_output_tapper_mapped.fasta"] 
     options = {'cores': 4, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
