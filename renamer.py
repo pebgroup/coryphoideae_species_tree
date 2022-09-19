@@ -3,6 +3,7 @@
 import argparse, re
 
 #Arguments from commandline
+#comment
 parser = argparse.ArgumentParser()
 parser.add_argument("mapping")
 parser.add_argument("infile")
