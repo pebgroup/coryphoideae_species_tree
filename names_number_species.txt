@@ -514,3 +514,15 @@
 4098,Licuala campestris
 4099,Licuala penduliflora
 4100,Pritchardia martii
+1436,Sabal bermudana
+1254,Sabal Sabal causiarum
+1255,Sabal dominguensis
+1441,Sabal guatemalensis
+1257,Sabal maritima
+1258,Sabal mexicana
+1196,Sabal palmetto
+1443,Sabal pumos
+1444,Sabal rosei
+1445,Sabal uresana
+1099,Sabal mauritiiformis
+1098,Trithrinax campestris
