@@ -5,22 +5,6 @@ Inherited by Oscar Wrisberg ([Oscar.wrisberg@bio.au.dk](mailto:Oscar.wrisberg@bi
 * * *
 
 ## 0\. Workspace
-
-All raw sequences are found on the Ecoinf drive:  
-`/home/au543206/Ecoinf/C_Write/_Proj/@PEB/lab/sequence_data`  
-
-Copy of raw sequences on GenomeDK are found at:  
-`/home/owrisberg/Coryphoideae/sequence_data/Coryphoideae`
-
-GitHub project repo clone on GenomeDK:  
-`/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree`
-
-GitHub HybPiper repo clone on GenomeDKr:  
-`/home/owrisberg/Coryphoideae/github_code/HybPiper`
-
-Directory containing target file on GenomeDK:  
-`/home/owrisberg/Coryphoideae/target_sequence`
-
 **Required file structure and environments**  
 In order to run this pipeline you need a directory with the following folders along with a set of conda environments.
 These can be quickly produced by running `infrastructure.sh` within the desired directory.
@@ -75,174 +59,36 @@ Before commencing the first workflow, make sure that GWF is installed and config
 See https://gwf.app/ for information on how to do this. 
 
 
+## 01\. species_workflow.py
+  Trims the reads from each species using a custom adapter and then combines the paired and unpaired reads for forward and reverse reads respectively in order to enable post trimming fastqc quality check for comparability before and after trimming.
 
+  All the trimmed reads are then given to Hybpiper [link](https://github.com/mossmatters/HybPiper/wiki/) which takes the trimmed reads and builds supercontigs for each target in the target file.  If hybpiper is detecting potential paralogs these are then investigated and removed using the parallel scribt from Hybpiper.
 
-## 01\. data
+  After Hybpiper all supercontigs for each specimen is collected into a single fasta file. The paired and unpaired reads are then mapped to that fastafile, the reads are then deduplicated and the depth of each base is calculated. Any base with a depth less than 2 are then trimmed and a new fasta file is then created for the supercontigs. 
 
-SECAPR quality check is run on the raw data in `01_data`.  
-In order to invoke `secapr` first activate the environment  
-`conda activate secapr_env`  
-Then run SECAPR from within the directory  
-`secapr quality_check --input . --output .`  
-Move the secapr files to `0_secapr/0_data`
+## 02\. genes_workflow.py
+  The genes workflow starts off by distributing all the different supercontigs into different files so that each file contains all the versions of a specific target.
 
-A list of the fastq files is created for the directory `01_data` by running the following script from within it  
-`ls *R1.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > namelist.txt; rm namelist_temp.txt`  
-The second command removes the last 9 characters. This list is needed for running Trimmomatics on all the names in the list.
+  All of these versions of a supercontig is then aligned using mafft.
+  The aligned supercontigs are then trimmed using a list of gap trimming thresholds ranging from 0.1 up to 0.95 in increments of 0.05.
+
+  For each of these trimmed alignments we calculate various summary statistics using AMAS and use these summary statistics to find the gap trimmin threshold which gives us the highest proportion of parsimony informative characters while not removing more data than one median abselute deviation above the median data loss across the entire range of trimming thresholds being tested.
+
+  Additional trimming is then carried out by CIAlign which removes divergent sequences from the multiple sequence alignment and TAPER which removes outlier stretches from each sequence. 
+
+  For each multiple sequence alignment, the two sequences of exons with the highest recovery were added to the multiple sequence alignment.
+
+## 03\. trees_workflow.py
+  The two exons added to the alignment are then used to find the best substitution model for the exons and the introns of the multiple sequence alignment and create a RAxML style partition file for the multiple sequence alignment.
+
+  Each of these multiple sequence alignments are then given to IQtree which creates a gene tree for each gene. These genetrees are then all collected in a single newick file. This newick file is then used to create a species tree using ASTRAL.
+
+  This speciestree is then evaluated using the ASTRAl annotation feature.
+
+ 
 
 * * *
-
-## 02\. Trimmed
-
-In order to trim the files, `run trimming_batch.sh`.
-**OBS** remember to check if the TruSeq3-PE-2.fa file is uploaded to the folder located at `/home/owrisberg/miniconda3/pkgs/trimmomatic-0.39-1/adapters/`
-
-In order to produce the quality check on the trimmed files run the `secapr_batch_trimmed.sh`.  
-
-* * *
-
-## 03\. hybpiper
-
-### Combine unpaired reads into a single file for each sample
-
-Run the following script within `02_trimmed`  
-`/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/comb_u_trim_reads.sh`  
-This merges `####_1U.fastq` and `####_2U.fastq` into `####_UN.fastq`
-
-### Generate namelist
-
-A list of the fastq files within the directory `02_trimmed` is created in the directory `03_hybpiper` by running the following script from within `02_trimmed`  
-`ls *1P.fastq > namelist_temp.txt; sed 's/.........$//' namelist_temp.txt > ../03_hybpiper/namelist.txt; rm namelist_temp.txt`  
-The second command removes the last 9 characters. This list is needed for running hybpiper on all the listed names.  
-If all trimmed data are to go into hybpiper the namelist within `01_data` can alternatively be copied to `03_hybpiper` and reused.
-
-### Execute HybPiper
-
-From within `03_hybpiper` run
-`python ~/Coryphoideae/github_code/HybPiper/hybpiper_stats.py seq_lengths.txt namelist.txt > stats.txt`  
-The file `seq_lengths.txt` can be used to make a heatmap in R by running the script `gene_recovery_heatmap_ggplot.R`
-
-## Sequence length and Stats
-
-In order to produce a file with the sequence lengths of each of the genes for each species in the `03_hybpiper` folder and the associated stats,
-run the batch script; `seq_length_and_stats.sh`.
-
-### Paralogs
-
-From within `03_hybpiper` run  
-`bash ~/Coryphoideae/github_code/coryphoideae_species_tree/paralog2.sh`  
-The output from this program is saved in the file `paralog.txt`. This file lists putatively paralogous genes. In order to have the name of every gene only listed once only run the following  
-`sort paralog.txt | uniq | sed 's/^.......................//' > gene_paralogs.txt`
-
-### Intronerate
-
-In order to generate the super contigs we need to run intronerate.
-Intronerate reruns exonarate but finds the introns instead of the exons.
-Run the `intronerate_batch.sh`
+## Important Notes
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run***
 
-* * *
-
-## 04\. Coverage trimming and Length filtering
-
-Run the coverage program by running the `coverage_batch.sh`.
-
-Ensure that "supercontig" is chosen in the coverage.py script. This is currently done by commenting two lines of code.
-
-The Coverage.py script does the following:
-
-- Gather all contigs from each sample in one fasta file
-- map paired and unpaired reads to that fasta using BWA mem
-- Deduplicate reads using Picard
-- Calculate depth using samtools
-- Mask/strip any bases with coverage less than 2
-- Generate a new trimmed sample-level fasta.
-
-Then, in `04_coverage`, run:
-
-`ls *trimmed.fasta > filelist.txt`
-
-Samples2genes.py is a python script which gathers all the sequences from all species and sorts them into files for each gene.
-`/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv`
-
-* * *
-
-## 05\. Blacklisting
-
-This step is kept for removing troublesome species.
-These species usually show up further downstream in the analysis or as a part of the tree building process.
-In order to remove the troublesome species run the `blacklisting_batch.sh`. ***OBS species are hardcoded into the script***
-
-* * *
-
-## From here on out, everything needs to be done together
-
-## 06\. Alignment
-
-From within "05_blacklisting" run MAFFT on all genes.
-`mafft_batch.sh`
-Aligned genes are found within `06_alignments`
-
-***OBS! There are currently several mafft_batch.sh scripts in the folder as the different genes were run in parallel due to urgency***
-
-Visualize single gene alignments with AliView. Launch the program with command: `aliview`  
-Visualize multiple gene alignments with Geneious. Launch from Nautilus.
-
-* * *
-
-## 07\. mapping
-
-Run the `exon_mapper_batch` script.
-This creates new alignments in `07_mapping` that contain the original alignments plus the exon sequences of the two species that had the highest recovery success at each locus.
-
-then run `cp *.fasta ../08_optrimal` in order to copy the alignments to the optrimal folder.
-
-* * *
-
-## 08\. Optrimal
-
-Create a file called cutoff_trim.txt with the -gt values which should be tested.
-
-Run the `gaptrimming_batch.sh` script.
-
-This will a folder for each of the -gt values.
-In each of these folders there will be created a .fasta file, a .html file and a noempty.fasta file for each gene.
-in addition a summary file for the trimal process will also be created in the folder.
-
-* * *
-
-## 09\. Manual editing
-
-Move all the *aligned.fasta files to folders in manual alignment using the command
-`mv *aligned.fasta /home/owrisberg/Coryphoideae/work_flow/09_manual-edit/01_alignments_for_editing`
-
-Manually edit sequences to ensure proper alignment.
-When manually editing an alignment, move it to `02_edited_alignments` and edit it.
-* * *
-
-## 10\. Tree building
-
-Run the `treebuilder_batch.sh` script.
-
-The treebuilder script it will copy the files from `09_manual_edit/02_edited_alignments` into `09_manual_edit/04_alignments_for_trees` and perform the following on these alignments.
-
-This batch file will first run the `partitioner.py` with a smoothing parameter of 10bp (i.e. ignoring any mini-partitions <10bp long) to generate RAxML-style partition files called *_part.txt, and remove the exon sequences from the alignment (new alignment file saved as*_clean.fasta)
-If the exons of a specific gene are of unequal length the gene is added to a text file called badgenes.text. *remember to have a look through this file*.
-
-it will then run IQtree on each gene within the directory, and add the genetrees to the genetrees.tre file in the `/home/owrisberg/Coryphoideae/work_flow/11_tree_building/02_speciestree` folder.
-
-When the script is done running you can run `java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i genetrees.tre -o astral_tree.tre  2> astral.log` in order to produce the species tree from the genetrees. Concider asking for an interactive job on GDK when doing this.
-
-You can rename the astral tree by running.
-`python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree.tre astral_tree_renamed.tre`
-
-When astral is done, the astral tree needs to be evaluated using QuartetScores
-`/home/owrisberg/Coryphoideae/github_code/QuartetScores -o astral_tree_QS.tre -e genetrees.tre -r astral_tree.tre -v`
-
-Run these commands in order to apply the correct labels on the Quartet scores
-`sed astral_tree_QS.tre -i'.old' -e s/[0-9]\.*[0-9]*\(:[0-9]\.*[0-9]*\)\[qp-ic:-*[0-9]\.[0-9]*;lq-ic:-*[0-9]\.[0-9]*;eqp-ic:\(-*[0-9]\.[0-9]*\)\]/\2\1/g``
-`sed astral_tree_QS.tre -i'.old' -e 's/\[eqp-ic:-*[0-9]\.*[0-9]*\]//g``
-
-Finally in order to rename the tips in the Quartet_scored tree run
-`python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/renamer.py /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv astral_tree_QS.tre astral_tree_QS_renamed.tre --bs 1`
 * * *
