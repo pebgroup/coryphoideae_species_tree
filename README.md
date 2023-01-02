@@ -9,7 +9,7 @@ Inherited by Oscar Wrisberg ([Oscar.wrisberg@bio.au.dk](mailto:Oscar.wrisberg@bi
 **Required file structure and environments**  
 In order to run this pipeline you need a directory with the following folders along with a set of conda environments.
 These can be quickly produced by running `infrastructure.sh` within the desired directory.
-**OBS** one of the environments is called **base** and running the infrastructure script might **erase** your own base environment, proceed at your own risk.
+**OBS!!** one of the environments is called **base** and running the infrastructure script might **erase** your own base environment, proceed at your own risk.
 
 - `00_secapr`
   - `0_data`
