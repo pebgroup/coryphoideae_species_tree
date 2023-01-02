@@ -42,7 +42,7 @@ See https://gwf.app/ for information on how to do this.
 ## 01\. species_workflow.py
   Trims the reads from each species using [trimmomatic](https://github.com/usadellab/Trimmomatic) and a custom adapter and then combines the paired and unpaired reads for forward and reverse reads respectively in order to enable post trimming [fastqc](https://github.com/s-andrews/FastQC) quality check for comparability before and after trimming.
 
-  All the trimmed reads are then given to Hybpiper [link](https://github.com/mossmatters/HybPiper/wiki/) which takes the trimmed reads and builds supercontigs for each target in the target file.  If hybpiper is detecting potential paralogs these are then investigated and removed using the parallel scribt from Hybpiper.
+  All the trimmed reads are then given to [Hybpiper](https://github.com/mossmatters/HybPiper/wiki/) which takes the trimmed reads and builds supercontigs for each target in the target file.  If hybpiper is detecting potential paralogs these are then investigated and removed using the parallel scribt from Hybpiper.
 
   After Hybpiper all supercontigs for each specimen is collected into a single fasta file. The paired and unpaired reads are then mapped to that fastafile, the reads are then deduplicated and the depth of each base is calculated. Any base with a depth less than 2 are then trimmed and a new fasta file is then created for the supercontigs. 
 
