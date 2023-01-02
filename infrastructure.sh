@@ -29,5 +29,6 @@ echo mkdir10_manual_edit/04_alignments_for_trees_TEST
 # Creating the required environments based on the files in the environment folder
 for ENV_FILE in ./environments/*
 do
-	echo conda env create --name "TEST_${ENV_FILE#./environments/}"  --file $ENV_FILE
+	name = ${ENV_FILE#./environments/}
+	echo conda env create --name "TEST_${name%_env.txt}"  --file $ENV_FILE
 done
