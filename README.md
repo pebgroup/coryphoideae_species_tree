@@ -19,33 +19,17 @@ These can be quickly produced by running `infrastructure.sh` within the desired 
 - `04_coverage`
 - `05_blacklisting`
 - `06_alignment`
-- `07_mapping`
-- `08_optrimal`
-- `09_manual_edit`
+- `07_optrimal`
+- `08_cialign`
+- `09_mapping`
 - `10_tree_building`
+- `11_dating_the_tree`
 
 ## 00\. Downloading and renaming data
 
-Transfer all sequence files from storage device to `01_data`.  
-These files need renaming and unpacking among other things. Within `01_data` run  
-`rm *.xml *.csv Undtermined*`  
-`gunzip *.gz`  
-`cp /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/names_1_data_1_rename_seqs.csv .`
+Transfer all sequence files into `01_data`.  
+In order for the pipeline to run, these files need to follow a strict naming regime, see [names_number_species.txt](./names_number_species.txt)
 
-**Rename files**  
-You can test if this script is printing the correct things before running it by including an echo between do mv, like so `do echo mv`
-
-`cat names_1_data_1_rename_seqs.csv | while IFS=, read orig new; do mv "$orig" "$new"; done`  
-The above line introduces hidden characters ($'  
-). To remove these run the following.
-
-`rm names_1_data_1_rename_seqs.csv`  
-`for f in *; do echo mv "$f" "$(sed 's/[^0-9A-Za-z_.]/_/g' <<< "$f")"; done`  
-`rename -n 's/(.*).{1}/$1/' *`
-
-The last line removes an underscore, which was introduced when hidden characters were removed (for changes to take effect remove the -n flag).
-
-Transfer the remaining sequences to `01_data`. They will already have been renamed. (This is probably the files from Angela as these already have names following the formula of xxxx_R1.fastq)
 
 Remove files which are of inferior quality  
 run `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rename_remove.sh`
