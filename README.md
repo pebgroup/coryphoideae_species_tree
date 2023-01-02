@@ -21,8 +21,10 @@ GitHub HybPiper repo clone on GenomeDKr:
 Directory containing target file on GenomeDK:  
 `/home/owrisberg/Coryphoideae/target_sequence`
 
-**Required file structure**  
-In order to run this pipeline you need a directory with the following folders, this can be quickly produced by running `infrastructure.sh` within the desired directory.
+**Required file structure and environments**  
+In order to run this pipeline you need a directory with the following folders along with a set of conda environments.
+These can be quickly produced by running `infrastructure.sh` within the desired directory.
+*OBS* one of the environments is called *base* and running the infrastructure script might *erase* your own base environment, proceed at your own risk. 
 
 - `00_secapr`
   - `0_data`
@@ -65,6 +67,15 @@ Remove files which are of inferior quality
 run `bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/rename_remove.sh`
 
 * * *
+
+## Pipeline
+This analysis of the Coryphoideae subfamily utilizes a pipeline / workflow approach using the GWF workflow manager.
+The entire pipeline consists of three subsequent scripts that need to be run in the correct order. 
+Before commencing the first workflow, make sure that GWF is installed and configured to work on the cluster that you are using.
+See https://gwf.app/ for information on how to do this. 
+
+
+
 
 ## 01\. data
 
