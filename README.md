@@ -74,6 +74,5 @@ See [GWF](https://gwf.app/) for information on how to do this.
 ## Important Notes
 
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run.***
-# This is a test
 
 * * *
