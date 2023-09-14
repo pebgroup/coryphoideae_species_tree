@@ -53,7 +53,7 @@ See [GWF](https://gwf.app/) for information on how to do this.
   The genes workflow starts off by distributing all the different supercontigs into different files so that each file contains all the versions of a specific target.
 
   All of these versions of a supercontig is then aligned using [MAFFT](https://mafft.cbrc.jp/alignment/software/).
-  The aligned supercontigs are then trimmed using a list of gap trimming thresholds ranging from 0.1 up to 0.95 in increments of 0.05.
+  The aligned supercontigs are then trimmed using a list of gap trimming thresholds ranging from 0.1 up to 0.95 in increments of 0.05 using [trimAl](http://trimal.cgenomics.org/)
 
   For each of these trimmed alignments we calculate various summary statistics using [AMAS](https://github.com/marekborowiec/AMAS) and use these summary statistics to find the gap trimmin threshold which gives us the highest proportion of parsimony informative characters while not removing more data than one median abselute deviation above the median data loss across the entire range of trimming thresholds being tested. This step is done using the R-script [optrimal](https://github.com/baileyp1/PhylogenomicsPipelines)
 
@@ -74,5 +74,6 @@ See [GWF](https://gwf.app/) for information on how to do this.
 ## Important Notes
 
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run.***
+# This is a test
 
 * * *
