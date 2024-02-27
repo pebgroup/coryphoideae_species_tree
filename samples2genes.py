@@ -16,6 +16,8 @@
 
 from Bio import SeqIO
 from statistics import median 
+import sys
+
 
 # Access the command-line arguments
 file_list = sys.argv[1]
