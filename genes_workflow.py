@@ -66,9 +66,9 @@ def retrieve(path_in, file_list, output_folder, done):
 def mafft(gene, path_in, path_out, done):
     """Aligning all the sequences for each gene.
         Some Genes require a LOT of memory to not result in an Out Of Memory error (500g) but most will do fine with way less"""
-    inputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt"]
+    inputs = ["/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/done/retrieve_done.txt"]
     outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 1, 'memory': "300g", 'walltime': "96:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 1, 'memory': "500g", 'walltime': "96:00:00", 'account':"Coryphoideae"}
 
     spec = """
 
