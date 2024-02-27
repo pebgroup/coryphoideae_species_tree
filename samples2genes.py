@@ -17,10 +17,6 @@
 from Bio import SeqIO
 from statistics import median 
 
-# Command line arguments for loading both output folder and input file
-parser = argparse.ArgumentParser(description='Split fasta files into gene files')
-parser.add_argument('input', help='input file with list of fasta files')
-
 # Access the command-line arguments
 file_list = sys.argv[1]
 output_folder = sys.argv[2]
