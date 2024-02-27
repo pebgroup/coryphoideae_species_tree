@@ -35,12 +35,11 @@ gwf = Workflow()
 # #########################################---- Retrieve Sequences ----###################################################
 # ########################################################################################################################
 
-#Think about doing blacklisting here? you could just remove species from the inputs here if you dont want them in the downstream analysis
-
-def retrieve(path_in):
-    """Retrieve gene sequences from all the species and create an unaligned multifasta for each gene."""
+def retrieve(path_in, file_list, output_folder, done):
+    """Retrieve gene sequences from the species in the species list
+      and create an unaligned multifasta for each gene."""
     inputs = []
-    outputs = ["/home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt"]
+    outputs = [done]
     options = {'cores': 10, 'memory': "20g", 'walltime': "1:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -48,14 +47,14 @@ def retrieve(path_in):
     conda activate base
 
     cd {path_in}
+    
+    # Some species are manually removed at this step due to reasons such as double sampling from same specimen or doubtful species identification on specimen
 
-    ls *trimmed.fasta > filelist.txt
+    python /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py {file_list} {output_folder} > outstats.csv
 
-    python /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py > outstats.csv
+    touch {done}
 
-    touch /home/owrisberg/Coryphoideae/work_flow/04_coverage/done/Retrieve_Genes/Retrieve_all_done.txt
-
-    """.format(path_in = path_in)
+    """.format(path_in = path_in, file_list = file_list, output_folder = output_folder, done = done)
 
     return (inputs, outputs, options, spec)
 
@@ -337,7 +336,10 @@ genes = ["EGU105032175","EGU105032229","EGU105032337","EGU105032379","EGU1050330
 gt_values =["0.1","0.15","0.2","0.25","0.3","0.33","0.4","0.45","0.5","0.55","0.6","0.67","0.7","0.75","0.8","0.85","0.9","0.95"]
 
     #### Retrieve sequences and sort into files with gene names
-gwf.target_from_template('Retrieve_genes', retrieve(path_in="/home/owrisberg/Coryphoideae/work_flow/04_coverage/"))
+gwf.target_from_template('Retrieve_genes', retrieve(path_in="/home/owrisberg/Coryphoideae/work_flow/04_coverage/",
+                                                    file_list ="/home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/filelist.txt",
+                                                    output_folder ="/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/",
+                                                    done = "/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/done/retrieve_done.txt"))
 
 
 #Main workflow for genes

@@ -17,9 +17,17 @@
 from Bio import SeqIO
 from statistics import median 
 
-# get list of fasta files to split into genes # This could potentially be written into GWF workflow as species as the filelist.txt is just a list of 
+# Command line arguments for loading both output folder and input file
+parser = argparse.ArgumentParser(description='Split fasta files into gene files')
+parser.add_argument('input', help='input file with list of fasta files')
+
+# Access the command-line arguments
+file_list = sys.argv[1]
+output_folder = sys.argv[2]
+
+
 files2parse = []
-with open("filelist.txt") as files:
+with open(file_list) as files:
 	for line in files:
 		files2parse.append(line.strip())
 
@@ -51,6 +59,6 @@ for gene, seq_set in genes.items():
 	seq_set_keep = [seq for length, seq in zip(lens, seq_set) if length>thres]
 	# write out if more than 3 sequences
 	if len(seq_set_keep) > 3:
-		with open('../05_blacklisting/'+gene+'.FNA', "w") as outfile:
+		with open(output_folder+gene+'.FNA', "w") as outfile:
 			SeqIO.write(seq_set_keep, outfile, "fasta")
 	print(gene+';'+str(round(median(lens)))+';'+str(len(seq_set))+';'+str(len(seq_set_keep))+';'+str(round(thres)))
