@@ -164,10 +164,9 @@ def amas_preb_raw(path_in,path_out,done):
     cd {path_in}
 
     #Calculating amas summary
-    AMAS.py summary -f fasta -d dna -i *.fasta
+    AMAS.py summary -f fasta -d dna -i *.fasta.old
 
-    mv summary.txt summary_0.txt
-    rm *.fasta
+    mv summary.txt {path_out}summary_0.txt
 
     touch {done}
 
