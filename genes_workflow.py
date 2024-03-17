@@ -170,7 +170,7 @@ def amas_preb_raw(path_in,path_out,done):
 
     touch {done}
 
-    """.format(path_in=path_in, done=done, )
+    """.format(path_in=path_in, done=done, path_out=path_out)
 
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
