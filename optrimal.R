@@ -62,7 +62,6 @@ for(i in rownames(pct)){
 
 
 # generate graphs to show effect of trimming on informativeness and data loss
-
 for(i in rownames(pct)){
 	print(i)
   dldp <- read.csv(paste('dldp_', i, '.csv', sep = ''))
@@ -86,13 +85,15 @@ print("checkpoint")
 
 overlost <- names(optrim_loss[optrim_loss > 0.3])
 
+cat("The following sequences have more than 30% data loss at the optimal trimming threshold:\n")
+cat(overlost, sep = '\n')
 write(overlost, 'overlost.txt', sep = '\n')
 
-
+cat("Copying the sequence with the optimal trimming value into the current directory.\n")
+cat(paste(optrim, '/', names(optrim), sep = ''), sep = '\n')
 #This line of code copies the sequence with the optimal trimming value into the current directory. 
 file.copy(paste(optrim, '/', names(optrim), sep = ''), getwd())
 
 # file.remove(paste(overlost, sep = ''))
 
-
-"optrimal final"
+print("optrimal is done")
