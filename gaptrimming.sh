@@ -30,7 +30,7 @@ done
     while read cutoff_trim
     do
 			# Checking if a directory exists for the cutoff_trim
-            if [[ -d "/home/owrisberg/Coryphoideae/work_flow/08_optrimal/${cutoff_trim}" ]]
+            if [[ -d "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/${cutoff_trim}" ]]
 			then
      			echo "${cutoff_trim} folder exists."
 			else

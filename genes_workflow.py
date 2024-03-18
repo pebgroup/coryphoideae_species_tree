@@ -91,10 +91,10 @@ def mafft(gene, path_in, path_out, done):
 # #############################################---- Optrimal ----#########################################################
 # ########################################################################################################################
 
-def gt_trimming(path_in,done,gene):
+def gt_trimming(path_in,done,gene, path_out):
     """ trimming all alignments for each of the GT values specified"""
     inputs = [path_in+gene+"_aligned.fasta", path_in+"/done/"+gene]
-    outputs = [done] 
+    outputs = [done,+path_out+gene+"_aligned.fasta.old"] 
     options = {'cores': 10, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
@@ -360,7 +360,8 @@ for i in range(len(genes)):
     #### Running optrim_preb 
     gwf.target_from_template('gt_trimming_'+genes[i], gt_trimming(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/trimal_gt/"+genes[i]))
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/trimal_gt/"+genes[i]),
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/")
 
     #### Running AMAS on the trimmed sequences for each gt value
 for j in range(len(gt_values)):
