@@ -103,7 +103,7 @@ def gt_trimming(path_in,done,gene, path_out):
 
     touch {done}
 
-    """.format(path_in=path_in, done=done, gene=gene)
+    """.format(path_in=path_in, done=done, gene=gene, path_out=path_out)
 
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
