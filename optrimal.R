@@ -3,7 +3,6 @@
 cutoff_trim <- readLines('cutoff_trim.txt')
 
 # create one multiple tables for each threshold value to store AMAS results
-
 amas_table <- read.table('summary_0.txt', header = TRUE)
 sites <- data.frame(row.names = amas_table$Alignment_name)
 
@@ -36,21 +35,48 @@ colnames(pct) <- cutoff_trim
 colnames(filled) <- cutoff_trim
 colnames(lost) <- cutoff_trim
 
+# Printing the dataframes
+cat("sites\n")
+print(sites)
+
+cat("pct\n")
+print(pct)
+
+cat("filled\n")
+print(filled)
+
+cat("lost\n")
+print(lost)
+
 # select optimal trimming threshold
 # current criterion is maximum proportion of parsimony informative sites where data loss is no more than one median absolute deviation above the median
 
 optrim <- numeric()
 optrim_loss <- numeric()
 
+# I is the thrimming treshholds
 for(i in rownames(pct)){
   lost_i <- unlist(lost[rownames(lost) == i, ])
   pct_i <- unlist(pct[rownames(pct) == i, ])
   dldp <- data.frame(pct_i, lost_i, row.names = cutoff_trim)
   write.csv(dldp, paste('dldp_', i, '.csv', sep = ''))
   real_loss <- dldp$lost_i[dldp$lost_i < 1]
+
+  cat("real_loss\n")
+  print(real_loss)
+
   diff_loss <- real_loss[2:length(real_loss)] - real_loss[1:(length(real_loss) - 1)]
+
+  cat("diff_loss\n")
+  print(diff_loss)
+
   median_loss <- median(diff_loss[diff_loss != 0])
+
+  cat("median_loss\n")
+  print(median_loss)
+
   dldp <- subset(dldp, dldp$lost_i <= (median(real_loss) + median_loss))
+  
   if(length(dldp$pct_i) > 0){
     optrim[i] <- rownames(dldp)[dldp$pct_i == max(dldp$pct_i)][[1]]
     optrim_loss[i] <- dldp$lost_i[rownames(dldp) == optrim[i][[1]]]
