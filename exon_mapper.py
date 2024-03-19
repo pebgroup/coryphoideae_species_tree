@@ -29,14 +29,25 @@ df = df.drop(0)
 if gene in df.columns:
 	df_red = df[['Species',gene]].sort_values(gene, ascending=False)
 	df_red = df_red.reset_index()
-	# first sample
+
+	# Find the correct gene in the fasta file and save it as exon1
 	sp = df_red["Species"][0]
-	exon1 = list(SeqIO.parse("../../03_hybpiper/"+sp+"/"+gene+"/"+sp+"/sequences/FNA/"+gene+".FNA", "fasta"))[0]
+	with open("../../04_coverage/"+sp+".fasta", "r") as fasta_file:
+		for record in SeqIO.parse(fasta_file, "fasta"):
+			if record.id.startswith(sp+"-"+gene+"_"):
+				exon1 = record
+				break
 	exon1.id = "exon1"
+
 	# second sample
 	sp = df_red["Species"][1]
-	exon2 = list(SeqIO.parse("../../03_hybpiper/"+sp+"/"+gene+"/"+sp+"/sequences/FNA/"+gene+".FNA", "fasta"))[0]
+	with open("../../04_coverage/"+sp+".fasta", "r") as fasta_file:
+		for record in SeqIO.parse(fasta_file, "fasta"):
+			if record.id.startswith(sp+"-"+gene+"_"):
+				exon2 = record
+				break
 	exon2.id = "exon2"
+
 	with open(gene+"_temp.fasta", "w") as output_handle:
 		SeqIO.write([exon1, exon2], output_handle, "fasta")
 	subprocess.call("mafft --keeplength --add "+gene+"_temp.fasta "+gene+file_ending+" > "+outdir+"/"+gene+output_file_ending,shell=True)
