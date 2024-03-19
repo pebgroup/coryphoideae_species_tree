@@ -10,9 +10,10 @@ pct <- data.frame(row.names = amas_table$Alignment_name)
 filled <- data.frame(row.names = amas_table$Alignment_name)
 lost <- data.frame(row.names = amas_table$Alignment_name)
 
+# Reading all the summary files and storing the data in the tables
 for(i in 1:length(cutoff_trim)){
   amas_table <- read.table(paste('summary_', cutoff_trim[i], '.txt', sep = ''), header = TRUE)
-  for(j in amas_table$Alignment_name){
+  for(j in amas_table$Alignment_name){ # looping through alignment names
     sites[rownames(sites) == j,i] <- amas_table$Parsimony_informative_sites[amas_table$Alignment_name == j]
     pct[rownames(pct) == j,i] <- as.numeric(amas_table$Proportion_parsimony_informative[amas_table$Alignment_name == j])
     filled[rownames(filled) == j,i] <- amas_table$Total_matrix_cells[amas_table$Alignment_name == j] * (1 - amas_table$Missing_percent[amas_table$Alignment_name == j] / 100)
@@ -35,18 +36,6 @@ colnames(pct) <- cutoff_trim
 colnames(filled) <- cutoff_trim
 colnames(lost) <- cutoff_trim
 
-# Printing the dataframes
-cat("sites\n")
-print(sites)
-
-cat("pct\n")
-print(pct)
-
-cat("filled\n")
-print(filled)
-
-cat("lost\n")
-print(lost)
 
 # select optimal trimming threshold
 # current criterion is maximum proportion of parsimony informative sites where data loss is no more than one median absolute deviation above the median
@@ -60,23 +49,17 @@ for(i in rownames(pct)){
   pct_i <- unlist(pct[rownames(pct) == i, ])
   dldp <- data.frame(pct_i, lost_i, row.names = cutoff_trim)
   write.csv(dldp, paste('dldp_', i, '.csv', sep = ''))
+
+  # Finding the loss of the different trimming values 
   real_loss <- dldp$lost_i[dldp$lost_i < 1]
-
-  cat("real_loss\n")
-  print(real_loss)
-
-  diff_loss <- real_loss[2:length(real_loss)] - real_loss[1:(length(real_loss) - 1)]
-
-  cat("diff_loss\n")
-  print(diff_loss)
-
-  median_loss <- median(diff_loss[diff_loss != 0])
-
-  cat("median_loss\n")
-  print(median_loss)
-
+  if(length(real_loss) > 0) {
+    diff_loss <- real_loss[2:length(real_loss)] - real_loss[1:(length(real_loss) - 1)]
+    median_loss <- median(diff_loss[diff_loss != 0])
+  } else {
+    median_loss <- 0
+  }
   dldp <- subset(dldp, dldp$lost_i <= (median(real_loss) + median_loss))
-  
+
   if(length(dldp$pct_i) > 0){
     optrim[i] <- rownames(dldp)[dldp$pct_i == max(dldp$pct_i)][[1]]
     optrim_loss[i] <- dldp$lost_i[rownames(dldp) == optrim[i][[1]]]
