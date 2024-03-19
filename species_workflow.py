@@ -295,6 +295,8 @@ sp = ["1001","1002","1003","1004","1005","1006","1007","1008","1009","1010","101
 #Species removed from pipeline as they had no gene recovery [3050,3188,3272,3300,3316, 3364, 3392, 3394]
 #
 
+sp_2 ["1436","1254","1255","1441","1257","1258","1196","1443","1444","1445","1099","1259","1098","4101","4102","4103"]
+
 gwf.target_from_template('renamer', renamer(path_in = "/home/owrisberg/Coryphoideae/work_flow/01_data/",
                                             rename_file = script_dir+"names_1_data_1_rename_seqs.csv",
                                             done = "/home/owrisberg/Coryphoideae/work_flow/01_data/done/renamer/done",
