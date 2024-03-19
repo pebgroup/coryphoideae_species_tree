@@ -74,6 +74,11 @@ for(i in rownames(pct)){
 for(i in rownames(pct)){
 	print(i)
   dldp <- read.csv(paste('dldp_', i, '.csv', sep = ''))
+
+  print(paste("Length of dldp$lost_i:", length(dldp$lost_i)))
+  print(paste("Length of cutoff_trim:", length(cutoff_trim)))
+
+  
   png(paste('dldp_', i, '.png', sep = ''))
   par(mar = c(5,5,2,5))
   plot(main = i, dldp$lost_i ~ cutoff_trim, ylim = c(0,1), ylab = 'proportion of data lost', xlab = 'strictness of trimming (trimAl gap threshold)', pch = 18, col = 'red')
