@@ -32,7 +32,6 @@ def partitioner(path_in,path_out, gene, done):
     options = {'cores': 1, 'memory': "5g", 'walltime': "00:20:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -133,7 +132,6 @@ def newick_contracting(path_in,path_out ):
     options = {'cores': 2, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -172,7 +170,6 @@ def newick_contracting_orthologs(path_in,path_out ):
     options = {'cores': 2, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -205,7 +202,6 @@ def astral(path_in, gene_tree_file,output):
     options = {'cores': 20, 'memory': "40g", 'walltime': "1:00:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -229,7 +225,6 @@ def renaming(path_in, tree_in,gene_tree_file, tree_out):
     options = {'cores': 1, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -253,7 +248,6 @@ def quartet_scores(path_in):
     options = {'cores': 20, 'memory': "40g", 'walltime': "10:30:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -282,7 +276,6 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
     options = {'cores': 20, 'memory': "40g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -306,7 +299,6 @@ def sorta_date(path_in,path_out,astral_tree, done):
     options = {'cores': 3, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
     spec = """
-
 	#Activating conda base environment 
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate base
