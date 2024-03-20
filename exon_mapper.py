@@ -32,18 +32,18 @@ if gene in df.columns:
 
 	# Find the correct gene in the fasta file and save it as exon1
 	sp = df_red["Species"][0]
-	with open("../../04_coverage/"+sp+".fasta", "r") as fasta_file:
+	with open(gene+"_aligned.fasta", "r") as fasta_file:
 		for record in SeqIO.parse(fasta_file, "fasta"):
-			if record.id.startswith(sp+"-"+gene+"_"):
+			if record.id.startswith("exon1"):
 				exon1 = record
 				break
 	exon1.id = "exon1"
 
 	# second sample
 	sp = df_red["Species"][1]
-	with open("../../04_coverage/"+sp+".fasta", "r") as fasta_file:
+	with open(gene+"_aligned.fasta", "r") as fasta_file:
 		for record in SeqIO.parse(fasta_file, "fasta"):
-			if record.id.startswith(sp+"-"+gene+"_"):
+			if record.id.startswith("exon2"):
 				exon2 = record
 				break
 	exon2.id = "exon2"
