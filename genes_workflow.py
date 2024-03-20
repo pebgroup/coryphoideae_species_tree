@@ -320,6 +320,12 @@ def exon_map(path_in,path_out,done,gene):
     #Going to folder with data
     cd {path_in}
 
+    echo " Working directory is"
+    pwd
+
+    echo "listing files"
+    ls
+
     # Running Wolfs Exon_mapper
     python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/exon_mapper.py --gene {gene} --outdir {path_out} --file_ending _output_tapper.fasta
 
