@@ -33,7 +33,7 @@ def partitioner(path_in,path_out, gene, done):
 
     spec = """
     source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
-	conda activate treebuilder_env
+    conda activate treebuilder_env
 
 
 	#Going to folder with data
