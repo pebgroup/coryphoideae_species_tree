@@ -25,66 +25,34 @@ gwf = Workflow()
 # ########################---- Copying alignments and creating partitions ----############################################
 # ########################################################################################################################
 
-def partitioner(path_in, path_out, gene, done):
+def partitioner(path_in,path_out, gene, done):
     """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_mapping/"+gene+"_output_tapper_mapped.fasta"]
     outputs = [path_out+gene+"_part.txt",path_out+gene+"_clean.fasta", done]
     options = {'cores': 1, 'memory': "5g", 'walltime': "00:20:00", 'account':"Coryphoideae"}
 
-    spec = """
-    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    spec = """source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
     conda activate treebuilder_env
 
-    # Going to folder with data
-    cd {path_in}
+	#Going to folder with data
+	cd {path_in}
     
-    # The partitioner should produce 2 files for each gene
-    # one file called gene_aligned_part.txt which is the partitioning file
-    # another called gene_aligned_clean.fasta which are just the sequences without the exons
+	#The partitioner should produce 2 files for each gene
+	#one file called gene_aligned_part.txt which is the partitioning file
+	#another called gene_aligned_clean.fasta which are just the sequences without the exons
 
-    python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene} --file_ending _output_tapper_mapped.fasta
-    
-    # Moving files to the correct folders
-    mv {gene}_clean.fasta {path_out}
-    mv {gene}_part.txt {path_out} 
-
-    touch {done}
-    """.format(path_in=path_in, gene=gene, done=done, path_out=path_out)
-
-    print("path_in:", path_in)  # Debug print
-    return AnonymousTarget(inputs, outputs, options, spec)
-
-
-# def partitioner(path_in,path_out, gene, done):
-#     """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
-#     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_mapping/"+gene+"_output_tapper_mapped.fasta"]
-#     outputs = [path_out+gene+"_part.txt",path_out+gene+"_clean.fasta", done]
-#     options = {'cores': 1, 'memory': "5g", 'walltime': "00:20:00", 'account':"Coryphoideae"}
-
-#     spec = """
-#     source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
-#     conda activate treebuilder_env
-
-
-# 	#Going to folder with data
-# 	cd {path_in}
-    
-# 	#The partitioner should produce 2 files for each gene
-# 	#one file called gene_aligned_part.txt which is the partitioning file
-# 	#another called gene_aligned_clean.fasta which are just the sequences without the exons
-
-# 	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene} --file_ending _output_tapper_mapped.fasta
+	python3 /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/partitioner.py --smoother 10 --gene {gene} --file_ending _output_tapper_mapped.fasta
 	
-# 	#Moving files to the correct folders
-# 	mv {gene}_clean.fasta {path_out}
-# 	mv {gene}_part.txt {path_out} 
+	#Moving files to the correct folders
+	mv {gene}_clean.fasta {path_out}
+	mv {gene}_part.txt {path_out} 
 
-# 	touch {done}
+	touch {done}
 
 
-#     """.format(path_in = path_in, gene = gene, done = done, path_out = path_out)
+    """.format(path_in = path_in, gene = gene, done = done, path_out = path_out)
 
-#     return AnonymousTarget(inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
