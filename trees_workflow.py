@@ -32,7 +32,7 @@ def partitioner(path_in,path_out, gene, done):
     options = {'cores': 1, 'memory': "5g", 'walltime': "00:20:00", 'account':"Coryphoideae"}
 
     spec = """
-	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+    source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
 
