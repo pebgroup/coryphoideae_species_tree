@@ -29,7 +29,7 @@ def partitioner(path_in,path_out, gene, done):
     """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_mapping/"+gene+"_output_tapper_mapped.fasta"]
     outputs = [path_out+gene+"_part.txt",path_out+gene+"_clean.fasta", done]
-    options = {'cores': 1, 'memory': "5g", 'walltime': "00:20:00", 'account':"Coryphoideae"}
+    options = {'cores': 1, 'memory': "5g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
 
     spec = """
     source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
