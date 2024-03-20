@@ -14,7 +14,7 @@ Date: 7/12/2021
 '''
 
 from os import O_SYNC
-from gwf import Workflow
+from gwf import Workflow, AnonymousTarget
 import os.path
 # import math
 # import glob
@@ -55,7 +55,7 @@ def partitioner(path_in,path_out, gene, done):
 
     """.format(path_in = path_in, gene = gene, done = done, path_out = path_out)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
@@ -85,7 +85,7 @@ def iq_tree(path_in, gene,path_out ):
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
@@ -116,7 +116,7 @@ def rename_reroot(path_in, gene):
 
 	""".format(path_in = path_in, gene = gene)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 # ########################################################################################################################
 # ############################---- Newick Contracting and gathering of genetrees ----#####################################
@@ -151,7 +151,7 @@ def newick_contracting(path_in,path_out ):
 
 	""".format(path_in = path_in, path_out=path_out)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 
@@ -189,7 +189,7 @@ def newick_contracting_orthologs(path_in,path_out ):
 
 	""".format(path_in = path_in, path_out=path_out)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 
@@ -216,7 +216,7 @@ def astral(path_in, gene_tree_file,output):
 
 	""".format(path_in = path_in, gene_tree_file = gene_tree_file, output=output)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
@@ -240,7 +240,7 @@ def renaming(path_in, tree_in,gene_tree_file, tree_out):
 
 	""".format(path_in = path_in, tree_in=tree_in, tree_out=tree_out, gene_tree_file = gene_tree_file)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
@@ -269,7 +269,7 @@ def quartet_scores(path_in):
 
 	""".format(path_in = path_in)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
@@ -293,7 +293,7 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
 
 	""".format(path_in = path_in, gene_tree_file = gene_tree_file, species_tree_file = species_tree_file, outfile=outfile)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 # ########################################################################################################################
@@ -327,7 +327,7 @@ def sorta_date(path_in,path_out,astral_tree, done):
 
 	""".format(path_in = path_in,path_out = path_out, SortaDate = "/home/owrisberg/Coryphoideae/github_code/SortaDate/src/", astral_tree = astral_tree, done = done)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs, outputs, options, spec)
 
 
 
