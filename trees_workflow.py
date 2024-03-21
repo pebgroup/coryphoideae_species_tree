@@ -62,13 +62,16 @@ def iq_tree(path_in, gene,path_out ):
     """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
     inputs = [path_in+gene+"_part.txt", path_in+gene+"_clean.fasta"]
     outputs = [path_out+gene+".txt.tre"]
-    options = {'cores': 20, 'memory': "20g", 'walltime': "12:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 20, 'memory': "20g", 'walltime': "24:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
 	cd {path_in}
+    
+    echo "Running IQ-tree for {gene} at:"
+    date
 
 	#Actual IQtree tree search. 
 	iqtree2 -s {gene}_clean.fasta -p {gene}_part.txt -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
