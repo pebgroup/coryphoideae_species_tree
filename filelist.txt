@@ -99,7 +99,6 @@
 1266_trimmed.fasta
 1267_trimmed.fasta
 1268_trimmed.fasta
-1269_trimmed.fasta
 1273_trimmed.fasta
 1274_trimmed.fasta
 1275_trimmed.fasta
@@ -116,7 +115,6 @@
 1353_trimmed.fasta
 1354_trimmed.fasta
 1355_trimmed.fasta
-1362_trimmed.fasta
 1364_trimmed.fasta
 1411_trimmed.fasta
 1412_trimmed.fasta
