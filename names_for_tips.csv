@@ -1,11 +1,10 @@
 1001,Acoelorraphe wrightii
-4000,Chelyocarpus sp.: José De Gracia 826
-4001,Chelyocarpus sp.: José De Gracia 892
-4002,Cryosophila sp. : José De Gracia 824
+4000,Chelyocarpus sp. José De Gracia 826
+4001,Chelyocarpus sp. José De Gracia 892
+4002,Cryosophila sp.  José De Gracia 824
 3018,Arenga brevipes
 1002,Arenga caudata
-2002,Arenga distincta 1
-4003,Arenga distincta 2
+4003,Arenga distincta
 3020,Arenga engleri
 4004,Arenga hastata
 1003,Arenga hookeriana
@@ -21,9 +20,7 @@
 3036,Arenga ryukyuensis
 3038,Arenga talamauensis
 3042,Arenga tremula
-1037,Arenga undulatifolia 1
-2004,Arenga undulatifolia 3
-1038,Arenga undulatifolia 2
+1038,Arenga undulatifolia
 1004,Arenga westerhoutii
 3044,Arenga wightii
 1039,Bismarckia nobilis
@@ -61,8 +58,7 @@
 2066,Caryota urens
 1007,Caryota zebrina
 1044,Chamaerops humilis
-1194,Chelyocarpus chuco 2
-1045,Chelyocarpus chuco 1
+1045,Chelyocarpus chuco
 1197,Chelyocarpus dianeurus
 1244,Chelyocarpus repens
 1245,Chelyocarpus ulei
@@ -108,7 +104,7 @@
 1412,Coccothrinax saxicola
 4017,Coccothrinax scoparia
 4030,Coccothrinax argentea 2
-4029,Coccothrinax aff. Jimenezii: T. A. Zanoni 33375
+4029,Coccothrinax aff. Jimenezii T. A. Zanoni 33375
 4019,Coccothrinax montgomeryana
 4018,Coccothrinax bonettiana
 1477,Coccothrinax spissa
@@ -130,8 +126,7 @@
 1274,Copernicia hospita
 4024,Copernicia humicola
 1417,Copernicia macroglossa
-1418,Copernicia prunifera 2
-1049,Copernicia prunifera 1
+1418,Copernicia prunifera
 1419,Copernicia rigida
 4025,Copernicia roigii
 1275,Copernicia tectorum
@@ -149,23 +144,20 @@
 1430,Cryosophila stauracantha
 1051,Cryosophila warscewiczii
 1433,Cryosophila williamsii
-#N/A,Chrysalidocarpus ambositrae
-#N/A,Eugeissona tristis
+1080,Chrysalidocarpus ambositrae
+1081,Eugeissona tristis
 1052,Guihaia argyrata
 2042,Guihaia grossefibrosa
 3058,Hemithrinax compacta
-1251,Hemithrinax ekmaniana 2
-1053,Hemithrinax ekmaniana 1
+1053,Hemithrinax ekmaniana
 3422,Hyphaene compressa
-3424,Hyphaene coriacea 1
-1054,Hyphaene coriacea 2
+3424,Hyphaene coriacea
 3426,Hyphaene guineensis
 3428,Hyphaene petersiana
 3060,Hyphaene reptans
 3430,Hyphaene thebaica
 1055,Itaya amicorum
-2007,Johannesteijsmannia altifrons 2
-1056,Johannesteijsmannia altifrons 1
+1056,Johannesteijsmannia altifrons
 3062,Johannesteijsmannia lanceolata
 3064,Johannesteijsmannia magnifica
 3066,Johannesteijsmannia perakensis
@@ -182,12 +174,11 @@
 2047,Lanonia magalonii
 3366,Lanonia manglaensis
 2048,Lanonia poilanei
-2049,Lanonia sp.: Henderson A. 3727
-2050,Lanonia sp.: Henderson A. 3590
+2049,Lanonia sp. Henderson A. 3727
+2050,Lanonia sp. Henderson A. 3590
 3072,Lanonia verrucosa
 1059,Latania loddigesii
 3008,Latania lontaroides
-1060,Leucothrinax morrisii 1
 3074,Licuala acutifida
 3078,Licuala ahlidurii
 3080,Licuala anomala
@@ -263,7 +254,6 @@
 3172,Licuala maculata
 3174,Licuala malajana var. humilis
 3176,Licuala malajana var. malajana
-4036,Licuala mattanensis
 3412,Licuala mattanensis var. mattanensis
 3414,Licuala mattanensis var. paucisecta
 3178,Licuala meijeri
@@ -309,14 +299,13 @@
 3230,Licuala sarawakensis
 3232,Licuala scortechinii
 3234,Licuala simplex
-3400,Livistona sp.: Henderson A. 3730
+3400,Livistona sp. Henderson A. 3730
 3236,Licuala spathellifera
 3406,Licuala spicata
 2055,Licuala spinosa
 3240,Licuala suprafolia
 4038,Licuala tanycola
-3242,Licuala telifera 1
-1061,Licuala telifera 2
+3242,Licuala telifera 
 3244,Licuala tenuissima
 3246,Licuala terengganuensis
 3248,Licuala thoana
@@ -357,7 +346,7 @@
 3306,Maxburretia rupicola
 4040,Medemia argun
 1065,Nannorrhops ritchieana
-#N/A,Nypa fruticans
+1082,Nypa fruticans
 1018,Phoenix acaulis
 4052,Phoenix atlantica
 1019,Phoenix caespitosa
@@ -407,7 +396,6 @@
 1030,Pritchardia thurstonii
 4081,Pritchardia viscosa 1
 4082,Pritchardia viscosa 2
-4083,Pritchardia viscosa 3
 4084,Pritchardia vuylstekeana
 4085,Pritchardia waialealeana
 1465,Rhapidophyllum hystrix
@@ -424,9 +412,8 @@
 2061,Rhapis robusta 1
 4087,Rhapis robusta 2
 1068,Rhapis subtilis
-4088,Rhapis subtilis subsp. Subtilis 2
-2062,Rhapis subtilis subsp. siamensis
-2069,Rhapis subtilis subsp. Subtilis 1
+4088,Rhapis subtilis subsp. Subtilis
+2062,Rhapis subtilis subsp. Siamensis
 2063,Rhapis vidalii
 1069,Sabal bermudana
 1256,Sabal etonia
@@ -445,12 +432,11 @@
 3338,Saribus tothur
 3340,Saribus woodfordii
 1072,Satranala decussilvae
-1434,Schippia concolor 2
-1073,Schippia concolor 1
+1434,Schippia concolor
 1074,Serenoa repens
 1032,Tahina spectabilis
 4089,Thrinax excelsa
-1033,Leucothrinax morrisii 2
+1033,Leucothrinax morrisii
 1435,Thrinax parviflora
 1248,Thrinax radiata
 1075,Trachycarpus fortunei
@@ -463,12 +449,9 @@
 3352,Trachycarpus ravenii
 1035,Trachycarpus takil
 3354,Trachycarpus ukhrulensis
-1224,Trithrinax brasiliensis 1
-1363,Trithrinax brasiliensis 2
-1364,Trithrinax brasiliensis 3
-1413,Trithrinax brasiliensis 4
-1478,Trithrinax brasiliensis 5
-1076,Trithrinax brasiliensis 6
+1364,Trithrinax brasiliensis 1
+1478,Trithrinax brasiliensis 2
+1076,Trithrinax brasiliensis 3
 1437,Trithrinax schizophylla 2
 1469,Trithrinax schizophylla 1
 1470,Trithrinax schizophylla 3
