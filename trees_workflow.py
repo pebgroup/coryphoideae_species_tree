@@ -199,7 +199,7 @@ def astral(path_in, gene_tree_file,output):
     """Using Astral to construct a species tree based on the genetrees"""
     inputs = [path_in+gene_tree_file]
     outputs = [path_in+output]
-    options = {'cores': 20, 'memory': "40g", 'walltime': "1:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 20, 'memory': "40g", 'walltime': "3:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
