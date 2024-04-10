@@ -234,7 +234,6 @@
 3074_trimmed.fasta
 3076_trimmed.fasta
 3078_trimmed.fasta
-3080_trimmed.fasta
 3082_trimmed.fasta
 3084_trimmed.fasta
 3086_trimmed.fasta
@@ -254,7 +253,6 @@
 3114_trimmed.fasta
 3116_trimmed.fasta
 3118_trimmed.fasta
-3120_trimmed.fasta
 3122_trimmed.fasta
 3124_trimmed.fasta
 3126_trimmed.fasta
@@ -321,7 +319,6 @@
 3252_trimmed.fasta
 3254_trimmed.fasta
 3256_trimmed.fasta
-3258_trimmed.fasta
 3260_trimmed.fasta
 3262_trimmed.fasta
 3264_trimmed.fasta
@@ -329,7 +326,6 @@
 3268_trimmed.fasta
 3270_trimmed.fasta
 3274_trimmed.fasta
-3276_trimmed.fasta
 3278_trimmed.fasta
 3280_trimmed.fasta
 3282_trimmed.fasta
@@ -341,7 +337,6 @@
 3294_trimmed.fasta
 3296_trimmed.fasta
 3298_trimmed.fasta
-3302_trimmed.fasta
 3304_trimmed.fasta
 3306_trimmed.fasta
 3308_trimmed.fasta
