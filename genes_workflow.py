@@ -250,7 +250,7 @@ def cialign(gene, path_in, path_out, done):
          """
 
     inputs = [path_in + gene + "_aligned.fasta"]
-    outputs = [path_out+gene+"_cialign.fasta_cleaned.fasta"]
+    outputs = [path_out+gene+"_cialign.fasta_cleaned.fasta", done]
     options = {'cores': 8, 'memory': "100g", 'walltime': "12:00:00", 'account':"Coryphoideae"}
 
     spec = """
