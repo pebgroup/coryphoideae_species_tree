@@ -158,7 +158,7 @@ def newick_contracting(path_in,path_out ):
 # ###############################---- Using only genes which are not paralogs ----########################################
 # ########################################################################################################################
 
-def newick_contracting_orthologs(path_in,path_out ):
+def newick_contracting_orthologs(path_in,path_out):
     """Gathering all the gene-trees in a single file and removing branches with low bootstrap support
 	I have had to remove the following genes for varius reasons such as outgroup species missing and low gene recovery and bad optrimal values
 	
@@ -199,7 +199,7 @@ def astral(path_in, gene_tree_file,output):
     """Using Astral to construct a species tree based on the genetrees"""
     inputs = [path_in+gene_tree_file]
     outputs = [path_in+output]
-    options = {'cores': 20, 'memory': "40g", 'walltime': "1:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 20, 'memory': "40g", 'walltime': "3:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
