@@ -199,13 +199,16 @@ def astral(path_in, gene_tree_file,output):
     """Using Astral to construct a species tree based on the genetrees"""
     inputs = [path_in+gene_tree_file]
     outputs = [path_in+output]
-    options = {'cores': 20, 'memory': "40g", 'walltime': "5:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 20, 'memory': "40g", 'walltime': "8:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
 	cd {path_in}
+    
+    echo "Starting Astral on" 
+    date
 
 	java -jar /home/owrisberg/Coryphoideae/github_code/ASTRAL/astral.5.7.7.jar -i {gene_tree_file} -o {output}
 
