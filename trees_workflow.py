@@ -131,7 +131,7 @@ def newick_contracting(path_in,path_out ):
     outputs = [path_out+"genetrees.tre"]
     options = {'cores': 2, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
-	spec = """
+    spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
