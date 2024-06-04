@@ -131,7 +131,7 @@ def newick_contracting(path_in,path_out ):
     outputs = [path_out+"genetrees.tre"]
     options = {'cores': 2, 'memory': "10g", 'walltime': "00:10:00", 'account':"Coryphoideae"}
 
-    spec = """
+	spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
 	conda activate treebuilder_env
 
@@ -140,17 +140,18 @@ def newick_contracting(path_in,path_out ):
 
 	cd {path_in}
 
-    # Remove current genetrees file
-    rm {path_out}genetrees.tre
+	# Remove current genetrees file if it exists
+	if [ -f {path_out}genetrees.tre ]; then
+		rm {path_out}genetrees.tre
+	fi
 
-	# Loop through all the gene trees and and them to a single file.
+	# Loop through all the gene trees and add them to a single file.
 	for f in *_rooted.tre
 	do 
 		nw_ed $f 'i & (b<30)' o >> {path_out}genetrees.tre #Moves trees used in treebuilding
-
 	done
 
-	""".format(path_in = path_in, path_out=path_out)
+	""".format(path_in=path_in, path_out=path_out)
 
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
