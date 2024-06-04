@@ -140,7 +140,10 @@ def newick_contracting(path_in,path_out ):
 
 	cd {path_in}
 
+    # Remove current genetrees file
+    rm {path_out}genetrees.tre
 
+	# Loop through all the gene trees and and them to a single file.
 	for f in *_rooted.tre
 	do 
 		nw_ed $f 'i & (b<30)' o >> {path_out}genetrees.tre #Moves trees used in treebuilding
