@@ -30,8 +30,7 @@ source(paste(repo,"/load_trees.r", sep=""))
 astral_tree <- ape::read.tree("/home/au543206/Documents/Coryphoideae/Figures_in_r/data/astral_tree.tre")
 astral_tree <- drop.tip(astral_tree_orthologs, "4039")
 #astral_tree <- ape::read.nexus("/home/au543206/Documents/Coryphoideae/Figures_in_r/astral_tree_renamed.nexus")
-
-astral_tree <- root(astral_tree, outgroup=c("1081"))
+#astral_tree <- root(astral_tree, outgroup=c("1081"))
 astral_tree <- ladderize(astral_tree, right=FALSE)
 
 astral_tree$edge.length[which(astral_tree$edge.length == "NaN")] <- 0.00001
@@ -148,13 +147,40 @@ astral_tree_for_figure$tip.label = figurename_idx[astral_tree_for_figure$tip.lab
 
 #pdf(paste(figurepath,"main_tree_narrow.pdf",sep=""), height=15.3, width=8.25)
 #pdf(paste(figurepath,"main_tree_broad.pdf",sep=""), height=15.3, width=11)
-pdf(paste(figurepath, "Coryphoideae_tree_genetree_support_final.pdf", sep = ""), height = (15.3*3), width = 11)
-plotwe(astral_tree_for_figure, cex = 0.35, align.tip.label = T, edge.color = edgecols, link.color = tipcols, label.offset = 0.04, x.lim = c(0,max(distRoot(astral_tree_for_figure))+1), edge.width = 1.2)
+pdf(paste(figurepath, "Coryphoideae_tree_genetree_support_final.pdf", sep = ""), height = (15.3*5), width = 27)
+plotwe(astral_tree_for_figure,
+ direction = "rightwards",
+ cex = 0.9,
+ align.tip.label = T,
+ edge.color = edgecols,
+ link.color = tipcols,
+ label.offset = 0.08,
+ x.lim = c(-1.2,max(distRoot(astral_tree_for_figure))+3),
+ edge.width = 2.5)
 #nodelabels(text = astral_tree_for_figure$node.label, frame="none", cex=0.45, adj=c(-0.45,0.35))
-edgelabels(text = edgelabs, frame="none", cex=0.45, adj=c(0.5,-0.30))
-legend("topleft", legend=c("0-86","87-269","270-506","507-735","736-882","883-960"),fill=pal,title="No. gene trees")
+ edgelabels(text = edgelabs, frame="none", cex=1, adj=c(0.5,-0.30))
+ legend("topleft", legend=c("0-86","87-269","270-506","507-735","736-882","883-960"),fill=pal,title="No. gene trees")
+ add.scale.bar(x=0, y=-10)
+dev.off()
+
+pdf(paste(figurepath, "Coryphoideae_tree_ortholog_genetrees_support_leftwards.pdf", sep = ""), height = (15.3*5), width = 27) # height was 15.3 * 3 and width = 11
+plotwe(astral_tree_for_figure_orthologs,
+direction = "rightwards",
+cex = 0.9,
+align.tip.label = T,
+edge.color = edgecols_orthologs,
+link.color = tipcols_orthologs,
+label.offset = 0.08,
+x.lim = c(-1.2,max(distRoot(astral_tree_for_figure_orthologs))+3),
+edge.width = 2.5) # was 1.2
+#nodelabels(text = astral_tree_for_figure$node.label, frame="none", cex=0.45, adj=c(-0.45,0.35))
+edgelabels(text = edgelabs_orthologs, frame="none", cex=1, adj=c(0.5,-0.30)) # cex was 0.45
+legend("topleft", legend=c("0-34","35-79","80-129","139-177","178-214","215-231"),fill=pal_orthologs,title="No. gene trees")
 add.scale.bar(x=0, y=-10)
 dev.off()
+
+
+
 
 pdf(paste(figurepath, "Coryphoideae_tree_genetree_support_big_branch.pdf", sep = ""), height = (15.3*3), width = 11)
 plotwe(astral_tree_for_figure, cex = 0.35, align.tip.label = T, edge.color = edgecols, link.color = tipcols, label.offset = 0.04, x.lim = c(0,max(distRoot(astral_tree_for_figure))+1), edge.width = 3)
@@ -306,9 +332,9 @@ plotwe(astral_tree_for_figure_orthologs, direction = "rightwards", cex = 0.8, al
        edge.color = edgecols_orthologs, link.color = tipcols_orthologs, label.offset = 0.08,
        x.lim = c(-1.2,max(distRoot(astral_tree_for_figure_orthologs))+1.5), edge.width = 2.5) # was 1.2
 #nodelabels(text = astral_tree_for_figure$node.label, frame="none", cex=0.45, adj=c(-0.45,0.35))
-edgelabels(text = edgelabs_orthologs, frame="none", cex=0.6, adj=c(0.5,-0.30)) # cex was 0.45
+edgelabels(text = edgelabs_orthologs, frame="none", cex=1, adj=c(0.5,-0.30)) # cex was 0.45
 legend("topleft", legend=c("0-34","35-79","80-129","139-177","178-214","215-231"),fill=pal_orthologs,title="No. gene trees")
-add.scale.bar(x=0, y=-1)
+#add.scale.bar(x=0, y=-1)
 dev.off()
 
 #########################################################################################
@@ -393,13 +419,13 @@ dev.off()
 # #########################Co-phyloplot of the 2 previous trees############################
 # #########################################################################################
 
-# cphyl <- cophylo <- cophylo(astral_tree_for_figure, astral_tree_for_figure_orthologs)
+cphyl <- cophylo(astral_tree_for_figure, astral_tree_for_figure_orthologs, fsize = 10, cex = 9)
 
-# pdf(paste(figurepath, "Coryphoideae_cophylo_wide.pdf", sep = ""), height = (15.3*4), width = (11*5))
+pdf(paste(figurepath, "Coryphoideae_cophylo_wide.pdf", sep = ""), height = (70), width = (11*2))
 
-# plot(cphyl)
+plot(cphyl)
 
-# dev.off()
+dev.off()
 
 
 # ##########################################################################################
@@ -526,10 +552,18 @@ for (i in 1:length(test_tree$tip.label)){
 	}
 }
 
+#Splitting the tree into just 1 part
+plotTree_clades(test_tree, ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
+ fsize = 2, type = "phylogram", cex = 0.70, file = "split_plot_cory_orthologs_1_part.pdf",width = 15, height = 60, tipcols = tipcols_orthologs)
+
 
 # Splitting the tree into 5 parts
 split.plotTree_clades(test_tree, splits = c(0.2819,0.398,0.6081,0.845), ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
  fsize = 1, type = "phylogram", cex = 0.5, file = "split_plot_cory_orthologs.pdf", x_lim = c(0,23), tipcols = tipcols_orthologs)
+
+ # Splitting the tree into 8 equal parts
+split.plotTree_clades(test_tree, splits = c(0.125,0.25,0.375,0.5,0.625,0.75,0.875), ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
+ fsize = 1, type = "phylogram", cex = 0.5, file = "split_plot_cory_orthologs_8_parts.pdf", x_lim = c(0,23), tipcols = tipcols_orthologs)
 
 # Adding clade labels
 split.plotTree_clades(test_tree, splits = c(0.2819,0.398,0.6081,0.845), ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
@@ -545,7 +579,9 @@ test_tree$edge.length[test_tree$edge.length == 0.000000000] <- 0.001
 test_tree$edge.length[order(test_tree$edge.length)]
 # Assigning the legend to a variable
 # Plotting the tree
+
 plot(test_tree, colors	= pal_orthologs_t)
+
 legend_plot <- legend("bottomleft", legend=c("0-25","26-64","65-111","112-168","169-206","207-230"), fill=pal_orthologs, title="No. gene trees", horiz=TRUE)
 legend_plot
 
@@ -619,3 +655,18 @@ legend_plot
 
 
 length(test_tree_ag$tip.label)
+
+
+
+# Creating a small phylogeny which I can add to the pictures
+plot(astral_tree_orthologs, show.tip.label = FALSE, use.edge.length = FALSE, edge.width = 10)
+
+library(ggtree)
+p <- ggtree(astral_tree_orthologs, ladderize = FALSE, branch.length = "none", size = 3)
+
+p + theme(legend.position = "none")
+
+# plotting this picture as a png with no background and the same dimensions as the tree used in the article.
+png(paste(figurepath, "phylogeny_orthologs.png", sep = ""), width = 1000, height = 4000, units = "px", bg = "transparent")
+p + theme(legend.position = "none")
+dev.off()

@@ -201,7 +201,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done, target_sequence):
 def hybpiper_stats(path_out, path_in, done, target_sequence, namelist):
     """Hybpiper stats."""
     inputs = [] # The files which the job will look for before it runs
-    outputs = [, done] # The files which will have to be created in order for the job to be "completed"
+    outputs = [ done] # The files which will have to be created in order for the job to be "completed"
     options = {'cores': 10, 'memory': "20g", 'walltime': "00:30:00", 'account':"Coryphoideae"} #Slurm commands
 
     spec = """

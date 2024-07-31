@@ -625,72 +625,6 @@ split.plotTree <- function(tree, splits = NULL, file = NULL, fn = NULL, edge.col
 
 # ##############################################################################################################################
 
-# # Abandoned attempt on adding clade labels using R
-
-# #Sabaleae
-#   #Sabal 
-#   # Sabal Yapa Sabal Etonio
-# MRCA_sabal <- MRCA(test_tree, c("Sabal yapa", "Sabal etonia")) #502
-
-# # Cryosophileae
-#   # Schippia, Itaya, Cryosophila, Trithrinax, Chelyocarpus, Zombia, Coccothrinax, Thrinax, Hemithrinax, Leucothrinax
-#   # Cryosophila nana, Coccothrinax macroglossa
-# MRCA_cryosophileae <- MRCA(test_tree, c("Sabinaria magnifica", "Coccothrinax macroglossa")) #495
-
-# #Phoeniceae
-#   # Phoenix
-#   # Phoenix rupicola, Phoenix dactylifera
-# MRCA_phoeniceae <- MRCA(test_tree, c("Phoenix rupicola", "Phoenix dactylifera")) #447
-
-# # Brahea
-#   # Brahea
-#   # Brahea aculeata , Brahea calcarea
-# MRCA_brahea <- MRCA(test_tree,c("Brahea aculeata","Brahea calcarea"))
-
-# #Trachycarpeae
-# # Subtribe Rhapidinae
-#   # Chamaerops, Guihaia, Trachycarpus, Rhapidophyllum, Maxburretia, Rhapis, (Brahea, Colpothrinax)
-#   # Colpothrinax aphanopetala, Rhapis puhuongensis
-# MRCA_rhapidinae <- MRCA(test_tree, c("Rhapidophyllum hystrix", "Rhapis humilis")) #636
-
-# #Subtribe livistoninae 
-#   #Livistona, Licuala, johannesteijsmannia, Pholidocarpus, Saribus, Acoelorrhaphe, Serenoa
-#   # Serenoa repens, Licuala simplex
-# MRCA_livistoninae <-MRCA(test_tree, c("Livistona carinensis", "Licuala simplex")) #636
-
-# # Chuniophoeniceae
-#   # Chuniophoenix, Kerriodoxa, Nannorrhops, Tahina
-#   # Nannorrhops ritchieana, chuniophoenix hainanensis
-# MRCA_chuniophoeniceae <- MRCA(test_tree, c("Nannorrhops ritchieana", "Chuniophoenix hainanensis")) #409
-
-# # Caryoteae
-#   # Caryota, Wallichia, Arenga
-#   # Caryota obtusa, Wallichia gracilis
-# MRCA_caryoteae <- MRCA(test_tree, c("Caryota obtusa", "Wallichia gracilis")) #436
-
-# #Corypheae
-#   # Corypha
-#   # Corypha lecomtei, Corypha taliera
-# MRCA_corypheae <- MRCA(test_tree, c("Corypha lecomtei 1", "Corypha taliera")) #415
-
-# # Borasseae
-#   # Subtribe Hyphaeninae
-#   # Bismarckia, Satranala, Hyphaene, Medemia
-#   # Bismarkia nobilis, Hyphaene thebaica
-# MRCA_borasseae <- MRCA(test_tree, c("Bismarckia nobilis", "Hyphaene thebaica")) #419
-
-#   # Subtribe Lataniinae
-#   # Borassodendron, Latania, Borassus, Lodoicea
-#   # Borassus aethiopum, Latania lontaroides
-# MRCA_lataniinae <- MRCA(test_tree, c("Borassus aethiopum", "Latania lontaroides")) #427
-
-
-
-# dat_subfam <- data.frame(
-#            node = c(MRCA_sabal,MRCA_cryosophileae,MRCA_phoeniceae,MRCA_rhapidinae,MRCA_livistoninae,MRCA_chuniophoeniceae,MRCA_caryoteae,MRCA_corypheae,MRCA_borasseae,MRCA_lataniinae),
-#            name = c("Sabaleae","Cryosophileae","Phoeniceae","Rhapidineae","Livistoninae","Chuniophoeniceae","Caryoteae","Corypheae", "Hyphaeninae","Lataniinae")
-#        )
-
 split.plotTree_clades <- function(tree, splits = NULL, file = NULL, cex = 1.0, x_lim = NULL, tipcols = NULL, clades = NULL, ...) {
     ef <- 0.037037037037 # percentage to remove plotting area which causes problems when printing
     if (!is.null(file)) pdf(file, width = 8.5, height = 11) # Checking if a file is specified
@@ -728,5 +662,36 @@ split.plotTree_clades <- function(tree, splits = NULL, file = NULL, cex = 1.0, x
     if (!is.null(file)) dev.off()
 }
 
+##############################################################################################################################
+
+plotTree_clades <- function(tree, file = NULL, cex = 1.0, x_lim = NULL, tipcols = NULL, clades = NULL, width = 8.5, height = 11, ...) {
+    if (!is.null(file)) pdf(file, width = width, height = height) # Checking if a file is specified
+    
+    par(fg = "transparent") # Making the tips transparent
+    plotSimmap(tree, xlim = x_lim, split.vertical = TRUE, ...) # Plotting the tree
+    obj <- get("last_plot.phylo", envir = .PlotPhyloEnv) # Get the phylogeny object
+    par(fg = "black") # Making the Tips Black
+    text(rep(max(obj$xx[1:Ntip(tree)]), Ntip(tree)), obj$yy[1:Ntip(tree)], labels = tree$tip.label, font = 3, pos = 4, cex = cex) # Add the tip labels
+
+    for (j in 1:Ntip(tree)) { # Looping through the tips in the tree to add the dots
+        colour_name <- names(tree$tip.label[j]) # Getting the tip name to get the colour
+        colour_tip <- tipcols[[colour_name]] # Getting the colour of the dots
+        lines(c(obj$xx[j], max(obj$xx[1:Ntip(tree)])), rep(obj$yy[j], 2), lty = "dashed", col = colour_tip) # Add the tip lines
+    }
+
+    edgelabels(text = edgelabs_orthologs, frame = "none", cex = 0.5, adj = c(-0.5, -0.5)) # Adding the edge labels
+
+    # Adding clade labels
+    if (!is.null(clades)) {
+        for (k in 1:nrow(clades)) {
+            clade_name <- clades[k, 2]
+            node <- as.numeric(clades[k, 1])
+            if (node %in% obj$edge[, 2]) { # Check if the node is in the current plot
+                cladelabels(text = clade_name, node = node, orientation = "vertical", cex = 0.5, offset = 10)
+            }
+        }
+    }
+    if (!is.null(file)) dev.off()
+}
 
 

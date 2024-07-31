@@ -16,6 +16,9 @@ figurename_idx
 
 # read species trees
 astral_tree <- read.tree(paste(data_dir, "/astral_tree_renamed.tre", sep=""))
+astral_tree <- drop.tip(astral_tree, "Maxburretiagracilis")
+astral_tree <- drop.tip(astral_tree, "Arengaaustralasica")
+
 astral_tree_orthologs <- read.tree(paste(data_dir, "/astral_tree_orthologs_renamed.tre", sep=""))
 astral_tree_orthologs <- drop.tip(astral_tree_orthologs, "Maxburretiagracilis")
 

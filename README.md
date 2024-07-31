@@ -71,6 +71,19 @@ See [GWF](https://gwf.app/) for information on how to do this.
 
 * * *
 
+## 04\. Final scripts
+  There are some final scripts which produce the figures and stats provided in the article.
+  These scripts are small enough to not require a cluster/workflow manager and are therefore not included in the pipeline.
+  Run these scripts on your local machine with the output from the pipeline as input.
+  *OBS* None of these scripts have relative paths and you need to check that you have the correct paths to the input files. 
+
+  The scripts are:
+   - 'load_trees.r' which loads all the output files from the pipeline and produces a list of all the trees.
+   - 'functions.r' contains all the custom plotting functions used in main_figure.r
+   - 'main_figure.r' which produces the main figure of the article along with the supplementary figures.
+   - 'Finding_wcvp_coryphoideae.r' which produces a subset of the World checklist of vascular plants for the Coryphoideae subfamily.
+   - 'counting_genera_coverage.r' which produces the coverage of the different genera in the dataset.
+
 ## Important Notes
 
 ***Make sure to download the developmental version of intronerate from Github, as the standard one causes errors when run.***
