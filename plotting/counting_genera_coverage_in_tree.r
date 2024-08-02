@@ -22,7 +22,7 @@ repo <- "/home/au543206/Documents/Coryphoideae/Figures_in_r/Cory_tree_gene_suppo
 source(paste(repo,"/load_trees.R", sep=""))
 
 astral_tree_orthologs <- ape::read.tree("/home/au543206/Documents/Coryphoideae/Figures_in_r/data/astral_tree_orthologs.tre")
-astral_tree_orthologs <- drop.tip(astral_tree_orthologs, "4039")
+astral_tree_orthologs <- drop.tip(astral_tree_orthologs, "4039") # Maxburretia Gracilis 
 
 astral_tree_orthologs <- root(astral_tree_orthologs, outgroup=c("1081"))
 astral_tree_orthologs <- ladderize(astral_tree_orthologs, right=TRUE)
@@ -1079,3 +1079,7 @@ cor.test(results_orthologs$proportion_sampled, results_orthologs$mean_average_lp
 # All genes tree
 cor.test(results_all_genes$total_number_of_species, results_all_genes$mean_average_lpp) # Significant
 cor.test(results_all_genes$proportion_sampled, results_all_genes$mean_average_lpp) # Not significant
+
+results_all_genes
+
+sp_per_genus
