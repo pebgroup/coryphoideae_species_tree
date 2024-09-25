@@ -19,7 +19,7 @@ Date: 10/11/2021
 '''
 
 from os import O_SYNC, name
-from gwf import Workflow
+from gwf import Workflow, AnonymousTarget
 import os.path
 from inspect import getsourcefile
 # import math
@@ -49,7 +49,7 @@ def renamer(path_in ,rename_file, done,remove_file):
 
     """.format(path_in = path_in, done = done, rename_file = rename_file, remove_file = remove_file)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 ########################################################################################################################
 ################################################---- Fastqc quality check raw ----#######################################
@@ -72,7 +72,7 @@ def fastqc_raw(species,path_in ,path_out, done,):
 
     """.format(path_in = path_in,species = species, output = path_out, done = done)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 ########################################################################################################################
 ################################################---- Fastqc quality check trimmed ----#######################################
@@ -94,7 +94,7 @@ def fastqc_trimmed(species,path_in ,path_out, done,):
 
     """.format(path_in = path_in,species = species, output = path_out, done = done)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 
 # ########################################################################################################################
@@ -141,7 +141,7 @@ def trimmomatic(species, path_in, path_out, done):
 
     """.format(input = path_in + species, output = path_out+species, done = done, species = species, path_out = path_out)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 ########################################################################################################################
 #########################################---- Create a namelist.txt ----################################################
@@ -163,7 +163,7 @@ def namelist_function(path_in, path_out, done):
     """.format()
 
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 
 ########################################################################################################################
@@ -194,7 +194,7 @@ def hybpiper(species, p1, p2, un, path_out, path_in, done, target_sequence):
     """.format(species=species, p1 = path_in + species + p1,p2 = path_in + species + p2, un = path_in + species + un , out = path_out, done = done, target_sequence = target_sequence)
 
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 ########################################################################################################################
 ############################################---- Hybpiper stats ----####################################################
@@ -216,7 +216,7 @@ def hybpiper_stats(path_out, path_in, done, target_sequence, namelist):
     """.format()
 
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 ########################################################################################################################
 #############################################---- Paralogs ----#########################################################
@@ -244,7 +244,7 @@ def paralogs(species,path_in, done, no_paralogs, in_done):
     touch {done}
 
     """.format(sp = species, done = done, path_in = path_in, np = no_paralogs)
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 def no_paralogs(species, path_in, done, no_paralogs):
     """Wrapper script to continue pipeline when Hybpiper finds no paralogs"""
@@ -258,7 +258,7 @@ def no_paralogs(species, path_in, done, no_paralogs):
     touch {np}
 
     """.format(done=done, np=no_paralogs)
-    return(inputs, outputs, options, spec)
+    returnAnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 # ########################################################################################################################
 # #############################################---- Intronerate ----######################################################
@@ -283,7 +283,7 @@ def intronerate(species, path_in, done):
 
     """.format(sp = species, done = done, path_in = path_in)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 # ########################################################################################################################
 # #############################################---- Coverage ----#########################################################
@@ -319,7 +319,7 @@ def coverage(species, path_in, path_out, done,all_bam,all_sorted_bam, all_sorted
 
     """.format(sp = species, done = done, path_in = path_in, dir_in = dir_in, dir_out = dir_out)
 
-    return (inputs, outputs, options, spec)
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 
 ########################################################################################################################
