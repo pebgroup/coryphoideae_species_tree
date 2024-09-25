@@ -444,7 +444,6 @@
 4035_trimmed.fasta
 4037_trimmed.fasta
 4038_trimmed.fasta
-4039_trimmed.fasta
 4040_trimmed.fasta
 4052_trimmed.fasta
 4053_trimmed.fasta
@@ -483,7 +482,6 @@
 4087_trimmed.fasta
 4088_trimmed.fasta
 4089_trimmed.fasta
-4091_trimmed.fasta
 4092_trimmed.fasta
 4093_trimmed.fasta
 4094_trimmed.fasta
