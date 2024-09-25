@@ -374,11 +374,11 @@ for i in range(len(sp)):
                                                         un = "_UN.fastq",
                                                         path_out= "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/02_trimmed/",
-                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i],))
-                                                                      
+                                                        done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Hybpiper/"+sp[i],
+                                                        target_file = os.path.join(workflow_dir,"../target_sequence/PhyloPalms_loci_renamed_794-176_HEYcorrected.fasta"))
+
 
     #### Paralogs
-    
     gwf.target_from_template('Paralogs_'+sp[i], paralogs(species = sp[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/03_hybpiper/done/Paralogs/"+sp[i],
