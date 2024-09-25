@@ -21,6 +21,7 @@ Date: 10/11/2021
 from os import O_SYNC, name
 from gwf import Workflow
 import os.path
+from inspect import getsourcefile
 # import math
 # import glob
 

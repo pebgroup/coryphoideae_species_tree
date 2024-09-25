@@ -26,6 +26,7 @@ Date: 7/12/2021
 from os import O_SYNC
 from gwf import Workflow, AnonymousTarget
 import os.path
+from inspect import getsourcefile
 # import math
 # import glob
 
