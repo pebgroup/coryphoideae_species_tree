@@ -49,6 +49,7 @@ def retrieve(path_in, file_list, output_folder, done):
     cd {path_in}
     
     # Some species are manually removed at this step due to reasons such as double sampling from same specimen or doubtful species identification on specimen
+    # These species are removed by 
 
     python /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py {file_list} {output_folder} > outstats.csv
 
@@ -63,7 +64,7 @@ def retrieve(path_in, file_list, output_folder, done):
 # #############################################---- MAFT ----#############################################################
 # ########################################################################################################################
 
-def mafft(gene, path_in, path_out, done):
+def mafft(gene, path_in, path_out, done):#
     """Aligning all the sequences for each gene.
         Some Genes require a LOT of memory to not result in an Out Of Memory error (500g) but most will do fine with way less"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/done/retrieve_done.txt"]

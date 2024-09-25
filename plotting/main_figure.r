@@ -23,7 +23,7 @@ library(MetBrewer)
 # which(duplicated(astral_tree_EN$tip.label)==TRUE)
 # which(duplicated(astral_tree_for_figure$tip.label)==TRUE)
 
-repo <- "/home/au543206/Documents/Coryphoideae/coryphoideae_species_tree"
+repo <- "/home/au543206/Documents/Coryphoideae/coryphoideae_species_tree/plotting/"
 source(paste(repo,"/functions.r", sep=""))
 source(paste(repo,"/load_trees.r", sep=""))
 
@@ -427,6 +427,48 @@ plot(cphyl)
 
 dev.off()
 
+cphyl <- cophylo(astral_tree_for_figure, astral_tree_for_figure_orthologs, cex = 0.01)
+
+cphyl <- cophylo(astral_tree_for_figure, astral_tree_for_figure_orthologs, fsize = 0.00000001)
+
+pdf(paste(figurepath, "Coryphoideae_cophylo_small.pdf", sep = ""), height = (11.7*2), width = (8.3))
+
+plot(cphyl, fsize = 0.3)
+
+dev.off()
+
+tips_per_page <- 97
+total_tips <- length(astral_tree_for_figure$tip.label) # Assuming both trees have the same number of tips
+pages <- ceiling(total_tips / tips_per_page)
+
+for (i in 1:pages) {
+  # Determine the range of tips for the current page
+  start_tip <- (i - 1) * tips_per_page + 1
+  end_tip <- min(i * tips_per_page, total_tips)
+  
+  # Subset the tips for both trees
+  tips_subset <- astral_tree_for_figure$tip.label[start_tip:end_tip]
+
+  tree1 <- keep.tip(astral_tree_for_figure, tips_subset)
+
+  if (all(tips_subset %in% astral_tree_for_figure_orthologs$tip.label)) {
+    tree2 <- keep.tip(astral_tree_for_figure_orthologs, tips_subset)
+  } else {
+    # If not all tips are in the second tree, subset the tips that are
+    tips_subset <- tips_subset[tips_subset %in% astral_tree_for_figure_orthologs$tip.label]
+    tree1 <- keep.tip(astral_tree_for_figure, tips_subset) # Update tree1 to match the new subset
+    tree2 <- keep.tip(astral_tree_for_figure_orthologs, tips_subset)
+  }
+  
+  # Create a cophylo object for the subset of tips
+  cophy_subset <- cophylo(tree1, tree2)
+  
+  # Save each plot to a separate file
+  pdf(paste0("cophylo_page_", i, ".pdf"), height = (11.7), width = (8.3))
+  plot(cophy_subset, fsize = 0.5, main = paste("Page", i))
+  dev.off()
+}
+
 
 # ##########################################################################################
 # ##################################### Circle Tree ########################################
@@ -631,7 +673,7 @@ for (i in 1:length(test_tree_ag$tip.label)){
 
 
 # Splitting the tree into 5 parts
-split.plotTree_clades(test_tree_ag, splits = c(0.2819,0.398,0.6081,0.845), ftype = "i", mar = c(3,1,1,1), color = pal_t,
+split.plotTree_clades(test_tree_ag, splits = c(0.2818,0.399,0.6092,0.8463), ftype = "i", mar = c(3,1,1,1), color = pal_t,
  fsize = 1, type = "phylogram", cex = 0.5, file = "split_plot_cory.pdf", x_lim = c(0,23), tipcols = tipcols)
 
 # Adding clade labels
