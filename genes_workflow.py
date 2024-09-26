@@ -50,9 +50,10 @@ def retrieve(path_in, file_list, output_folder, done):
     cd {path_in}
     
     # Some species are manually removed at this step due to reasons such as double sampling from same specimen or doubtful species identification on specimen
-    # These species are removed by editing the file_list.txt file which should be in the same folder as the species files
-    # You need to create this file list yourself which can be done by running the following command in the folder with the species files: ls *_trimmed.fasta > filelist.txt
-    # Otherwise a copy of the filelist.txt can be found in the github folder.
+    # These species are removed by editing the file_list.txt file which is found in the github folder.
+    # You can also create this file list yourself if you wish control over which species are included in the pipeline.
+    # This can be done by running the following command in the folder with the species files: ls *_trimmed.fasta > filelist.txt
+    # You also need to change the path of the input file_list below where this function is called.
 
     python /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/samples2genes.py {file_list} {output_folder} > outstats.csv
 
