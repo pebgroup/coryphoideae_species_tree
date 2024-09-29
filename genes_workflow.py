@@ -73,7 +73,7 @@ def mafft(gene, path_in, path_out, done):#
         Some Genes require a LOT of memory to not result in an Out Of Memory error (500g) but most will do fine with way less"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/05_blacklisting/done/retrieve_done.txt"]
     outputs = [done,path_out+gene+"_aligned.fasta"] 
-    options = {'cores': 1, 'memory': "500g", 'walltime': "50:00:00", 'account':"Coryphoideae"} # Most of the genes can run with 50g/24h but some require 500g/48h
+    options = {'cores': 1, 'memory': "50g", 'walltime': "50:00:00", 'account':"Coryphoideae"} # Most of the genes can run with 50g/24h but some require 500g/48h
 
     spec = """
 
