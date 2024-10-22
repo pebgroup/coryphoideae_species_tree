@@ -298,7 +298,7 @@ def astral_annotation(path_in, gene_tree_file, species_tree_file, outfile):
 
 
 # ########################################################################################################################
-# #####################################---- SortaDate ----#####################################################
+# ################################################---- SortaDate ----#####################################################
 # ########################################################################################################################
 def sorta_date(path_in,path_out,astral_tree, done):
     """Using SortaDate to produce a CSV file which can be used to evaluate the use of different genes in dating the trees"""
@@ -329,6 +329,37 @@ def sorta_date(path_in,path_out,astral_tree, done):
 
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
+
+# ########################################################################################################################
+# #################################################---- Phyparts ----#####################################################
+# ########################################################################################################################
+def phyparts(genetree_folder,species_tree,path_out, done, phyparts_folder):
+    """Using the phyparts program from 'https://bitbucket.org/blackrim/phyparts/src/master/' to investigate genetree conflict
+    genetree folder = /home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/rooted_genetrees
+    phyparts_folder = /home/owrisberg/Coryphoideae/github_code/phyparts
+    path_out = /home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance
+    """
+    inputs = [species_tree]
+    outputs = []
+    options = {'cores': 3, 'memory': "100g", 'walltime': "48:00:00", 'account':"Coryphoideae"}
+
+    spec = """
+	#Activating conda phyparts environment
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate phyparts_env
+    
+    # Going to output folder
+    cd {path_out}
+
+	# Run the Phyparts script
+    java -jar {phyparts_folder}target/phyparts-0.0.1-SNAPSHOT-jar-with-dependencies.jar -a 1 -v -d {genetree_folder} -m {species_tree} -o phyparts_out_
+
+
+	touch {done}
+
+	""".format(path_out = path_out, done = done, phyparts_folder = phyparts_folder, genetree_folder = genetree_folder, species_tree = species_tree)
+
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 
 
@@ -428,3 +459,17 @@ gwf.target_from_template('Sorta_date_orthologs', sorta_date(path_in = "/home/owr
                                                         path_out ="/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/orthologs/",
 														astral_tree="/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_orthologs.tre",
 														done = "/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/orthologs/done_sorta_date_orthologs"))
+
+# Running Phyparts to create the output files which can be used to investigate how many genes support the topology of the species level tree.
+gwf.target_from_template('Phyparts_all_genes', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/rooted_genetrees/",
+                                                         species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree.tre",
+                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/01_all_genes/",
+                                                         done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/all_genes",
+                                                         phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
+
+gwf.target_from_template('Phyparts_orthologs', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/copy_of_ortholog_gene_trees/",
+                                                         species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/",
+                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/02_orthologs/",
+                                                         done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/orthologs",
+                                                         phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
+
