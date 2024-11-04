@@ -341,7 +341,7 @@ def phyparts(genetree_folder,species_tree,path_out, done, phyparts_folder):
     """
     inputs = [species_tree]
     outputs = []
-    options = {'cores': 3, 'memory': "100g", 'walltime': "48:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 3, 'memory': "100g", 'walltime': "96:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	#Activating conda phyparts environment
