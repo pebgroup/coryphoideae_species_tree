@@ -340,8 +340,8 @@ def phyparts(genetree_folder,species_tree,path_out, done, phyparts_folder):
     path_out = /home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance
     """
     inputs = [species_tree]
-    outputs = []
-    options = {'cores': 3, 'memory': "100g", 'walltime': "96:00:00", 'account':"Coryphoideae"}
+    outputs = [done]
+    options = {'cores': 3, 'memory': "100g", 'walltime': "150:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	#Activating conda phyparts environment
