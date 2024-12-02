@@ -27,7 +27,7 @@ for file in "$input_folder"/*.tre; do
   if [[ -e "$file" ]]; then
     echo "Processing file: $file"
     # Example: Copy the file to the output folder
-    nw_reroot -l "$file" 1079 1080 1081 1082
+    nw_reroot -l "$file" 1079 1080 1081 1082 > "$output_folder"
   else
     echo "No .tre files found in $input_folder"
     break
