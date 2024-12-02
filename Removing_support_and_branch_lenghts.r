@@ -31,3 +31,38 @@ tree_orthologs$node.label <- NULL
 
 # Write modified tree
 write.tree(tree_orthologs, file = "astral_tree_orthologs_cleaned.tre")
+
+
+# Removing branch lenghts and support for gene trees
+
+# set folder 
+setwd("/home/au543206/GenomeDK/coryphoideae/work_flow/10_tree_building/01_genetrees/copy_of_ortholog_gene_trees/without_support")
+
+# Get all files in folder
+files <- list.files()
+
+# List of genetrees
+genetrees <- files
+
+for (i in 1:length(genetrees)){
+
+  genetree <- genetrees[i]
+
+  # Read the phylogenetic tree from a Newick file
+  tree <- read.tree(genetree)
+
+  # Set branch lengths to NULL to remove them
+  tree$edge.length <- NULL
+
+  # Set node labels to NULL to remove node support values
+  tree$node.label <- NULL
+
+  # Setting the output filename
+
+  file_name <- sub(".tre$", "", genetree)
+  file_name_clean <- paste0(file_name, "_cleaned.tre")
+
+  # Write the modified tree to a new Newick file
+  write.tree(tree, file = file_name_clean)
+
+}

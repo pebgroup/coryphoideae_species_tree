@@ -17,7 +17,6 @@ tree <- drop.tip(tree, outgroup)
 # plot the tree
 daylight <- ggtree(tree, layout="daylight", branch.length = 'none')
 
-
 circular <- ggtree(tree, branch.length='none', layout='circular', size = 1.2)
 circular
 
