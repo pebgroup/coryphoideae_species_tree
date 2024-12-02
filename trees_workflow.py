@@ -467,8 +467,8 @@ gwf.target_from_template('Phyparts_all_genes', phyparts( genetree_folder = "/hom
                                                          done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/all_genes",
                                                          phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
 
-gwf.target_from_template('Phyparts_orthologs', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/copy_of_ortholog_gene_trees/",
-                                                         species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_orthologs_cleaned.tre",
+gwf.target_from_template('Phyparts_orthologs', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/copy_of_ortholog_gene_trees/nw_rooted/",
+                                                         species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_orthologs_cleaned_nwrooted_edit.tre",
                                                          path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/02_orthologs/",
                                                          done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/orthologs",
                                                          phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
