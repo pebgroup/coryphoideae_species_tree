@@ -26,8 +26,10 @@ for file in "$input_folder"/*.tre; do
   # Check if the file exists (handles cases with no matching files)
   if [[ -e "$file" ]]; then
     echo "Processing file: $file"
+	# Extract the base name of the file (e.g., "example.tre")
+    base_name=$(basename "$file")
     # Example: Copy the file to the output folder
-    nw_reroot -l "$file" 1079 1080 1081 1082 > "$output_folder"
+    nw_reroot -l "$file" 1079 1080 1081 1082 > "$output_folder/$base_name"
   else
     echo "No .tre files found in $input_folder"
     break
