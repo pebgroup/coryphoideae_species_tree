@@ -140,6 +140,9 @@ def newick_contracting(path_in,path_out ):
 	echo "this is the path out: {path_out}"
 
 	cd {path_in}
+    
+    # Clear the output file
+    > {path_out}genetrees.tre
 
 	# Remove current genetrees file if it exists
 	if [ -f {path_out}genetrees.tre ]; then
@@ -182,6 +185,9 @@ def newick_contracting_orthologs(path_in,path_out):
 	echo "this is the path out: {path_out}"
 
 	cd {path_in}
+    
+    # Clear the output file
+    > {path_out}genetrees_orthologs.tre
 
 	while IFS= read -r line; do
 		echo "$line"

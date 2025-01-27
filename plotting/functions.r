@@ -625,7 +625,7 @@ split.plotTree <- function(tree, splits = NULL, file = NULL, fn = NULL, edge.col
 
 # ##############################################################################################################################
 
-split.plotTree_clades <- function(tree, splits = NULL, file = NULL, cex = 1.0, x_lim = NULL, tipcols = NULL, clades = NULL,type = NULL, ...) {
+split.plotTree_clades <- function(tree, splits = NULL, file = NULL, cex = 1.0, x_lim = NULL, tipcols = NULL, clades = NULL, type = NULL, ...) {
     ef <- 0.037037037037 # percentage to remove plotting area which causes problems when printing
     if (!is.null(file)) pdf(file, width = 8.5, height = 11) # Checking if a file is specified
     if (is.null(splits)) splits <- (floor(0.5 * Ntip(tree)) + 0.5) / Ntip(tree) # Checking if the number of splits is specified
@@ -636,7 +636,7 @@ split.plotTree_clades <- function(tree, splits = NULL, file = NULL, cex = 1.0, x
     for (i in nrow(S):1) { # Looping through the splits
         if (is.null(file) && i < nrow(S)) par(ask = TRUE) # Checking if a file is specified
         par(fg = "transparent") # Making the tips transparent
-        plotSimmap(tree, ylim = Ntip(tree) * S[i, ], xlim = x_lim, split.vertical = TRUE, type = "" ...) # Plotting the tree
+        plotSimmap(tree, ylim = Ntip(tree) * S[i, ], xlim = x_lim, split.vertical = TRUE, type = type, ...) # Plotting the tree
         obj <- get("last_plot.phylo", envir = .PlotPhyloEnv) # Get the phylogeny object
         par(fg = "black") # Making the Tips Black
         text(rep(max(obj$xx[1:Ntip(tree)]), Ntip(tree)), obj$yy[1:Ntip(tree)], labels = tree$tip.label, font = 3, pos = 4, cex = cex) # Add the tip labels
