@@ -33,14 +33,14 @@
 4008,Borassus madagascariensis
 1488,Brahea aculeata
 1266,Brahea armata
-1489,Brahea dulcis 3
+1489,Brahea dulcis FTBG (71275A)
 3434,Brahea brandegeei
 1268,Brahea calcarea
 3436,Brahea decumbens
-1267,Brahea dulcis 1
-4009,Brahea dulcis 2
-3438,Brahea edulis 1
-1042,Brahea edulis 2
+1267,Brahea dulcis FTBG (59978*B)
+4009,Brahea dulcis H. E. Moore. Jr., A. Valiente M. 6176
+3438,Brahea edulis UCBG (2003.0149)
+1042,Brahea edulis Chase M.W. 30862
 3440,Brahea moorei
 3442,Brahea pimo
 3444,Brahea salvadorensis
@@ -65,17 +65,17 @@
 2039,Chuniophoenix hainanensis
 1046,Chuniophoenix nana
 2040,Chuniophoenix suoitienensis
-4012,Coccothrinax acuminata 1
-4013,Coccothrinax acuminata 2
+4012,Coccothrinax acuminata R. M. Verdecia Pérez RV12/35
+4013,Coccothrinax acuminata J. A. shafer 12159
 1222,Coccothrinax alexandri
 1344,Coccothrinax alta
-1249,Coccothrinax argentata 1
-1250,Coccothrinax argentata 2
-1252,Coccothrinax argentata 3
-1047,Coccothrinax argentata 4
-1345,Coccothrinax argentea 1
-1193,Coccothrinax barbadensis 1
-1346,Coccothrinax barbadensis 2
+1249,Coccothrinax argentata FTBG (58534A)
+1250,Coccothrinax argentata FTBG (59627A)
+1252,Coccothrinax argentata MBC (88411A)
+1047,Coccothrinax argentata K (1973-12608)
+1345,Coccothrinax argentea MBC (99816J)
+1193,Coccothrinax barbadensis MBC (20020232*Q)
+1346,Coccothrinax barbadensis CJB (NA)
 1246,Coccothrinax borhidiana
 4014,Coccothrinax boschiana
 1347,Coccothrinax clarensis
@@ -84,7 +84,7 @@
 1349,Coccothrinax ekmanii
 1350,Coccothrinax elegans
 1351,Coccothrinax fragrans
-4015,Coccothrinax garciana 1
+4015,Coccothrinax garciana J. A. shafer 1301
 1352,Coccothrinax gracilis
 1353,Coccothrinax guantanamensis
 1247,Coccothrinax gundlachii
@@ -103,21 +103,21 @@
 1421,Coccothrinax salvatoris
 1412,Coccothrinax saxicola
 4017,Coccothrinax scoparia
-4030,Coccothrinax argentea 2
+4030,Coccothrinax argentea T. A. Zanoni	15741
 4029,Coccothrinax aff. Jimenezii T. A. Zanoni 33375
 4019,Coccothrinax montgomeryana
 4018,Coccothrinax bonettiana
 1477,Coccothrinax spissa
 1414,Coccothrinax torrida
-4020,Coccothrinax yuraguana 1
-4021,Coccothrinax yuraguana 2
+4020,Coccothrinax yuraguana R. M. Verdecia Pérez RV12/13
+4021,Coccothrinax yuraguana Bro. León 18468
 1048,Colpothrinax aphanopetala
 3054,Colpothrinax cookii
 1449,Copernicia alba
 1238,Copernicia baileyana
 1415,Copernicia berteroana
 4022,Copernicia brittonorum
-4023,Copernicia cowellii 1
+4023,Copernicia cowellii Fr. León 15780
 3056,Copernicia curtissii
 1416,Copernicia ekmanii
 1239,Copernicia fallaensis
@@ -131,15 +131,15 @@
 4025,Copernicia roigii
 1275,Copernicia tectorum
 1276,Copernicia yarey
-2044,Corypha lecomtei 1
-4026,Corypha lecomtei 2
+2044,Corypha lecomtei Maxwell, J.F. 75-932
+4026,Corypha lecomtei A. Henderson, Bui Van Than & Nguyen Quoc Dat 3634
 1008,Corypha taliera
 1050,Corypha umbraculifera
 2041,Corypha utan
 4027,Cryosophila cookii
 1439,Cryosophila guagara
-1463,Cryosophila kalbreyeri
-4011,Cryosophila kalbreyeri subsp. kalbreyeri
+1463,Cryosophila kalbreyeri FTBG (AN89267A)
+4011,Cryosophila kalbreyeri subsp. kalbreyeri Harold E. Moore Jr. et al	10226
 1432,Cryosophila nana
 1430,Cryosophila stauracantha
 1051,Cryosophila warscewiczii
@@ -174,8 +174,8 @@
 2047,Lanonia magalonii
 3366,Lanonia manglaensis
 2048,Lanonia poilanei
-2049,Lanonia sp. Henderson A. 3727
-2050,Lanonia sp. Henderson A. 3590
+2049,Lanonia kontumensis Henderson A. 3727
+2050,Lanonia kontumensis Henderson A. 3590
 3072,Lanonia verrucosa
 1059,Latania loddigesii
 3008,Latania lontaroides
@@ -355,8 +355,8 @@
 1021,Phoenix dactylifera
 1022,Phoenix loureiroi var. loureiroi
 1023,Phoenix loureiroi var. pedunculata
-3308,Phoenix paludosa 1
-4053,Phoenix paludosa 2
+3308,Phoenix paludosa Barfod, A.S. 41152
+4053,Phoenix paludosa T. Burholt	45258
 1024,Phoenix pusilla
 1066,Phoenix reclinata
 1025,Phoenix roebelenii
@@ -366,37 +366,37 @@
 3314,Pholidocarpus kingianus
 4054,Pholidocarpus macrocarpus
 2011,Pholidocarpus majadum
-4061,Pritchardia glabrata 1
+4061,Pritchardia glabrata Hank Oppenheimer NA
 1067,Pritchardia arecina
 4055,Pritchardia bakeri
 4056,Pritchardia beccariana
-4057,Pritchardia flynnii 1
-4058,Pritchardia flynnii 2
-4059,Pritchardia flynnii 3
+4057,Pritchardia flynnii Natalia Tangalin 1705
+4058,Pritchardia flynnii Natalia Tangalin 1482
+4059,Pritchardia flynnii Natalia Tangalin 1480
 4060,Pritchardia forbesiana
-4062,Pritchardia glabrata 2
-4063,Pritchardia hardyi 1
-4064,Pritchardia hardyi 2
-4065,Pritchardia hardyi 3
+4062,Pritchardia glabrata Natalia Tangalin	1703
+4063,Pritchardia hardyi Hank Oppenheimer NA
+4064,Pritchardia hardyi Christine Bacon	NA
+4065,Pritchardia hardyi Natalia Tangalin	1705
 4066,Pritchardia hillebrandii
 4067,Pritchardia kaalae
-4068,Pritchardia kahukuensis 1
-4069,Pritchardia kahukuensis 2
+4068,Pritchardia kahukuensis H. Kapua Kawelo NA
+4069,Pritchardia kahukuensis Natalia Tangalin	1481
 4070,Pritchardia lanigera
 4071,Pritchardia lowreyana
 4072,Pritchardia minor
 4073,Pritchardia mitiaroana
-4074,Pritchardia munroi 1
-4075,Pritchardia munroi 2
+4074,Pritchardia munroi C. R. Annable 3635
+4075,Pritchardia munroi Joseph F. Rock	17341
 4076,Pritchardia napaliensis
 4077,Pritchardia pacifica
-4078,Pritchardia perlmanii 1
-4079,Pritchardia perlmanii 2
-4080,Pritchardia perlmanii 3
+4078,Pritchardia perlmanii Ken Wood	1545
+4079,Pritchardia perlmanii Ken Wood	8091
+4080,Pritchardia perlmanii Ken Wood	7331
 1029,Pritchardia remota
 1030,Pritchardia thurstonii
-4081,Pritchardia viscosa 1
-4082,Pritchardia viscosa 2
+4081,Pritchardia viscosa Steve Perlman 18580
+4082,Pritchardia viscosa Steve Perlman 18712
 4084,Pritchardia vuylstekeana
 4085,Pritchardia waialealeana
 1465,Rhapidophyllum hystrix
@@ -408,10 +408,10 @@
 2058,Rhapis laosensis subsp. macrantha
 3322,Rhapis laosensis
 2059,Rhapis micrantha
-2060,Rhapis puhuongensis 1
-4086,Rhapis puhuongensis 2
-2061,Rhapis robusta 1
-4087,Rhapis robusta 2
+2060,Rhapis puhuongensis Henderson, A. 3423
+4086,Rhapis puhuongensis Vu X. P. 1748
+2061,Rhapis robusta Henderson, A. 3759
+4087,Rhapis robusta N.T. Hiep, et al. CBL 1238
 1068,Rhapis subtilis
 4088,Rhapis subtilis subsp. Subtilis
 2062,Rhapis subtilis subsp. Siamensis
@@ -451,12 +451,12 @@
 3352,Trachycarpus ravenii
 1035,Trachycarpus takil
 3354,Trachycarpus ukhrulensis
-1364,Trithrinax brasiliensis 1
-1478,Trithrinax brasiliensis 2
-1076,Trithrinax brasiliensis 3
-1437,Trithrinax schizophylla 2
-1469,Trithrinax schizophylla 1
-1470,Trithrinax schizophylla 3
+1364,Trithrinax brasiliensis CJB (NA)
+1478,Trithrinax brasiliensis JBP (NA)
+1076,Trithrinax brasiliensis Chase, M.W. 30859
+1437,Trithrinax schizophylla MBC (9242A)
+1469,Trithrinax schizophylla Cano, Á. ACS274
+1470,Trithrinax schizophylla Cano, Á. ACS275
 3014,Wallichia caryotoides
 3358,Wallichia disticha
 2067,Wallichia gracilis
@@ -466,8 +466,8 @@
 1036,Wallichia oblongifolia
 1077,Washingtonia filifera
 3362,Washingtonia filifera var. robusta
-1438,Zombia antillarum 2
-1078,Zombia antillarum 1
+1438,Zombia antillarum FTBG	(X-9-43A)
+1078,Zombia antillarum Fantz, P.R. 3222
 1079,Aphandra natalia
 4097,Latania verschaffeltii
 1099,Sabal mauritiiformis
@@ -484,8 +484,8 @@
 4096,Hemithrinax rivularis
 4092,Coccothrinax bermudezi
 1237,Coccothrinax munizii
-4093,Coccothrinax garciana 2
-4094,Copernicia cowellii 2
+4093,Coccothrinax garciana J. A. shafer	2437
+4094,Copernicia cowellii J. A. shafer	1144
 4099,Licuala penduliflora
 3076,Licuala adscendens
 4098,Licuala campestris
