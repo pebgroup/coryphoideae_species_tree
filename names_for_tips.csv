@@ -33,13 +33,13 @@
 4008,Borassus madagascariensis
 1488,Brahea aculeata
 1266,Brahea armata
-1489,Brahea dulcis FTBG (71275A)
+1489,Brahea dulcis FTBG [71275A]
 3434,Brahea brandegeei
 1268,Brahea calcarea
 3436,Brahea decumbens
-1267,Brahea dulcis FTBG (59978*B)
+1267,Brahea dulcis FTBG [59978*B]
 4009,Brahea dulcis H. E. Moore. Jr., A. Valiente M. 6176
-3438,Brahea edulis UCBG (2003.0149)
+3438,Brahea edulis UCBG [2003.0149]
 1042,Brahea edulis Chase M.W. 30862
 3440,Brahea moorei
 3442,Brahea pimo
@@ -69,13 +69,13 @@
 4013,Coccothrinax acuminata J. A. shafer 12159
 1222,Coccothrinax alexandri
 1344,Coccothrinax alta
-1249,Coccothrinax argentata FTBG (58534A)
-1250,Coccothrinax argentata FTBG (59627A)
-1252,Coccothrinax argentata MBC (88411A)
-1047,Coccothrinax argentata K (1973-12608)
-1345,Coccothrinax argentea MBC (99816J)
-1193,Coccothrinax barbadensis MBC (20020232*Q)
-1346,Coccothrinax barbadensis CJB (NA)
+1249,Coccothrinax argentata FTBG [58534A]
+1250,Coccothrinax argentata FTBG [59627A]
+1252,Coccothrinax argentata MBC [88411A]
+1047,Coccothrinax argentata K [1973-12608]
+1345,Coccothrinax argentea MBC [99816J]
+1193,Coccothrinax barbadensis MBC [20020232*Q]
+1346,Coccothrinax barbadensis CJB [NA]
 1246,Coccothrinax borhidiana
 4014,Coccothrinax boschiana
 1347,Coccothrinax clarensis
@@ -138,7 +138,7 @@
 2041,Corypha utan
 4027,Cryosophila cookii
 1439,Cryosophila guagara
-1463,Cryosophila kalbreyeri FTBG (AN89267A)
+1463,Cryosophila kalbreyeri FTBG [AN89267A]
 4011,Cryosophila kalbreyeri subsp. kalbreyeri Harold E. Moore Jr. et al	10226
 1432,Cryosophila nana
 1430,Cryosophila stauracantha
@@ -451,10 +451,10 @@
 3352,Trachycarpus ravenii
 1035,Trachycarpus takil
 3354,Trachycarpus ukhrulensis
-1364,Trithrinax brasiliensis CJB (NA)
-1478,Trithrinax brasiliensis JBP (NA)
+1364,Trithrinax brasiliensis CJB [NA]
+1478,Trithrinax brasiliensis JBP [NA]
 1076,Trithrinax brasiliensis Chase, M.W. 30859
-1437,Trithrinax schizophylla MBC (9242A)
+1437,Trithrinax schizophylla MBC [9242A]
 1469,Trithrinax schizophylla Cano, Á. ACS274
 1470,Trithrinax schizophylla Cano, Á. ACS275
 3014,Wallichia caryotoides
@@ -466,7 +466,7 @@
 1036,Wallichia oblongifolia
 1077,Washingtonia filifera
 3362,Washingtonia filifera var. robusta
-1438,Zombia antillarum FTBG	(X-9-43A)
+1438,Zombia antillarum FTBG	[X-9-43A]
 1078,Zombia antillarum Fantz, P.R. 3222
 1079,Aphandra natalia
 4097,Latania verschaffeltii

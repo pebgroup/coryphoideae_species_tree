@@ -337,6 +337,19 @@ legend("topleft", legend=c("0-34","35-79","80-129","139-177","178-214","215-231"
 #add.scale.bar(x=0, y=-1)
 dev.off()
 
+
+###
+astral_tree_for_figure_orthologs_uniform <- astral_tree_for_figure_orthologs
+astral_tree_for_figure_orthologs_uniform$edge.length <- rep(2,959)
+pdf(paste(figurepath, "Coryphoideae_tree_ortholog_genetrees_support_leftwards.pdf", sep = ""), height = (15.3*5), width = 27) # height was 15.3 * 3 and width = 11
+plotwe(astral_tree_for_figure_orthologs_uniform, direction = "rightwards", cex = 0.8, align.tip.label = T,
+       edge.color = edgecols_orthologs, link.color = tipcols_orthologs, label.offset = 0.08, edge.width = 5, use.edge.length = TRUE) # was 1.2
+#nodelabels(text = astral_tree_for_figure$node.label, frame="none", cex=0.45, adj=c(-0.45,0.35))
+edgelabels(text = edgelabs_orthologs, frame="none", cex=1, adj=c(0.5,-0.30)) # cex was 0.45
+legend("topleft", legend=c("0-34","35-79","80-129","139-177","178-214","215-231"),fill=pal_orthologs,title="No. gene trees")
+#add.scale.bar(x=0, y=-1)
+dev.off()
+
 #########################################################################################
 ######################-- Creating sub plots of the phylogeny--###########################
 #########################################################################################
@@ -596,8 +609,11 @@ for (i in 1:length(test_tree$tip.label)){
 
 #Splitting the tree into just 1 part
 plotTree_clades(test_tree, ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
- fsize = 2, type = "phylogram", cex = 0.70, file = "split_plot_cory_orthologs_1_part.pdf",width = 15, height = 60, tipcols = tipcols_orthologs)
+ fsize = 2, cex = 0.70, file = "split_plot_cory_orthologs_1_part.pdf", width = 15, height = 60, tipcols = tipcols_orthologs, type = "cladogram")
 
+# Splitting the tree into 5 parts
+split.plotTree_clades(test_tree_no_branch_lenghts, splits = c(0.2819,0.398,0.6081,0.845), ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
+ fsize = 1, type = "phylogram", cex = 0.5, file = "split_plot_cory_orthologs.pdf", x_lim = c(0,23), tipcols = tipcols_orthologs)
 
 # Splitting the tree into 5 parts
 split.plotTree_clades(test_tree, splits = c(0.2819,0.398,0.6081,0.845), ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
@@ -623,7 +639,7 @@ test_tree$edge.length[order(test_tree$edge.length)]
 # Plotting the tree
 
 plot(test_tree, colors	= pal_orthologs_t)
-
+View(test_tree)
 legend_plot <- legend("bottomleft", legend=c("0-25","26-64","65-111","112-168","169-206","207-230"), fill=pal_orthologs, title="No. gene trees", horiz=TRUE)
 legend_plot
 
@@ -714,3 +730,31 @@ split.plotTree_clades(test_tree_ag, splits = c(0.2818,0.399,0.6092,0.8463), ftyp
 # dev.off()
 
 # Make a new figure which shows the phylogeny of the genera
+
+
+
+####################################################################################################################################
+#Testing area
+test_tree_no_branch_lenghts <- test_tree
+length(test_tree_no_branch_lenghts$edge.length)
+test_tree_no_branch_lenghts$edge.length <- rep(0.25,959)
+
+test_tree_no_branch_lenghts$edge.length[which(test_tree_no_branch_lenghts$edge.length != 0)] <- 0.25
+
+depth <- max(node.depth.edgelength(test_tree))
+new_edge_lengths <- rep(depth / (Ntip(test_tree) + test_tree$Nnode), length(test_tree$edge.length))
+
+tree_ultrametric_test <- force.ultrametric(test_tree)
+
+
+# Splitting the tree into 5 parts
+split.plotTree_clades(test_tree_no_branch_lenghts, splits = c(0.2819,0.398,0.6081,0.845), ftype = "i", mar = c(3,1,1,1), color = pal_orthologs_t,
+ fsize = 1, cex = 0.5, file = "split_plot_cory_orthologs.pdf", x_lim = c(0,23), tipcols = tipcols_orthologs)
+
+par(fg = "transparent")
+plotTree(test_tree_no_branch_lenghts, align.tip.label = TRUE)
+
+plotSimmap(test_tree_no_branch_lenghts)
+
+plotSimmap(test_tree)
+

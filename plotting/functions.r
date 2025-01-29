@@ -696,3 +696,87 @@ plotTree_clades <- function(tree, file = NULL, cex = 1.0, x_lim = NULL, tipcols 
 }
 
 
+####################################################################################################################################
+# Area for testing code
+
+# function finds the height of a given node
+## written by Liam Revell 2014, 2015, 2016
+nodeheight<-function(tree,node,...){
+	if(hasArg(root.edge)) root.edge<-list(...)$root.edge
+	else root.edge<-FALSE
+	if(root.edge) ROOT<-if(!is.null(tree$root.edge)) tree$root.edge else 0
+	else ROOT<-0 
+	if(!inherits(tree,"phylo")) stop("tree should be an object of class \"phylo\".")
+	if(node==(Ntip(tree)+1)) h<-0
+	else {
+		a<-setdiff(c(getAncestors(tree,node),node),Ntip(tree)+1)
+		h<-sum(tree$edge.length[sapply(a,function(x,e) which(e==x),e=tree$edge[,2])])
+	}
+	h+ROOT
+}
+
+# returns the heights of each node
+# written by Liam J. Revell 2011, 2012, 2013, 2015, 2016
+# modified by Klaus Schliep 2017
+nodeHeights<-function(tree,...){
+		if(hasArg(root.edge)) root.edge<-list(...)$root.edge
+		else root.edge<-FALSE
+		if(root.edge) ROOT<-if(!is.null(tree$root.edge)) tree$root.edge else 0
+		else ROOT<-0 
+		nHeight <- function(tree){
+				tree <- reorder(tree)
+				edge <- tree$edge
+				el <- tree$edge.length
+				res <- numeric(max(tree$edge))
+				for(i in seq_len(nrow(edge))) res[edge[i,2]] <- res[edge[i,1]] + el[i] 
+				res
+		}
+		nh <- nHeight(tree)
+		return(matrix(nh[tree$edge], ncol=2L)+ROOT)
+}
+
+nodeHeights_uniform <- function(tree) {
+  n <- Ntip(tree) + tree$Nnode # Finds the number of nodes
+  edge <- tree$edge # Create a vector of the edges
+  res <- numeric(n) # res is now the number
+  res[edge[, 2]] <- res[edge[, 1]] + 1 # Increment by 1 for each edge
+  return(matrix(res[edge], ncol = 2L))
+}
+
+split.plotTree_clades <- function(tree, splits = NULL, file = NULL, cex = 1.0, x_lim = NULL, tipcols = NULL, clades = NULL, ...) {
+    ef <- 0.037037037037 # percentage to remove plotting area which causes problems when printing
+    if (!is.null(file)) pdf(file, width = 8.5, height = 11) # Checking if a file is specified
+    if (is.null(splits)) splits <- (floor(0.5 * Ntip(tree)) + 0.5) / Ntip(tree) # Checking if the number of splits is specified
+    S <- matrix(c(0, splits, splits, 1 + 1/Ntip(tree)), length(splits) + 1, 2) # Creating the splits
+    S <- cbind(S[, 1] + ef * (S[, 2] - S[, 1]), S[, 2] - ef * (S[, 2] - S[, 1])) # Adjusting the splits based on paper edges
+    
+    for (i in nrow(S):1) { # Looping through the splits
+        if (is.null(file) && i < nrow(S)) par(ask = TRUE) # Checking if a file is specified
+        par(fg = "transparent") # Making the tips transparent
+        print("Everything ran before the plotSimmap")
+        plotSimmap(tree, ylim = Ntip(tree) * S[i, ], xlim = x_lim, split.vertical = TRUE, ...) # Plotting the tree
+        obj <- get("last_plot.phylo", envir = .PlotPhyloEnv) # Get the phylogeny object
+        par(fg = "black") # Making the Tips Black
+        text(rep(max(obj$xx[1:Ntip(tree)]), Ntip(tree)), obj$yy[1:Ntip(tree)], labels = tree$tip.label, font = 3, pos = 4, cex = cex) # Add the tip labels
+
+        for (j in 1:Ntip(tree)) { # Looping through the tips in the tree to add the dots
+            colour_name <- names(tree$tip.label[j]) # Getting the tip name to get the colour
+            colour_tip <- tipcols[[colour_name]] # Getting the colour of the dots
+            lines(c(obj$xx[j], max(obj$xx[1:Ntip(tree)])), rep(obj$yy[j], 2), lty = "dashed", col = colour_tip) # Add the tip lines
+        }
+        
+        edgelabels(text = edgelabs_orthologs, frame = "none", cex = 0.5, adj = c(-0.5, -0.5)) # Adding the edge labels
+        
+        # Adding clade labels
+        if (!is.null(clades)) {
+            for (k in 1:nrow(clades)) {
+                clade_name <- clades[k, 2]
+                node <- as.numeric(clades[k, 1])
+                if (node %in% obj$edge[, 2]) { # Check if the node is in the current plot
+                  cladelabels( text = clade_name, node = node ,orientation = "vertical", cex = 0.5, offset = 10)
+                }
+            }
+        }
+    }
+    if (!is.null(file)) dev.off()
+}
