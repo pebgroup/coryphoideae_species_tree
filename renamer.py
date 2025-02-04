@@ -20,7 +20,7 @@ with open(args.infile) as f:
 with open(args.mapping, mode='r', encoding='utf-8-sig') as f: 
 	for line in f:
 		line = line.strip()
-		LINE = line.split(",")
+		LINE = line.split(";")
 		searchterm = LINE[0]
 		print("Replacing ",LINE[0]," with ", LINE[1])
 		if args.bs == 0:
