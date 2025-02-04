@@ -5,10 +5,10 @@ library(readr)
 data_dir <- "/home/au543206/Documents/Coryphoideae/Figures_in_r/data"
 
 # read name translation table (SECAPR No. to tip name)
-rename <- read.table("/home/au543206/GenomeDK/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv", sep=",", colClasses = "character")
+rename <- read.table("/home/au543206/GenomeDK/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv", sep=";", colClasses = "character")
 
 # read figurename translation table (SECAPR No. to figure name)
-figurename <- read.table("/home/au543206/GenomeDK/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv", sep=",", colClasses = "character")
+figurename <- read.table("/home/au543206/GenomeDK/Coryphoideae/github_code/coryphoideae_species_tree/names_for_tips.csv", sep=";", colClasses = "character")
 #figurename <- figurename[1:518,]
 figurename_idx <- figurename$V2
 names(figurename_idx) <- figurename$V1
