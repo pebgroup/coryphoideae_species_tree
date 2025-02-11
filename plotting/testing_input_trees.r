@@ -50,4 +50,37 @@ print(missing_species)
 # 3224,Licuala ruthiae
 
 
+# I also need to test the folder which contains all the "raw" genetrees
+file_folder <- "/home/au543206/GenomeDK/Coryphoideae/work_flow/10_tree_building/01_genetrees/" # Folder on GenomeDK
+
+# Function to load multiple .tre files into a multiPhylo object
+load_trees <- function(folder, pattern = "_rooted.tre$") {
+  # List all files in the folder that match the pattern
+  tree_files <- list.files(folder, pattern = pattern, full.names = TRUE)
+  
+  # Read all tree files into a list
+  trees <- lapply(tree_files, read.tree)
+  
+  # Convert list to multiPhylo object
+  multi_trees <- do.call(c, trees)
+  class(multi_trees) <- "multiPhylo"
+  
+  return(multi_trees)
+}
+
+# Finding all genetrees
+genetrees_raw <- load_trees(file_folder, "_rooted.tre$")
+
+# Finding the unique labels from the raw genetrees.
+genetrees_raw_unique_labels <- get_unique_tip_labels(genetrees_raw)
+
+# Are all the unique labels from the genetrees found in the species tree
+all(genetrees_raw_unique_labels %in% astral_all_gene_tree$tip.label) # TRUE
+
+# Are all the unique labels from the raw genetrees foun in the genetrees that are concatenated
+all(genetrees_raw_unique_labels %in% unique_labels) # TRUE
+
+# Which are not found in the 
+which(genetrees_raw_unique_labels %in% astral_all_gene_genetree)
+
 

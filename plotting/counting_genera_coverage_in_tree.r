@@ -118,6 +118,8 @@ list_of_species <- list_of_species[lengths(list_of_species) > 1]
 # I will remove species where the name contains sp. from the list aswell as we have removed all of these.
 list_of_species <- list_of_species[!grepl("sp.", names(list_of_species))] # Remove from the tree and not from the list
 
+list_of_species
+
 # Now I need to randomly remove the duplicate samples from the tree.
 # I will do this 100 times in order to create 100 different trees.
 # I will then calculate the average local posterior probability for each genus in each of the 100 trees.
@@ -159,6 +161,9 @@ for (i in 1:100){ # 100 replicates
   kept_tips[[i]] <- internal_kept_tips
 }
 
+removed_tips
+kept_tips
+
 # Testing if all the elements of kept tips are the same length
 all(lengths(kept_tips) == lengths(kept_tips)[1]) 
 
@@ -167,7 +172,6 @@ all(lengths(removed_tips) == lengths(removed_tips)[1])
 
 # Testing if there are the same number of tips in all the trees.
 all(lengths(list_of_trees$tip.label) == lengths(list_of_trees$tip.label)[1])
-
 
 
 # For each of these genera I want to find the MRCA of all tips in that genus
@@ -219,7 +223,7 @@ for (q in 1:length(list_of_trees)){
     descendants <- getDescendants(list_of_trees[[q]], node = mrca)
     #print(paste("Descendants for genus", genus, ":", descendants))
     tip_labels <- unname(list_of_trees[[q]]$tip.label[descendants[descendants <= length(list_of_trees[[q]]$tip.label)]])
-
+    tip_labels
     
     if (any(is.na(descendants))) {
       print(paste("Error: NA in descendants for genus", genus))
@@ -812,16 +816,16 @@ for (q in 1:length(list_of_trees_all_genes)){
     # Removing these tips from the tips vector
     tips <- tips[tips %in% list_of_trees_all_genes[[q]]$tip.label]
   } else {
-    print("All tips found in the tree for genus Arenga")
+    print("All tips found in the tree for genus Livistona")
   }
 
   # I need to remove genera with one 1 tip as I cannot find their MRCA
   if (length(tips) == 1){
-    print("Error: only 1 tip found in the tree for genus Arenga")
+    print("Error: only 1 tip found in the tree for genus Livistona")
     next
   }
 
-  # Remove Arenga distincta and Arenga hastata
+  # Remove Livistona Exigua
   tips <- tips[!grepl("exigua", tips)]
   tips
 

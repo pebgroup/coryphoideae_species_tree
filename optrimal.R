@@ -106,8 +106,26 @@ write(overlost, 'overlost.txt', sep = '\n')
 cat("Copying the sequence with the optimal trimming value into the current directory.\n")
 cat(paste(optrim, '/', names(optrim), sep = ''), sep = '\n')
 #This line of code copies the sequence with the optimal trimming value into the current directory. 
-file.copy(paste(optrim, '/', names(optrim), sep = ''), getwd())
+#file.copy(paste(optrim, '/', names(optrim), sep = ''), getwd()) This line is commented out because it didnt work, potentially it is only because overwrite = TRUE isent given as a argument.
 
 # file.remove(paste(overlost, sep = ''))
+
+#### Testing other file copying code
+# Loop over the files and move them from the respective subfolder
+for (file in names(optrim)) {
+  subfolder <- optrim[file]  # Get the corresponding subfolder
+  source_path <- file.path(getwd(), paste0(subfolder), file)
+  destination_path <- file.path(getwd(), file)
+  
+  # Copy the file and print the result
+  success <- file.copy(source_path, overwrite = TRUE, destination_path)
+  
+  if (!success) {
+    message("Failed to copy: ", source_path)
+  } else {
+    message("Copied: ", source_path, " -> ", destination_path)
+  }
+}
+
 
 print("optrimal is done")
