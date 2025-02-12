@@ -423,7 +423,7 @@ for i in range(len(genes)):
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
     if genes[i] in genes_no_partition:
-        gwf.target_from_template('IQtree_'+genes[i], iq_tree_no_partitions(gene = genes[i],
+        gwf.target_from_template('IQtree_without_partition'+genes[i], iq_tree_no_partitions(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
     else:
