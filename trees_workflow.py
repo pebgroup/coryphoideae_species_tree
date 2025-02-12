@@ -27,7 +27,7 @@ gwf = Workflow()
 # ########################################################################################################################
 
 def partitioner(path_in,path_out, gene, done):
-    """Copying alignments from the manual alignment folder to the treebuilding folder and creating partition files"""
+    """Copying alignments from the mapped alignment folder to the treebuilding folder and creating partition files"""
     inputs = ["/home/owrisberg/Coryphoideae/work_flow/09_mapping/"+gene+"_output_tapper_mapped.fasta"]
     outputs = [path_out+gene+"_part.txt",path_out+gene+"_clean.fasta", done]
     options = {'cores': 1, 'memory': "5g", 'walltime': "00:30:00", 'account':"Coryphoideae"}
@@ -63,7 +63,7 @@ def iq_tree(path_in, gene,path_out ):
     """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
     inputs = [path_in+gene+"_part.txt", path_in+gene+"_clean.fasta"]
     outputs = [path_out+gene+".txt.tre"]
-    options = {'cores': 20, 'memory': "20g", 'walltime': "80:00:00", 'account':"Coryphoideae"}
+    options = {'cores': 20, 'memory': "100g", 'walltime': "80:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
