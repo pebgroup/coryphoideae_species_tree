@@ -87,6 +87,37 @@ def iq_tree(path_in, gene,path_out ):
 
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
+# ########################################################################################################################
+# ####################################---- IQ-tree No partitions ----#####################################################
+# ########################################################################################################################
+
+def iq_tree_no_partitions(path_in, gene,path_out ):
+    """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
+    inputs = [path_in+gene+"_clean.fasta"]
+    outputs = [path_out+gene+".txt.tre"]
+    options = {'cores': 20, 'memory': "20g", 'walltime': "80:00:00", 'account':"Coryphoideae"}
+
+    spec = """
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
+
+	cd {path_in}
+    
+    echo "Running IQ-tree for {gene} at:"
+    date
+
+	#Actual IQtree tree search. 
+	iqtree2 -s {gene}_clean.fasta -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
+
+
+	mv {gene}*.treefile {path_out}{gene}.txt.tre
+	
+
+
+	""".format(path_in = path_in, gene = gene, path_out=path_out)
+
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
 
 # ########################################################################################################################
 # #####################################---- Renaming & Rerooting ----#####################################################
@@ -380,6 +411,8 @@ genes = ["EGU105032175","EGU105032229","EGU105032337","EGU105032379","EGU1050330
 
 bad_genes = ["EGU105059594","EGU105059996"]
 
+genes_no_partition = ["EGU105040281","EGU105044846","EGU105045509","EGU105045514","EGU105046518"]
+
 
 #Main workflow for trees
 for i in range(len(genes)):
@@ -389,9 +422,13 @@ for i in range(len(genes)):
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/09_mapping/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
-
+    if genes[i] in genes_no_partition:
+        gwf.target_from_template('IQtree_'+genes[i], iq_tree_no_partitions(gene = genes[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
+    else:
 	#Running IQ_tree
-    gwf.target_from_template('IQtree_'+genes[i], iq_tree(gene = genes[i],
+        gwf.target_from_template('IQtree_'+genes[i], iq_tree(gene = genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
 	
