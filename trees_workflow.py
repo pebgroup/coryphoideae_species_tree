@@ -467,15 +467,15 @@ gwf.target_from_template('Sorta_date_orthologs', sorta_date(path_in = "/home/owr
 														done = "/home/owrisberg/Coryphoideae/work_flow/11_dating_the_tree/00_sortadate/orthologs/done_sorta_date_orthologs"))
 
 # Running Phyparts to create the output files which can be used to investigate how many genes support the topology of the species level tree.
-gwf.target_from_template('Phyparts_all_genes', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/rooted_genetrees/",
-                                                         species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_cleaned.tre",
-                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/01_all_genes/",
-                                                         done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/all_genes",
-                                                         phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
+# gwf.target_from_template('Phyparts_all_genes', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/rooted_genetrees/",
+#                                                          species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_cleaned.tre",
+#                                                          path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/01_all_genes/",
+#                                                          done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/all_genes",
+#                                                          phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
 
-gwf.target_from_template('Phyparts_orthologs', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/copy_of_ortholog_gene_trees/nw_rooted/",
-                                                         species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_orthologs_cleaned_nwrooted_edit.tre",
-                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/02_orthologs/",
-                                                         done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/orthologs",
-                                                         phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
+# gwf.target_from_template('Phyparts_orthologs', phyparts( genetree_folder = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/copy_of_ortholog_gene_trees/nw_rooted/",
+#                                                          species_tree = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/02_speciestree/astral_tree_orthologs_cleaned_nwrooted_edit.tre",
+#                                                          path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/02_orthologs/",
+#                                                          done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/03_genetree_discordance/done/orthologs",
+#                                                          phyparts_folder = "/home/owrisberg/Coryphoideae/github_code/phyparts/"))
 
