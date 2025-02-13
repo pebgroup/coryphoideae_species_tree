@@ -94,7 +94,7 @@ def iq_tree(path_in, gene,path_out ):
 def iq_tree_no_partitions(path_in, gene,path_out ):
     """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
     inputs = [path_in+gene+"_clean.fasta"]
-    outputs = [path_out+gene+".txt.tre"]
+    outputs = [path_in+gene+"_clean.fasta.treefile"]
     options = {'cores': 20, 'memory': "20g", 'walltime': "80:00:00", 'account':"Coryphoideae"}
 
     spec = """
@@ -109,15 +109,23 @@ def iq_tree_no_partitions(path_in, gene,path_out ):
 	#Actual IQtree tree search. 
 	iqtree2 -s {gene}_clean.fasta -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
 
-    sleep 60
-    
-    if [ -f {gene}.treefile ]; then
-        mv {gene}.treefile ../{gene}.txt.tre
-    else
-        echo "Error: {gene}.treefile not found!"
-        exit 1
-    fi
-	
+	""".format(path_in = path_in, gene = gene, path_out=path_out)
+
+    return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
+
+def tree_mover(path_in, gene,path_out ):
+    """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
+    inputs = [path_in+gene+"_clean.fasta.treefile"]
+    outputs = [path_out+gene+".txt.tre"]
+    options = {'cores': 1, 'memory': "5g", 'walltime': "00:03:00", 'account':"Coryphoideae"}
+
+    spec = """
+	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+	conda activate treebuilder_env
+
+	cd {path_in}
+  
+    mv {gene}*.treefile {path_out}{gene}.txt.tre
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
 
@@ -429,6 +437,10 @@ for i in range(len(genes)):
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/done/partitioner/"+genes[i]))
     if genes[i] in genes_no_partition:
         gwf.target_from_template('IQtree_without_partition'+genes[i], iq_tree_no_partitions(gene = genes[i],
+                                                        path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
+                                                        path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
+        
+        gwf.target_from_template('Tree_mover'+genes[i], tree_mover(gene=genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
     else:
