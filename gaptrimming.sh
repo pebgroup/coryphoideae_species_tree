@@ -13,18 +13,18 @@ done
 
     #Copying data into working folder
     cd /home/owrisberg/Coryphoideae/work_flow/06_alignment
-    cp $gene?aligned.fasta ../07_optrimal
+    cp $gene?aligned.fasta ../07_optrimal/$gene_aligned_mafft.fasta
 
     #Going to folder with data
     cd /home/owrisberg/Coryphoideae/work_flow/07_optrimal
 
     # replace n's with gaps in alignmenets - this will otherwise trip up TrimAl
-    for f in $gene?aligned.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done
+    for f in $gene_aligned_mafft.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done
 
     # change back "exo" to "exon"
-    for f in $gene?aligned.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
+    for f in $gene_aligned_mafft.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
 
-    for f in $gene?aligned.fasta; do (sed -i'.old' -e 's/HEY883-/HEY883n/g' $f); done
+    for f in $gene_aligned_mafft.fasta; do (sed -i'.old' -e 's/HEY883-/HEY883n/g' $f); done
 
     # create summary tables for all thresholds specified
     while read cutoff_trim
@@ -38,7 +38,7 @@ done
 			fi 
 
 			#trimming the aligned sequences of a gene with the given cutoff_trim
-            for alignment in $gene?aligned.fasta
+            for alignment in $gene_aligned_mafft.fasta
             do
               trimal -in ${alignment} -out ${cutoff_trim}/${alignment} -htmlout ${cutoff_trim}/${alignment/.fasta}.html -gt ${cutoff_trim}
 

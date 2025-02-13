@@ -104,6 +104,9 @@ def gt_trimming(path_in,done,gene, path_out):
 
     spec="""
     #Running gaptrimming.sh 
+    echo Starting the gaptrimming.sh at 
+    date
+    
     bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/gaptrimming.sh -g {gene}
 
     touch {done}
