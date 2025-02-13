@@ -106,7 +106,7 @@ def gt_trimming(path_in,done,gene, path_out):
     #Running gaptrimming.sh 
     echo Starting the gaptrimming.sh at 
     date
-    
+
     bash /home/owrisberg/Coryphoideae/github_code/coryphoideae_species_tree/gaptrimming.sh -g {gene}
 
     touch {done}
@@ -390,7 +390,7 @@ gwf.target_from_template('amas_raw', amas_preb_raw(path_in = "/home/owrisberg/Co
 #Running optrim to find optimal trimming trimming threshold.
 gwf.target_from_template('optrim', optrim(path_in = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
                                             done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/optrim/optrim_done.txt",
-                                            path_out = "/home/owrisberg/Coryphoideae/work_flow/08_cialign/"))
+                                            path_out = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/"))
 
 for i in range(len(genes)):
     #### Running CIAlign
