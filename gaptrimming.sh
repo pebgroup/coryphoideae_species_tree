@@ -13,7 +13,7 @@ done
 
     #Copying data into working folder
     cd /home/owrisberg/Coryphoideae/work_flow/06_alignment
-    cp $gene?aligned.fasta ../07_optrimal/$gene_aligned_mafft.fasta
+    cp "${gene}_aligned.fasta" "../07_optrimal/${gene}_aligned_mafft.fasta"
 
     #Going to folder with data
     cd /home/owrisberg/Coryphoideae/work_flow/07_optrimal
