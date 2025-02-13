@@ -109,10 +109,15 @@ def iq_tree_no_partitions(path_in, gene,path_out ):
 	#Actual IQtree tree search. 
 	iqtree2 -s {gene}_clean.fasta -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
 
-
-	mv {gene}*.treefile {path_out}{gene}.txt.tre
+    sleep 60
+    
+    if [ -f {gene}.treefile ]; then
+        mv {gene}.treefile ../{gene}.txt.tre
+    else
+        echo "Error: {gene}.treefile not found!"
+        exit 1
+    fi
 	
-
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
 
