@@ -8,9 +8,6 @@ do
     esac
 done
 
-#Activating trimal_env
-    source activate trimal_env
-
     #Copying data into working folder
     cd /home/owrisberg/Coryphoideae/work_flow/06_alignment
     cp "${gene}_aligned.fasta" "../07_optrimal/${gene}_aligned_mafft.fasta"
@@ -19,12 +16,12 @@ done
     cd /home/owrisberg/Coryphoideae/work_flow/07_optrimal
 
     # replace n's with gaps in alignmenets - this will otherwise trip up TrimAl
-    for f in $gene_aligned_mafft.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done
+    for f in ${gene}_aligned_mafft.fasta; do (sed -i'.old' -e 's/n/-/g' $f); done
 
     # change back "exo" to "exon"
-    for f in $gene_aligned_mafft.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
+    for f in ${gene}_aligned_mafft.fasta; do (sed -i'.old' -e 's/exo-/exon/g' $f); done
 
-    for f in $gene_aligned_mafft.fasta; do (sed -i'.old' -e 's/HEY883-/HEY883n/g' $f); done
+    for f in ${gene}_aligned_mafft.fasta; do (sed -i'.old' -e 's/HEY883-/HEY883n/g' $f); done
 
     # create summary tables for all thresholds specified
     while read cutoff_trim
@@ -38,8 +35,9 @@ done
 			fi 
 
 			#trimming the aligned sequences of a gene with the given cutoff_trim
-            for alignment in $gene_aligned_mafft.fasta
+            for alignment in "${gene}_aligned_mafft.fasta"
             do
+              echo This is the alignment: ${alignment}
               trimal -in ${alignment} -out ${cutoff_trim}/${alignment} -htmlout ${cutoff_trim}/${alignment/.fasta}.html -gt ${cutoff_trim}
 
                     #check if alignment was trimmed to extinction by trimAl
