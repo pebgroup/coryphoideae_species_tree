@@ -124,6 +124,9 @@ def tree_mover(path_in, gene,path_out ):
 	conda activate treebuilder_env
 
 	cd {path_in}
+    
+    echo Moving file {gene}_clean.fasta.treefile too the folder :{path_out}
+    echo While also renaming the file to {gene}.txt.tre
   
     mv -f {gene}_clean.fasta.treefile {path_out}{gene}.txt.tre
 
