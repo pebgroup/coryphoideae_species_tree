@@ -127,8 +127,13 @@ def tree_mover(path_in, gene,path_out ):
     
     echo Moving file {gene}_clean.fasta.treefile too the folder :{path_out}
     echo While also renaming the file to {gene}.txt.tre
-  
-    mv -f {gene}_clean.fasta.treefile {path_out}{gene}.txt.tre
+    
+    echo making a copy of the _clean.fasta.treefile in {path_out}
+    cp -f {gene}_clean.fasta.treefile {path_out}
+    
+    echo renaming the {gene}_clean.fasta.treefile to {gene}.txt.tre
+    mv -f {path_out}{gene}_clean.fasta.treefile {path_out}{gene}.txt.tre
+    
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
 
