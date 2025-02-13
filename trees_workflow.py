@@ -125,7 +125,7 @@ def tree_mover(path_in, gene,path_out ):
 
 	cd {path_in}
   
-    mv {gene}*.treefile {path_out}{gene}.txt.tre
+    mv {gene}*.treefile ../{gene}.txt.tre
 
 	""".format(path_in = path_in, gene = gene, path_out=path_out)
 
