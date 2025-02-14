@@ -383,7 +383,7 @@ for j in range(len(gt_values)):
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
                                                         done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/amas_gt/"+gt_values[j]))
 #Running AMAS on raw sequences
-gwf.target_from_template('amas_raw', amas_preb_raw(path_in = "/home/owrisberg/Coryphoideae/work_flow/06_alignment/",
+gwf.target_from_template('amas_raw', amas_preb_raw(path_in = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
                                                     path_out = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/",
                                                     done = "/home/owrisberg/Coryphoideae/work_flow/07_optrimal/done/amas_raw/amaw_raw_done.txt"))
 
