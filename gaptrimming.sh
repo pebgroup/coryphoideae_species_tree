@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#Activating trimal_env
+source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
+conda activate trimal_env
+
 #Getting the gene name as a commandline argument with the flag -g
 while getopts g: flag
 do
