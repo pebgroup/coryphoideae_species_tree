@@ -99,7 +99,7 @@ def mafft(gene, path_in, path_out, done):#
 def gt_trimming(path_in,done,gene, path_out):
     """ trimming all alignments for each of the GT values specified"""
     inputs = [path_in+gene+"_aligned.fasta", path_in+"/done/"+gene]
-    outputs = [done,path_out+gene+"_aligned.fasta.old"] 
+    outputs = [done] 
     options = {'cores': 10, 'memory': "20g", 'walltime': "04:00:00", 'account':"Coryphoideae"}
 
     spec="""
