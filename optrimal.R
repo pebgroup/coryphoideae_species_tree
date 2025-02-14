@@ -121,10 +121,13 @@ cat(paste(optrim, '/', names(optrim), sep = ''), sep = '\n')
 for (file in names(optrim)) {
   subfolder <- optrim[file]  # Get the corresponding subfolder
   source_path <- file.path(getwd(), paste0(subfolder), file)
-  destination_path <- file.path(getwd(), file)
+  
+  # Modify the destination filename by replacing "mafft" with "optrim"
+  new_file_name <- sub("mafft", "optrim", file)
+  destination_path <- file.path(getwd(), new_file_name)
   
   # Copy the file and print the result
-  success <- file.copy(source_path, overwrite = TRUE, destination_path)
+  success <- file.copy(source_path, destination_path, overwrite = TRUE)
   
   if (!success) {
     message("Failed to copy: ", source_path)
@@ -132,6 +135,5 @@ for (file in names(optrim)) {
     message("Copied: ", source_path, " -> ", destination_path)
   }
 }
-
 
 print("optrimal is done")
