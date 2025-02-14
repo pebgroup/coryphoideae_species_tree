@@ -79,21 +79,21 @@ for(i in rownames(pct)){
   print(paste("Length of cutoff_trim:", length(cutoff_trim)))
 
   
-  png(paste('dldp_', i, '.png', sep = ''))
-  par(mar = c(5,5,2,5))
-  plot(main = i, dldp$lost_i ~ cutoff_trim, ylim = c(0,1), ylab = 'proportion of data lost', xlab = 'strictness of trimming (trimAl gap threshold)', pch = 18, col = 'red')
-  par(new = T)
-  plot(dldp$pct_i ~ cutoff_trim, xlab = NA, ylab = NA, ylim = c(0,1), axes = F, pch = 16, col = 'blue')
-  axis(side = 4)
-  mtext(side = 4, line = 3, 'proportion parsimony informative')
-  legend(x = 0, y = 1, legend = c('proportion of data lost', 'proportion of parsimony informative sites', 'selected trimming threshold'), pch = c(18, 16, NA), lty = c(NA, NA, 2), col = c('red', 'blue', 'black'), cex = 0.9, bty = 'n')
-  if(is.na(optrim[i]) == FALSE){
-    lines(c(-0.5, optrim[i]), c(optrim_loss[i], optrim_loss[i]), lty = 2)
-    lines(c(-0.5, optrim[i]), c(dldp$pct_i[dldp$X == optrim[i]], dldp$pct_i[dldp$X == optrim[i]]), lty = 2)
-    lines(c(optrim[i], optrim[i]), c(-0.5, max(optrim_loss[i], dldp$pct_i[dldp$X == optrim[i]])), lty = 2)
-  }
-  dev.off()
-}
+#   png(paste('dldp_', i, '.png', sep = ''))
+#   par(mar = c(5,5,2,5))
+#   plot(main = i, dldp$lost_i ~ cutoff_trim, ylim = c(0,1), ylab = 'proportion of data lost', xlab = 'strictness of trimming (trimAl gap threshold)', pch = 18, col = 'red')
+#   par(new = T)
+#   plot(dldp$pct_i ~ cutoff_trim, xlab = NA, ylab = NA, ylim = c(0,1), axes = F, pch = 16, col = 'blue')
+#   axis(side = 4)
+#   mtext(side = 4, line = 3, 'proportion parsimony informative')
+#   legend(x = 0, y = 1, legend = c('proportion of data lost', 'proportion of parsimony informative sites', 'selected trimming threshold'), pch = c(18, 16, NA), lty = c(NA, NA, 2), col = c('red', 'blue', 'black'), cex = 0.9, bty = 'n')
+#   if(is.na(optrim[i]) == FALSE){
+#     lines(c(-0.5, optrim[i]), c(optrim_loss[i], optrim_loss[i]), lty = 2)
+#     lines(c(-0.5, optrim[i]), c(dldp$pct_i[dldp$X == optrim[i]], dldp$pct_i[dldp$X == optrim[i]]), lty = 2)
+#     lines(c(optrim[i], optrim[i]), c(-0.5, max(optrim_loss[i], dldp$pct_i[dldp$X == optrim[i]])), lty = 2)
+#   }
+#   dev.off()
+# }
 
 print("checkpoint")
 
