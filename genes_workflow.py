@@ -214,7 +214,6 @@ def optrim(path_in,done, path_out):
 
     touch {done}
 
-    cp *_aligned_optrim.fasta {path_out}
 
     """.format(path_in=path_in, done=done, path_out=path_out)
 
