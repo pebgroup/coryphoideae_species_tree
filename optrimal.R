@@ -14,6 +14,7 @@ lost <- data.frame(row.names = amas_table$Alignment_name)
 
 # Reading all the summary files and storing the data in the tables
 for(i in 1:length(cutoff_trim)){
+  print(paste0("Loading AMAS summary table ", paste('summary_', cutoff_trim[i], '.txt', sep = '')))
   amas_table <- read.table(paste('summary_', cutoff_trim[i], '.txt', sep = ''), header = TRUE)
   for(j in amas_table$Alignment_name){ # looping through alignment names
     sites[rownames(sites) == j,i] <- amas_table$Parsimony_informative_sites[amas_table$Alignment_name == j]
@@ -24,7 +25,6 @@ for(i in 1:length(cutoff_trim)){
 print("Done reading all the summary files and storing its data in tables")
 
 # calculate data loss for each trimming threshold
-
 sites[is.na(sites)] <- 0
 pct[is.na(pct)] <- 0
 
