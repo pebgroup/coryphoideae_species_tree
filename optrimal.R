@@ -4,6 +4,8 @@ cutoff_trim <- readLines('cutoff_trim.txt')
 
 # create one multiple tables for each threshold value to store AMAS results
 amas_table <- read.table('summary_0.txt', header = TRUE)
+print("amas_table read")
+
 sites <- data.frame(row.names = amas_table$Alignment_name)
 
 pct <- data.frame(row.names = amas_table$Alignment_name)
@@ -19,6 +21,7 @@ for(i in 1:length(cutoff_trim)){
     filled[rownames(filled) == j,i] <- amas_table$Total_matrix_cells[amas_table$Alignment_name == j] * (1 - amas_table$Missing_percent[amas_table$Alignment_name == j] / 100)
   }
 }
+print("Done reading all the summary files and storing its data in tables")
 
 # calculate data loss for each trimming threshold
 
@@ -36,10 +39,11 @@ colnames(pct) <- cutoff_trim
 colnames(filled) <- cutoff_trim
 colnames(lost) <- cutoff_trim
 
+print("done calculating the loss for each trimming threshold")
+
 
 # select optimal trimming threshold
 # current criterion is maximum proportion of parsimony informative sites where data loss is no more than one median absolute deviation above the median
-
 optrim <- numeric()
 optrim_loss <- numeric()
 
@@ -69,14 +73,16 @@ for(i in rownames(pct)){
   }
 }
 
+print("Done selecting the best trimming threshold.")
+
 
 # generate graphs to show effect of trimming on informativeness and data loss
-for(i in rownames(pct)){
-	print(i)
-  dldp <- read.csv(paste('dldp_', i, '.csv', sep = ''))
+# for(i in rownames(pct)){
+# 	print(i)
+#   dldp <- read.csv(paste('dldp_', i, '.csv', sep = ''))
 
-  print(paste("Length of dldp$lost_i:", length(dldp$lost_i)))
-  print(paste("Length of cutoff_trim:", length(cutoff_trim)))
+#   print(paste("Length of dldp$lost_i:", length(dldp$lost_i)))
+#   print(paste("Length of cutoff_trim:", length(cutoff_trim)))
 
   
 #   png(paste('dldp_', i, '.png', sep = ''))
