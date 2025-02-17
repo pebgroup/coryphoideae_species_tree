@@ -76,10 +76,6 @@ def iq_tree(path_in, gene,path_out ):
 
 	#Actual IQtree tree search. 
 	iqtree2 -s {gene}_clean.fasta -p {gene}_part.txt -T AUTO -ntmax 20 -m MFP -B 1000 -redo 
-
-
-
-	mv {gene}*.treefile {path_out}{gene}.txt.tre
 	
 
 
