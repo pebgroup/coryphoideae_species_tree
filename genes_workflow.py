@@ -267,7 +267,7 @@ def cialign(gene, path_in, path_out, done):
 
     cd {path_in}
 
-    CIAlign --infile {genes}_aligned.fasta --remove_divergent --outfile_stem {path_out}{genes}_cialign.fasta
+    CIAlign --infile {genes}_aligned_optrim.fasta --remove_divergent --outfile_stem {path_out}{genes}_cialign.fasta
 
     touch {done}
 
