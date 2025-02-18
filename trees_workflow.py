@@ -110,7 +110,8 @@ def iq_tree_no_partitions(path_in, gene,path_out ):
     return AnonymousTarget(inputs=inputs, outputs=outputs, options=options, spec=spec)
 
 def tree_mover(path_in, gene,path_out ):
-    """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
+    """Moving a tree from the input folder to the output folder but doing it this way since it sometimes failed making GWF wanting to run the IQ_tree again while it was only
+    the copying of the """
     inputs = [path_in+gene+"_clean.fasta.treefile"]
     outputs = [path_out+gene+".txt.tre"]
     options = {'cores': 1, 'memory': "5g", 'walltime': "00:03:00", 'account':"Coryphoideae"}
@@ -444,7 +445,7 @@ for i in range(len(genes)):
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
         
-        gwf.target_from_template('Tree_mover'+genes[i], tree_mover(gene=genes[i],
+        gwf.target_from_template('Tree_mover_no_partition_'+genes[i], tree_mover(gene=genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
     else:
@@ -453,7 +454,7 @@ for i in range(len(genes)):
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
         
-        gwf.target_from_template('Tree_mover'+genes[i], tree_mover(gene=genes[i],
+        gwf.target_from_template('Tree_mover_'+genes[i], tree_mover(gene=genes[i],
                                                         path_in = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/partitions_and_clean_fastas/",
                                                         path_out = "/home/owrisberg/Coryphoideae/work_flow/10_tree_building/01_genetrees/"))
 	
