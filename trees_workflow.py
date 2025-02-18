@@ -62,8 +62,8 @@ def partitioner(path_in,path_out, gene, done):
 def iq_tree(path_in, gene,path_out ):
     """Using Iq-tree to produce trees for each gene with a partition file to use individual substitution rates for each gene"""
     inputs = [path_in+gene+"_part.txt", path_in+gene+"_clean.fasta"]
-    outputs = [path_out+gene+".txt.tre"]
-    options = {'cores': 20, 'memory': "100g", 'walltime': "80:00:00", 'account':"Coryphoideae"}
+    outputs = [path_in+gene+".clean.fasta.treefile"]
+    options = {'cores': 20, 'memory': "20g", 'walltime': "80:00:00", 'account':"Coryphoideae"}
 
     spec = """
 	source /home/owrisberg/miniconda3/etc/profile.d/conda.sh
